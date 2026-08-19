@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "foxsweapons_CUSTOM_WEAPON",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
+        "field": "CUSTOM_WEAPON_POSE"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "foxsweapons_BLUNDERBUSS",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
+        "field": "BLUNDERBUSS_POSE"
+      }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "foxsweapons_SOUL_REAPER",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
+        "field": "SOUL_REAPER_POSE"
+      }
+    }
+  ]
+}

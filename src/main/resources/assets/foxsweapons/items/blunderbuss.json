@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/blunderbuss",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

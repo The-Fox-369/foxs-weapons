@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "III",
+    "WGI",
+    "WWS"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "W": "#minecraft:planks",
+    "G": "minecraft:gunpowder",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "foxsweapons:blunderbuss",
+    "count": 1
+  }
+}

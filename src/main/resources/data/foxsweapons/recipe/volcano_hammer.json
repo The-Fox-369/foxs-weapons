@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+      "MDM",
+      "ICI",
+      " B "
+    ],
+    "key": {
+      "M": "minecraft:magma_block",
+      "D": "minecraft:diamond",
+      "I": "minecraft:iron_ingot",
+      "C": "minecraft:magma_cream",
+      "B": "minecraft:blaze_rod"
+    },
+    "result": {
+      "id": "foxsweapons:volcano_hammer",
+      "count": 1
+    }
+  }

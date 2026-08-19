@@ -1,0 +1,22 @@
+# Gradle
+.gradle/
+build/
+bin/
+
+# Local game/run output
+run/
+
+# IDE/editor-local files
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
