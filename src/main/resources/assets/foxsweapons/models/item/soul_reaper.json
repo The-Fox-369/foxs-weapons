@@ -5,25 +5,21 @@
       "translation": [-1.5, 0, 0],
       "scale": [1, 1, 1]
     },
-
     "thirdperson_lefthand": {
       "rotation": [26, -24, 0],
       "translation": [1.5, 0, 0],
       "scale": [1, 1, 1]
     },
-
     "firstperson_righthand": {
       "rotation": [-46, 19, -27],
       "translation": [0, -3.25, 0],
       "scale": [1, 1, 1]
     },
-
     "firstperson_lefthand": {
       "rotation": [-46, -19, 27],
       "translation": [0, -3.25, 0],
       "scale": [1, 1, 1]
     },
-
     "gui": {
       "rotation": [30, 225, 0],
       "translation": [0, -2.5, 0],
