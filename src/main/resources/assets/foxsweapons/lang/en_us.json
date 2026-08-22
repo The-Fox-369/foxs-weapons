@@ -2,6 +2,7 @@
   "item.foxsweapons.volcano_hammer": "Volcano Hammer",
   "item.foxsweapons.blunderbuss": "Blunderbuss",
   "item.foxsweapons.soul_reaper": "Soul Reaper",
+  "item.foxsweapons.tempest_bow": "Tempest Bow",
 
   "itemGroup.foxsweapons": "Fox's Weapons",
 
@@ -18,5 +19,10 @@
 
   "tooltip.foxsweapons.soul_reaper.description": "A crooked scythe that feeds on the living.",
   "tooltip.foxsweapons.soul_reaper.ability": "Critical jump-hit: Steal 1/2 heart",
-  "tooltip.foxsweapons.soul_reaper.recipe_hint": "Forged around a Wither Skeleton Skull"
+  "tooltip.foxsweapons.soul_reaper.recipe_hint": "Forged around a Wither Skeleton Skull",
+
+  "tooltip.foxsweapons.tempest_bow.description": "A storm-forged bow that calls down real lightning.",
+  "tooltip.foxsweapons.tempest_bow.ability": "Arrow hit: Lightning Strike",
+  "tooltip.foxsweapons.tempest_bow.damage": "Damage: 20 + Lightning",
+  "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds"
 }

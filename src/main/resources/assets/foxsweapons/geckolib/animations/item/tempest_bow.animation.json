@@ -1,0 +1,59 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"draw_and_release": {
+			"animation_length": 0.25,
+			"bones": {
+				"upper_string": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0833": {
+							"vector": [0, 0, -12.5]
+						},
+						"0.25": {
+							"vector": [0, 0, -12.5]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.0833": {
+							"vector": [1, 1.1, 1]
+						},
+						"0.25": {
+							"vector": [1, 1.1, 1]
+						}
+					}
+				},
+
+				"lower_string": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.0833": {
+							"vector": [0, 0, 12.5]
+						},
+						"0.25": {
+							"vector": [0, 0, 12.5]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.125": {
+							"vector": [1, 0.9, 1]
+						},
+						"0.25": {
+							"vector": [1, 0.9, 1]
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -4,6 +4,7 @@ import com.fox.foxsweapons.config.WeaponStats;
 import com.fox.foxsweapons.item.BlunderbussItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
+import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.network.BlunderbussNetwork;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -77,6 +78,20 @@ public class FoxsWeapons {
                             noVanillaSwing(WeaponStats.SOUL_REAPER_SWING_TICKS))
     );
 
+    public static final DeferredItem<TempestBowItem> TEMPEST_BOW =
+            ITEMS.registerItem(
+                    "tempest_bow",
+                    TempestBowItem::new,
+                    p -> p
+                            .durability(
+                                    WeaponStats.TEMPEST_BOW_DURABILITY
+                            )
+                            .enchantable(
+                                    WeaponStats.TEMPEST_BOW_ENCHANTABILITY
+                            )
+                            .rarity(Rarity.EPIC)
+            );
+
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> WEAPONS_TAB =
             CREATIVE_MODE_TABS.register("weapons", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.foxsweapons"))
@@ -86,6 +101,7 @@ public class FoxsWeapons {
                         output.accept(VOLCANO_HAMMER.get());
                         output.accept(BLUNDERBUSS.get());
                         output.accept(SOUL_REAPER.get());
+                        output.accept(TEMPEST_BOW.get());
                     })
                     .build());
 

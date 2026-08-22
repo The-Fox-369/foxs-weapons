@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "DLD",
+    "SBS",
+    " C "
+  ],
+  "key": {
+    "D": "minecraft:diamond",
+    "L": "minecraft:lightning_rod",
+    "S": "minecraft:string",
+    "B": "minecraft:bow",
+    "C": "minecraft:copper_ingot"
+  },
+  "result": {
+    "id": "foxsweapons:tempest_bow",
+    "count": 1
+  }
+}

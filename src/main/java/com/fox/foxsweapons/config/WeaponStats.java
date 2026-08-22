@@ -30,6 +30,17 @@ public final class WeaponStats {
     public static final double SOUL_REAPER_ATTACK_DAMAGE = 9.0;
     public static final double SOUL_REAPER_ATTACK_SPEED = -3.1;
     public static final int SOUL_REAPER_SWING_TICKS = 16;
+
     /** 1 health point = half a heart. */
     public static final float SOUL_REAPER_LIFESTEAL = 1.0F;
+
+    // Tempest Bow
+    public static final int TEMPEST_BOW_DURABILITY = 1000;
+    public static final int TEMPEST_BOW_ENCHANTABILITY = 15;
+
+    /** Five ticks = 0.25 seconds. */
+    public static final int TEMPEST_BOW_DRAW_TICKS = 5;
+
+    /** 20 health points = 10 hearts. */
+    public static final float TEMPEST_BOW_ARROW_DAMAGE = 20.0F;
 }

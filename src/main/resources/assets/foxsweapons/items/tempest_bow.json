@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/tempest_bow",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}
