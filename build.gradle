@@ -45,10 +45,6 @@ repositories {
     }
 }
 
-base {
-    archivesName = mod_id
-}
-
 // Mojang ships Java 25 to end users in 26.2, so mods should target Java 25.
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
