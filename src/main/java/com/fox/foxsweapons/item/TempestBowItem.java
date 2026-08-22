@@ -29,7 +29,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent;
 
 import java.util.function.Consumer;
@@ -43,14 +43,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
     private static final String TEMPEST_HIT =
             "foxsweapons_tempest_hit";
 
-    /*
-     * This MUST match the animation name inside:
-     *
-     * tempest_bow.animation.json
-     *
-     * "animations": {
-     *     "draw_and_release": {
-     */
     private static final RawAnimation DRAW_ANIMATION =
             RawAnimation.begin()
                     .thenPlayAndHold("draw_and_release");
@@ -60,7 +52,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
 
     public TempestBowItem(Properties properties) {
         super(properties);
-
         GeoItem.registerSyncedAnimatable(this);
     }
 
@@ -81,7 +72,8 @@ public class TempestBowItem extends BowItem implements GeoItem {
             getGeoItemRenderer() {
 
                 if (renderer == null) {
-                    renderer = new TempestBowRenderer();
+                    renderer =
+                            new TempestBowRenderer();
                 }
 
                 return renderer;
@@ -90,7 +82,7 @@ public class TempestBowItem extends BowItem implements GeoItem {
     }
 
     // =========================================================
-    // GECKOLIB ANIMATION
+    // ANIMATION
     // =========================================================
 
     @Override
@@ -109,10 +101,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
                         )
         );
     }
-
-    // =========================================================
-    // START DRAW
-    // =========================================================
 
     @Override
     public InteractionResult use(
@@ -143,10 +131,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
         return result;
     }
 
-    // =========================================================
-    // RELEASE BOW
-    // =========================================================
-
     @Override
     public boolean releaseUsing(
             ItemStack stack,
@@ -176,7 +160,7 @@ public class TempestBowItem extends BowItem implements GeoItem {
     }
 
     // =========================================================
-    // FAST NINJA DRAW
+    // FAST DRAW
     // =========================================================
 
     @SubscribeEvent
@@ -189,14 +173,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
             return;
         }
 
-        /*
-         * 5 ticks
-         * =
-         * 0.25 seconds.
-         *
-         * Once the Tempest Bow reaches five ticks,
-         * treat it as a completely charged vanilla bow.
-         */
         if (event.getCharge()
                 >= WeaponStats.TEMPEST_BOW_DRAW_TICKS) {
 
@@ -204,11 +180,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
 
         } else {
 
-            /*
-             * Released before the ninja draw completed.
-             *
-             * No shot.
-             */
             event.setCharge(0);
         }
     }
@@ -238,8 +209,13 @@ public class TempestBowItem extends BowItem implements GeoItem {
         }
 
         /*
-         * Detect whether this arrow came from a player
-         * currently holding / using the Tempest Bow.
+         * Both-hands check is intentional.
+         *
+         * Normal Bow + Tempest Bow in offhand
+         * =
+         * TEMPEST ARROW.
+         *
+         * Feature, not bug.
          */
         boolean usingTempest =
                 player.getUseItem()
@@ -255,9 +231,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
             return;
         }
 
-        /*
-         * Mark THIS arrow as a Tempest projectile.
-         */
         arrow.getPersistentData()
                 .putBoolean(
                         TEMPEST_ARROW,
@@ -266,16 +239,13 @@ public class TempestBowItem extends BowItem implements GeoItem {
     }
 
     // =========================================================
-    // TEMPEST DAMAGE + REAL LIGHTNING
+    // DAMAGE + REAL LIGHTNING
     // =========================================================
 
     @SubscribeEvent
-    public static void onArrowDamage(
-            LivingDamageEvent.Pre event
+    public static void onIncomingDamage(
+            LivingIncomingDamageEvent event
     ) {
-        /*
-         * Damage must come directly from an arrow.
-         */
         if (!(event.getSource()
                 .getDirectEntity()
                 instanceof AbstractArrow arrow)) {
@@ -283,9 +253,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
             return;
         }
 
-        /*
-         * Ignore normal arrows.
-         */
         if (!arrow.getPersistentData()
                 .getBooleanOr(
                         TEMPEST_ARROW,
@@ -296,14 +263,14 @@ public class TempestBowItem extends BowItem implements GeoItem {
         }
 
         /*
-         * The Tempest Bow arrow deals:
+         * Add Tempest bonus BEFORE armor mitigation.
          *
-         * 20 HP
-         * =
-         * 10 hearts.
+         * Power and normal bow enchantment calculations
+         * therefore remain meaningful.
          */
-        event.setNewDamage(
-                WeaponStats.TEMPEST_BOW_ARROW_DAMAGE
+        event.setAmount(
+                event.getAmount()
+                        + WeaponStats.TEMPEST_BOW_DAMAGE_BONUS
         );
 
         if (!(event.getEntity().level()
@@ -312,10 +279,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
             return;
         }
 
-        /*
-         * Prevent the same arrow from summoning
-         * multiple lightning bolts on one hit.
-         */
         if (arrow.getPersistentData()
                 .getBooleanOr(
                         TEMPEST_HIT,
@@ -334,20 +297,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
         LivingEntity target =
                 event.getEntity();
 
-        // =====================================================
-        // ACTUAL LIGHTNING
-        // =====================================================
-        //
-        // NOT visual-only.
-        //
-        // This is a genuine vanilla LightningBolt entity.
-        //
-        // Creepers can charge.
-        // Fire can happen.
-        // Vanilla lightning transformations can happen.
-        // The universe may regret this bow.
-        // =====================================================
-
         LightningBolt lightning =
                 new LightningBolt(
                         EntityTypes.LIGHTNING_BOLT,
@@ -364,10 +313,6 @@ public class TempestBowItem extends BowItem implements GeoItem {
                 lightning
         );
     }
-
-    // =========================================================
-    // GECKOLIB CACHE
-    // =========================================================
 
     @Override
     public AnimatableInstanceCache
