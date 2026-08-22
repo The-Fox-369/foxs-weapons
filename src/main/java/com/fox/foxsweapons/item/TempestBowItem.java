@@ -25,10 +25,12 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.ProjectileImpactEvent;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent;
 
@@ -52,6 +54,7 @@ public class TempestBowItem extends BowItem implements GeoItem {
 
     public TempestBowItem(Properties properties) {
         super(properties);
+
         GeoItem.registerSyncedAnimatable(this);
     }
 
@@ -102,6 +105,10 @@ public class TempestBowItem extends BowItem implements GeoItem {
         );
     }
 
+    // =========================================================
+    // START DRAW
+    // =========================================================
+
     @Override
     public InteractionResult use(
             Level level,
@@ -109,20 +116,28 @@ public class TempestBowItem extends BowItem implements GeoItem {
             InteractionHand hand
     ) {
         InteractionResult result =
-                super.use(level, player, hand);
+                super.use(
+                        level,
+                        player,
+                        hand
+                );
 
         if (level instanceof ServerLevel serverLevel
                 && result != InteractionResult.FAIL) {
 
             ItemStack stack =
-                    player.getItemInHand(hand);
+                    player.getItemInHand(
+                            hand
+                    );
 
             triggerAnim(
                     player,
+
                     GeoItem.getOrAssignId(
                             stack,
                             serverLevel
                     ),
+
                     "draw_controller",
                     "draw"
             );
@@ -130,6 +145,10 @@ public class TempestBowItem extends BowItem implements GeoItem {
 
         return result;
     }
+
+    // =========================================================
+    // RELEASE
+    // =========================================================
 
     @Override
     public boolean releaseUsing(
@@ -142,10 +161,12 @@ public class TempestBowItem extends BowItem implements GeoItem {
 
             stopTriggeredAnim(
                     entity,
+
                     GeoItem.getOrAssignId(
                             stack,
                             serverLevel
                     ),
+
                     "draw_controller",
                     "draw"
             );
@@ -160,7 +181,7 @@ public class TempestBowItem extends BowItem implements GeoItem {
     }
 
     // =========================================================
-    // FAST DRAW
+    // 0.25 SECOND DRAW
     // =========================================================
 
     @SubscribeEvent
@@ -168,19 +189,31 @@ public class TempestBowItem extends BowItem implements GeoItem {
             ArrowLooseEvent event
     ) {
         if (!event.getBow()
-                .is(FoxsWeapons.TEMPEST_BOW.get())) {
+                .is(
+                        FoxsWeapons.TEMPEST_BOW.get()
+                )) {
 
             return;
         }
 
+        /*
+         * Five ticks = 0.25 seconds.
+         *
+         * At five ticks the Tempest Bow becomes
+         * equivalent to a full vanilla bow charge.
+         */
         if (event.getCharge()
                 >= WeaponStats.TEMPEST_BOW_DRAW_TICKS) {
 
-            event.setCharge(20);
+            event.setCharge(
+                    20
+            );
 
         } else {
 
-            event.setCharge(0);
+            event.setCharge(
+                    0
+            );
         }
     }
 
@@ -192,7 +225,9 @@ public class TempestBowItem extends BowItem implements GeoItem {
     public static void onProjectileSpawn(
             EntityJoinLevelEvent event
     ) {
-        if (event.getLevel().isClientSide()) {
+        if (event.getLevel()
+                .isClientSide()) {
+
             return;
         }
 
@@ -209,23 +244,32 @@ public class TempestBowItem extends BowItem implements GeoItem {
         }
 
         /*
-         * Both-hands check is intentional.
+         * YES:
          *
-         * Normal Bow + Tempest Bow in offhand
-         * =
-         * TEMPEST ARROW.
+         * Normal Bow in main hand
+         * +
+         * Tempest Bow in offhand
          *
-         * Feature, not bug.
+         * still makes a Tempest arrow.
+         *
+         * IT'S A FEATURE.
          */
         boolean usingTempest =
+
                 player.getUseItem()
-                        .is(FoxsWeapons.TEMPEST_BOW.get())
+                        .is(
+                                FoxsWeapons.TEMPEST_BOW.get()
+                        )
 
                         || player.getMainHandItem()
-                        .is(FoxsWeapons.TEMPEST_BOW.get())
+                        .is(
+                                FoxsWeapons.TEMPEST_BOW.get()
+                        )
 
                         || player.getOffhandItem()
-                        .is(FoxsWeapons.TEMPEST_BOW.get());
+                        .is(
+                                FoxsWeapons.TEMPEST_BOW.get()
+                        );
 
         if (!usingTempest) {
             return;
@@ -239,13 +283,17 @@ public class TempestBowItem extends BowItem implements GeoItem {
     }
 
     // =========================================================
-    // DAMAGE + REAL LIGHTNING
+    // TEMPEST DAMAGE
     // =========================================================
 
     @SubscribeEvent
     public static void onIncomingDamage(
             LivingIncomingDamageEvent event
     ) {
+        /*
+         * Extra damage only applies when
+         * the arrow actually hits a living entity.
+         */
         if (!(event.getSource()
                 .getDirectEntity()
                 instanceof AbstractArrow arrow)) {
@@ -263,22 +311,63 @@ public class TempestBowItem extends BowItem implements GeoItem {
         }
 
         /*
-         * Add Tempest bonus BEFORE armor mitigation.
+         * Add Tempest damage BEFORE armor mitigation.
          *
-         * Power and normal bow enchantment calculations
-         * therefore remain meaningful.
+         * This means:
+         *
+         * Power still matters.
+         * Armor still matters.
+         * Other vanilla modifiers still matter.
          */
         event.setAmount(
                 event.getAmount()
-                        + WeaponStats.TEMPEST_BOW_DAMAGE_BONUS
+                        + WeaponStats
+                        .TEMPEST_BOW_DAMAGE_BONUS
         );
+    }
 
-        if (!(event.getEntity().level()
+    // =========================================================
+    // LIGHTNING ON ANY IMPACT
+    // =========================================================
+
+    @SubscribeEvent
+    public static void onProjectileImpact(
+            ProjectileImpactEvent event
+    ) {
+        /*
+         * Only arrows.
+         */
+        if (!(event.getProjectile()
+                instanceof AbstractArrow arrow)) {
+
+            return;
+        }
+
+        /*
+         * Only Tempest arrows.
+         */
+        if (!arrow.getPersistentData()
+                .getBooleanOr(
+                        TEMPEST_ARROW,
+                        false
+                )) {
+
+            return;
+        }
+
+        /*
+         * Server only.
+         */
+        if (!(arrow.level()
                 instanceof ServerLevel level)) {
 
             return;
         }
 
+        /*
+         * Prevent one arrow from summoning
+         * multiple lightning bolts.
+         */
         if (arrow.getPersistentData()
                 .getBooleanOr(
                         TEMPEST_HIT,
@@ -294,8 +383,31 @@ public class TempestBowItem extends BowItem implements GeoItem {
                         true
                 );
 
-        LivingEntity target =
-                event.getEntity();
+        /*
+         * EXACT impact position.
+         *
+         * Entity?
+         * Block?
+         * Ground?
+         * Wall?
+         *
+         * Doesn't matter.
+         */
+        Vec3 impact =
+                event.getRayTraceResult()
+                        .getLocation();
+
+        // =====================================================
+        // REAL VANILLA LIGHTNING
+        // =====================================================
+        //
+        // Arrow lands.
+        //
+        // Lightning happens.
+        //
+        // That's the entire philosophy.
+        //
+        // =====================================================
 
         LightningBolt lightning =
                 new LightningBolt(
@@ -304,15 +416,19 @@ public class TempestBowItem extends BowItem implements GeoItem {
                 );
 
         lightning.setPos(
-                target.getX(),
-                target.getY(),
-                target.getZ()
+                impact.x,
+                impact.y,
+                impact.z
         );
 
         level.addFreshEntity(
                 lightning
         );
     }
+
+    // =========================================================
+    // CACHE
+    // =========================================================
 
     @Override
     public AnimatableInstanceCache

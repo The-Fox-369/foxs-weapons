@@ -34,8 +34,8 @@ public final class WeaponStats {
     public static final double BLUNDERBUSS_SINGLE_SPREAD = 0.008;
     public static final double BLUNDERBUSS_BURST_SPREAD = 0.095;
 
-    public static final float BLUNDERBUSS_SINGLE_DAMAGE = 10.0F;
-    public static final float BLUNDERBUSS_BURST_PELLET_DAMAGE = 15.0F;
+    public static final float BLUNDERBUSS_SINGLE_DAMAGE = 8.0F;
+    public static final float BLUNDERBUSS_BURST_PELLET_DAMAGE = 5.0F;
 
     public static final int BLUNDERBUSS_SINGLE_COOLDOWN = 12;
     public static final int BLUNDERBUSS_BURST_COOLDOWN = 24;
