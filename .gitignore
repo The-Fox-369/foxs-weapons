@@ -20,3 +20,10 @@ run/
 *.log
 .DS_Store
 Thumbs.db
+
+# Ignore everything generated inside build
+/build/*
+
+# BUT keep the compiled JARs
+!/build/libs/
+!/build/libs/**
