@@ -1,6 +1,5 @@
 # Gradle
 .gradle/
-build/
 bin/
 
 # Local game/run output
