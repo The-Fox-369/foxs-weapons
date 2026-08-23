@@ -5,7 +5,7 @@ import com.fox.foxsweapons.FoxsWeapons;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -13,25 +13,33 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.golem.IronGolem;
-import net.minecraft.world.level.Level;
 
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @EventBusSubscriber(modid = FoxsWeapons.MODID)
 public final class DummyCommand {
 
-    private static final String DUMMY_TAG = "unfortunate_dummy";
-    private static final float DUMMY_HEALTH = 1024.0F;
+    private static final String DUMMY_TAG =
+            "unfortunate_dummy";
 
-    private static UUID dummyId;
-    private static ResourceKey<Level> dummyDimension;
-    private static BlockPos dummySpawnPos;
+    private static final String DUMMY_MARKER =
+            "foxsweapons_is_dummy";
+
+    private static final String HEAL_DELAY =
+            "foxsweapons_dummy_heal_delay";
+
+    private static final float DUMMY_HEALTH =
+            1024.0F;
 
     private DummyCommand() {
     }
@@ -41,30 +49,25 @@ public final class DummyCommand {
     // =========================================================
 
     @SubscribeEvent
-    public static void registerCommands(RegisterCommandsEvent event) {
+    public static void registerCommands(
+            RegisterCommandsEvent event
+    ) {
         event.getDispatcher().register(
                 Commands.literal("dummy")
 
                         .executes(context ->
                                 spawnDummy(
-                                        context.getSource().getPlayerOrException()
+                                        context.getSource()
+                                                .getPlayerOrException()
                                 )
-                        )
-
-                        .then(
-                                Commands.literal("heal")
-                                        .executes(context ->
-                                                healDummy(
-                                                        context.getSource().getPlayerOrException()
-                                                )
-                                        )
                         )
 
                         .then(
                                 Commands.literal("remove")
                                         .executes(context ->
-                                                removeDummy(
-                                                        context.getSource().getPlayerOrException()
+                                                removeDummies(
+                                                        context.getSource()
+                                                                .getPlayerOrException()
                                                 )
                                         )
                         )
@@ -75,24 +78,29 @@ public final class DummyCommand {
     // SPAWN
     // =========================================================
 
-    private static int spawnDummy(ServerPlayer player) {
-        ServerLevel level = player.level();
-
-        BlockPos pos = player.blockPosition()
-                .relative(player.getDirection(), 3);
-
-        removeTrackedDummy();
+    private static int spawnDummy(
+            ServerPlayer player
+    ) {
+        ServerLevel level =
+                player.level();
 
         /*
-         * Minecraft 26.2:
-         *
-         * EntityType constants moved to EntityTypes.
-         * IronGolem moved to animal.golem.
+         * Only one loaded dummy at a time.
          */
-        IronGolem golem = new IronGolem(
-                EntityTypes.IRON_GOLEM,
-                level
-        );
+        removeAllLoadedDummies();
+
+        BlockPos pos =
+                player.blockPosition()
+                        .relative(
+                                player.getDirection(),
+                                3
+                        );
+
+        IronGolem golem =
+                new IronGolem(
+                        EntityTypes.IRON_GOLEM,
+                        level
+                );
 
         golem.setPos(
                 pos.getX() + 0.5,
@@ -100,13 +108,14 @@ public final class DummyCommand {
                 pos.getZ() + 0.5
         );
 
-        configureDummy(golem);
+        configureDummy(
+                golem,
+                true
+        );
 
-        level.addFreshEntity(golem);
-
-        dummyId = golem.getUUID();
-        dummyDimension = level.dimension();
-        dummySpawnPos = pos;
+        level.addFreshEntity(
+                golem
+        );
 
         player.sendSystemMessage(
                 Component.literal(
@@ -118,12 +127,32 @@ public final class DummyCommand {
     }
 
     // =========================================================
-    // CONFIGURE DUMMY
+    // CONFIGURE
     // =========================================================
 
-    private static void configureDummy(IronGolem golem) {
+    private static void configureDummy(
+            IronGolem golem,
+            boolean heal
+    ) {
+        /*
+         * Vanilla scoreboard tag.
+         *
+         * This survives saving and world reloads.
+         */
+        golem.addTag(
+                DUMMY_TAG
+        );
 
-        golem.addTag(DUMMY_TAG);
+        /*
+         * Extra persistent marker.
+         *
+         * Also survives saving and world reloads.
+         */
+        golem.getPersistentData()
+                .putBoolean(
+                        DUMMY_MARKER,
+                        true
+                );
 
         golem.setCustomName(
                 Component.literal(
@@ -131,21 +160,21 @@ public final class DummyCommand {
                 )
         );
 
-        golem.setCustomNameVisible(true);
+        golem.setCustomNameVisible(
+                true
+        );
 
-        /*
-         * Keep normal AI.
-         * Don't despawn.
-         */
         golem.setPersistenceRequired();
 
         /*
-         * Makes him behave as a player-created golem.
+         * Player-created golem behaviour.
          */
-        golem.setPlayerCreated(true);
+        golem.setPlayerCreated(
+                true
+        );
 
         // -----------------------------------------------------
-        // 1024 HP = 512 hearts
+        // HEALTH
         // -----------------------------------------------------
 
         AttributeInstance maxHealth =
@@ -160,7 +189,7 @@ public final class DummyCommand {
         }
 
         // -----------------------------------------------------
-        // Harmless
+        // HARMLESS
         // -----------------------------------------------------
 
         AttributeInstance attackDamage =
@@ -185,64 +214,136 @@ public final class DummyCommand {
             );
         }
 
-        golem.setHealth(
-                DUMMY_HEALTH
+        if (heal) {
+            golem.setHealth(
+                    golem.getMaxHealth()
+            );
+
+            golem.getPersistentData()
+                    .putInt(
+                            HEAL_DELAY,
+                            0
+                    );
+        }
+    }
+
+    // =========================================================
+    // WORLD / CHUNK RELOAD
+    // =========================================================
+
+    @SubscribeEvent
+    public static void onEntityJoinLevel(
+            EntityJoinLevelEvent event
+    ) {
+        if (!(event.getLevel()
+                instanceof ServerLevel)) {
+
+            return;
+        }
+
+        if (!(event.getEntity()
+                instanceof IronGolem golem)) {
+
+            return;
+        }
+
+        if (!isDummy(golem)) {
+            return;
+        }
+
+        /*
+         * Re-apply everything after world/chunk reload.
+         */
+        configureDummy(
+                golem,
+                true
         );
     }
 
     // =========================================================
-    // AUTO HEAL / AUTO RESPAWN
+    // DAMAGE
     // =========================================================
 
     @SubscribeEvent
-    public static void serverTick(ServerTickEvent.Post event) {
-
-        if (dummyId == null
-                || dummyDimension == null
-                || dummySpawnPos == null) {
+    public static void onDummyDamaged(
+            LivingDamageEvent.Post event
+    ) {
+        if (!(event.getEntity()
+                instanceof IronGolem golem)) {
 
             return;
         }
 
-        ServerLevel level =
-                event.getServer()
-                        .getLevel(dummyDimension);
-
-        if (level == null) {
-            return;
-        }
-
-        Entity entity =
-                level.getEntity(dummyId);
-
-        /*
-         * Somehow died?
-         *
-         * Spawn another unfortunate employee.
-         */
-        if (!(entity instanceof IronGolem golem)
-                || !golem.isAlive()) {
-
-            if (entity != null) {
-                entity.discard();
-            }
-
-            respawnDummy(level);
+        if (!isDummy(golem)) {
             return;
         }
 
         /*
-         * Damage gets to happen normally first.
+         * Let damage actually exist for two ticks.
          *
-         * Soul Reaper can:
-         * - damage him
-         * - detect crit
-         * - steal HP
-         * - spawn particles
+         * Weapon damage testing,
+         * crits,
+         * Soul Reaper,
+         * particles,
+         * etc.
          *
-         * THEN the dummy heals on the server tick.
+         * all get to happen first.
          */
-        if (golem.getHealth() < golem.getMaxHealth()) {
+        golem.getPersistentData()
+                .putInt(
+                        HEAL_DELAY,
+                        2
+                );
+    }
+
+    // =========================================================
+    // AUTO HEAL
+    // =========================================================
+
+    @SubscribeEvent
+    public static void onDummyTick(
+            EntityTickEvent.Post event
+    ) {
+        if (!(event.getEntity()
+                instanceof IronGolem golem)) {
+
+            return;
+        }
+
+        if (!(golem.level()
+                instanceof ServerLevel)) {
+
+            return;
+        }
+
+        if (!isDummy(golem)) {
+            return;
+        }
+
+        int ticks =
+                golem.getPersistentData()
+                        .getInt(
+                                HEAL_DELAY
+                        )
+                        .orElse(0);
+
+        if (ticks <= 0) {
+            return;
+        }
+
+        ticks--;
+
+        golem.getPersistentData()
+                .putInt(
+                        HEAL_DELAY,
+                        ticks
+                );
+
+        if (ticks > 0) {
+            return;
+        }
+
+        if (golem.isAlive()) {
             golem.setHealth(
                     golem.getMaxHealth()
             );
@@ -250,43 +351,51 @@ public final class DummyCommand {
     }
 
     // =========================================================
-    // RESPAWN
+    // IMMORTALITY
     // =========================================================
 
-    private static void respawnDummy(ServerLevel level) {
+    @SubscribeEvent
+    public static void onDummyDeath(
+            LivingDeathEvent event
+    ) {
+        if (!(event.getEntity()
+                instanceof IronGolem golem)) {
 
-        if (dummySpawnPos == null) {
             return;
         }
 
-        IronGolem golem = new IronGolem(
-                EntityTypes.IRON_GOLEM,
-                level
+        if (!isDummy(golem)) {
+            return;
+        }
+
+        /*
+         * Damage:
+         * YES.
+         *
+         * Dying:
+         * NO.
+         */
+        event.setCanceled(
+                true
         );
 
-        golem.setPos(
-                dummySpawnPos.getX() + 0.5,
-                dummySpawnPos.getY(),
-                dummySpawnPos.getZ() + 0.5
+        configureDummy(
+                golem,
+                true
         );
-
-        configureDummy(golem);
-
-        level.addFreshEntity(golem);
-
-        dummyId = golem.getUUID();
     }
 
     // =========================================================
-    // /dummy heal
+    // /dummy remove
     // =========================================================
 
-    private static int healDummy(ServerPlayer player) {
+    private static int removeDummies(
+            ServerPlayer player
+    ) {
+        int removed =
+                removeAllLoadedDummies();
 
-        IronGolem golem =
-                getDummy();
-
-        if (golem == null) {
+        if (removed == 0) {
 
             player.sendSystemMessage(
                     Component.literal(
@@ -297,91 +406,145 @@ public final class DummyCommand {
             return 0;
         }
 
-        golem.setHealth(
-                golem.getMaxHealth()
-        );
-
         player.sendSystemMessage(
                 Component.literal(
-                        "UNFORTUNATE DUMMY has been repaired."
+                        removed == 1
+                                ? "UNFORTUNATE DUMMY has been released from suffering."
+                                : removed
+                                + " UNFORTUNATE DUMMIES have been released from suffering."
                 )
         );
 
-        return 1;
+        return removed;
     }
 
     // =========================================================
-    // /dummy remove
+    // FIND
     // =========================================================
 
-    private static int removeDummy(ServerPlayer player) {
+    private static List<IronGolem>
+    findAllLoadedDummies() {
 
-        IronGolem golem =
-                getDummy();
+        List<IronGolem> dummies =
+                new ArrayList<>();
 
-        if (golem != null) {
+        MinecraftServer server =
+                ServerLifecycleHooks
+                        .getCurrentServer();
+
+        if (server == null) {
+            return dummies;
+        }
+
+        for (ServerLevel level :
+                server.getAllLevels()) {
+
+            for (Entity entity :
+                    level.getAllEntities()) {
+
+                if (!(entity
+                        instanceof IronGolem golem)) {
+
+                    continue;
+                }
+
+                if (!isDummy(golem)) {
+                    continue;
+                }
+
+                dummies.add(
+                        golem
+                );
+            }
+        }
+
+        return dummies;
+    }
+
+    // =========================================================
+    // REMOVE
+    // =========================================================
+
+    private static int removeAllLoadedDummies() {
+
+        List<IronGolem> dummies =
+                findAllLoadedDummies();
+
+        for (IronGolem golem : dummies) {
+
+            /*
+             * Strip identity first.
+             */
+            golem.removeTag(
+                    DUMMY_TAG
+            );
+
+            golem.getPersistentData()
+                    .putBoolean(
+                            DUMMY_MARKER,
+                            false
+                    );
+
             golem.discard();
         }
 
-        dummyId = null;
-        dummyDimension = null;
-        dummySpawnPos = null;
+        return dummies.size();
+    }
 
-        player.sendSystemMessage(
-                Component.literal(
-                        "UNFORTUNATE DUMMY has been released from suffering."
-                )
+    // =========================================================
+    // IDENTITY
+    // =========================================================
+
+    private static boolean isDummy(
+            IronGolem golem
+    ) {
+        /*
+         * New dummy:
+         * persistent marker identifies him immediately.
+         */
+        if (golem.getPersistentData()
+                .getBooleanOr(
+                        DUMMY_MARKER,
+                        false
+                )) {
+
+            return true;
+        }
+
+        /*
+         * Compatibility with old dummies
+         * already saved in development worlds.
+         *
+         * Minecraft 26.2 mappings don't expose
+         * getTags() here.
+         *
+         * removeTag returns whether the tag existed.
+         */
+        boolean hadTag =
+                golem.removeTag(
+                        DUMMY_TAG
+                );
+
+        if (!hadTag) {
+            return false;
+        }
+
+        /*
+         * Put it straight back.
+         */
+        golem.addTag(
+                DUMMY_TAG
         );
 
-        return 1;
-    }
+        /*
+         * Upgrade old dummy.
+         */
+        golem.getPersistentData()
+                .putBoolean(
+                        DUMMY_MARKER,
+                        true
+                );
 
-    // =========================================================
-    // FIND CURRENT DUMMY
-    // =========================================================
-
-    private static IronGolem getDummy() {
-
-        if (dummyId == null
-                || dummyDimension == null) {
-
-            return null;
-        }
-
-        if (ServerLifecycleHooks.getCurrentServer() == null) {
-            return null;
-        }
-
-        ServerLevel level =
-                ServerLifecycleHooks
-                        .getCurrentServer()
-                        .getLevel(dummyDimension);
-
-        if (level == null) {
-            return null;
-        }
-
-        Entity entity =
-                level.getEntity(dummyId);
-
-        return entity instanceof IronGolem golem
-                ? golem
-                : null;
-    }
-
-    // =========================================================
-    // REMOVE PREVIOUS DUMMY
-    // =========================================================
-
-    private static void removeTrackedDummy() {
-
-        IronGolem oldDummy =
-                getDummy();
-
-        if (oldDummy != null) {
-            oldDummy.discard();
-        }
-
-        dummyId = null;
+        return true;
     }
 }

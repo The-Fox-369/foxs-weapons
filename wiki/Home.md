@@ -2,7 +2,7 @@
 
 Welcome to the official wiki for **Fox's Weapons**.
 
-Fox's Weapons is a NeoForge weapon mod for **Minecraft 26.2**, using **GeckoLib 5** for custom 3D models and animations.
+Fox's Weapons is a NeoForge weapon and adventure-focused mod for **Minecraft 26.2**, using **GeckoLib 5** for custom 3D models and animations.
 
 The finished base mod is planned to contain **15 unique weapons**, each with its own mechanics, model, effects, and playstyle.
 
@@ -38,15 +38,31 @@ A close-range firearm with two firing modes: a precise single shot and a four-pe
 
 ### 💀 Soul Reaper
 
-A heavy scythe whose vanilla jump critical hits steal **½ heart** from the victim and transfer it to the wielder.
+A heavy scythe built around powerful melee attacks and soul-stealing vanilla jump critical hits.
 
 [Read the Soul Reaper page](Soul-Reaper)
 
+### ⚡ Tempest Bow
+
+**In development.**
+
+A storm-powered bow with an extremely fast draw and a habit of making the weather considerably more hostile.
+
+Tempest Bow is planned for:
+
+`0.4.0-alpha.1`
+
+**Alpha 4 has not been assembled or uploaded yet.**
+
+[Read the Tempest Bow page](Tempest-Bow)
+
 ---
 
-## Building From Source
+## Development Builds
 
-The GitHub source currently contains all three weapons above.
+The GitHub source may contain weapons, balance changes, mechanics, or experiments that are ahead of the currently uploaded Modrinth alpha.
+
+Current development source includes the **Tempest Bow**.
 
 On Windows:
 
@@ -60,7 +76,17 @@ For the full build:
 .\gradlew.bat build
 ```
 
-Development source may contain changes ahead of the uploaded Modrinth files.
+---
+
+## Planned Base Mod
+
+Fox's Weapons is planned to contain **15 weapons** across multiple progression tiers.
+
+Some weapons are straightforward upgrades.
+
+Others are considerably less reasonable.
+
+More information will be added as development continues.
 
 ---
 
