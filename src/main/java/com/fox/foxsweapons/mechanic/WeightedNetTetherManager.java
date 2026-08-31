@@ -24,7 +24,8 @@ import java.util.UUID;
 @EventBusSubscriber(modid = FoxsWeapons.MODID)
 public final class WeightedNetTetherManager {
 
-    private static final Map<UUID, UUID> TETHERS = new HashMap<>();
+    private static final Map<UUID, UUID> TETHERS =
+            new HashMap<>();
 
     private static final DustParticleOptions ROPE_PARTICLE =
             new DustParticleOptions(
@@ -35,17 +36,26 @@ public final class WeightedNetTetherManager {
     private WeightedNetTetherManager() {
     }
 
+
+    // =========================================================
+    // ATTACH
+    // =========================================================
+
     public static void attach(
             ServerPlayer owner,
             LivingEntity target
     ) {
+
         if (target == owner || !target.isAlive()) {
             return;
         }
 
-        UUID oldTarget = TETHERS.get(owner.getUUID());
+        UUID oldTarget =
+                TETHERS.get(owner.getUUID());
 
-        if (oldTarget != null && !oldTarget.equals(target.getUUID())) {
+        if (oldTarget != null
+                && !oldTarget.equals(target.getUUID())) {
+
             release(owner, true);
         }
 
@@ -69,10 +79,16 @@ public final class WeightedNetTetherManager {
         );
     }
 
+
+    // =========================================================
+    // RELEASE
+    // =========================================================
+
     public static boolean release(
             ServerPlayer owner,
             boolean applyRopeBurns
     ) {
+
         UUID targetId =
                 TETHERS.remove(owner.getUUID());
 
@@ -81,9 +97,13 @@ public final class WeightedNetTetherManager {
         }
 
         LivingEntity target =
-                resolveTarget(owner, targetId);
+                resolveTarget(
+                        owner,
+                        targetId
+                );
 
         if (target != null && applyRopeBurns) {
+
             target.addEffect(
                     new MobEffectInstance(
                             FoxsWeapons.ROPE_BURNS,
@@ -113,17 +133,33 @@ public final class WeightedNetTetherManager {
         return true;
     }
 
+
+    // =========================================================
+    // CHECK
+    // =========================================================
+
     public static boolean isTethering(
             ServerPlayer owner
     ) {
-        return TETHERS.containsKey(owner.getUUID());
+
+        return TETHERS.containsKey(
+                owner.getUUID()
+        );
     }
+
+
+    // =========================================================
+    // TETHER TICK
+    // =========================================================
 
     @SubscribeEvent
     public static void onPlayerTick(
             PlayerTickEvent.Post event
     ) {
-        if (!(event.getEntity() instanceof ServerPlayer owner)) {
+
+        if (!(event.getEntity()
+                instanceof ServerPlayer owner)) {
+
             return;
         }
 
@@ -134,32 +170,76 @@ public final class WeightedNetTetherManager {
             return;
         }
 
-        if (!owner.isAlive() || owner.isSpectator()) {
-            TETHERS.remove(owner.getUUID());
+
+        // -----------------------------------------------------
+        // OWNER INVALID
+        // -----------------------------------------------------
+
+        if (!owner.isAlive()
+                || owner.isSpectator()) {
+
+            TETHERS.remove(
+                    owner.getUUID()
+            );
+
             return;
         }
+
+
+        // -----------------------------------------------------
+        // FIND TARGET
+        // -----------------------------------------------------
 
         LivingEntity target =
-                resolveTarget(owner, targetId);
+                resolveTarget(
+                        owner,
+                        targetId
+                );
 
-        if (target == null || !target.isAlive()) {
-            TETHERS.remove(owner.getUUID());
+        if (target == null
+                || !target.isAlive()) {
+
+            TETHERS.remove(
+                    owner.getUUID()
+            );
+
             return;
         }
+
+
+        // -----------------------------------------------------
+        // DISTANCE
+        // -----------------------------------------------------
 
         Vec3 delta =
                 owner.position()
-                        .subtract(target.position());
+                        .subtract(
+                                target.position()
+                        );
 
         double distance =
                 delta.length();
 
-        if (distance > WeaponStats.WEIGHTED_NET_SNAP_RANGE) {
-            release(owner, true);
-            return;
-        }
+
+        /*
+         * IMPORTANT:
+         *
+         * There is intentionally NO maximum tether distance.
+         *
+         * The Weighted Net cannot snap from being stretched.
+         *
+         * Once a target is caught, the tether remains attached
+         * until the player releases it or either entity becomes
+         * invalid.
+         */
+
+
+        // -----------------------------------------------------
+        // ROPE VISUAL
+        // -----------------------------------------------------
 
         if (owner.tickCount % 4 == 0) {
+
             spawnRopeParticles(
                     (ServerLevel) owner.level(),
                     owner,
@@ -167,10 +247,22 @@ public final class WeightedNetTetherManager {
             );
         }
 
-        if (distance <= WeaponStats.WEIGHTED_NET_SLACK_RANGE
+
+        // -----------------------------------------------------
+        // SLACK AREA
+        // -----------------------------------------------------
+
+        if (distance
+                <= WeaponStats.WEIGHTED_NET_SLACK_RANGE
                 || distance < 0.001) {
+
             return;
         }
+
+
+        // -----------------------------------------------------
+        // PULL TARGET
+        // -----------------------------------------------------
 
         double excess =
                 distance
@@ -184,25 +276,37 @@ public final class WeightedNetTetherManager {
 
         Vec3 pull =
                 delta.normalize()
-                        .scale(strength);
+                        .scale(
+                                strength
+                        );
 
         target.push(
                 pull.x,
-                Math.max(0.015, pull.y * 0.25),
+                Math.max(
+                        0.015,
+                        pull.y * 0.25
+                ),
                 pull.z
         );
     }
+
+
+    // =========================================================
+    // ROPE PARTICLES
+    // =========================================================
 
     private static void spawnRopeParticles(
             ServerLevel level,
             ServerPlayer owner,
             LivingEntity target
     ) {
+
         Vec3 start =
                 target.position()
                         .add(
                                 0.0,
-                                target.getBbHeight() * 0.55,
+                                target.getBbHeight()
+                                        * 0.55,
                                 0.0
                         );
 
@@ -231,10 +335,13 @@ public final class WeightedNetTetherManager {
         int steps =
                 Math.max(
                         2,
-                        (int) Math.ceil(length * 1.5)
+                        (int) Math.ceil(
+                                length * 1.5
+                        )
                 );
 
         for (int i = 0; i <= steps; i++) {
+
             double progress =
                     (double) i / steps;
 
@@ -257,17 +364,25 @@ public final class WeightedNetTetherManager {
         }
     }
 
+
+    // =========================================================
+    // TARGET LOOKUP
+    // =========================================================
+
     private static LivingEntity resolveTarget(
             ServerPlayer owner,
             UUID targetId
     ) {
+
         ServerLevel level =
                 (ServerLevel) owner.level();
 
         Entity entity =
                 level.getEntity(targetId);
 
-        if (entity instanceof LivingEntity living) {
+        if (entity
+                instanceof LivingEntity living) {
+
             return living;
         }
 
