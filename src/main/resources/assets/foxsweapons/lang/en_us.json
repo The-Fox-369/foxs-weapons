@@ -3,6 +3,9 @@
   "item.foxsweapons.blunderbuss": "Blunderbuss",
   "item.foxsweapons.soul_reaper": "Soul Reaper",
   "item.foxsweapons.tempest_bow": "Tempest Bow",
+  "item.foxsweapons.weighted_net": "Weighted Net",
+
+  "effect.foxsweapons.rope_burns": "Rope Burns",
 
   "itemGroup.foxsweapons": "Fox's Weapons",
 
@@ -24,5 +27,9 @@
   "tooltip.foxsweapons.tempest_bow.description": "A storm-forged bow that calls down real lightning.",
   "tooltip.foxsweapons.tempest_bow.ability": "Arrow hit: Lightning Strike",
   "tooltip.foxsweapons.tempest_bow.damage": "Damage: 20 + Lightning",
-  "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds"
+  "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds",
+
+  "tooltip.foxsweapons.weighted_net.description": "A bundled weighted net for catching targets at range.",
+  "tooltip.foxsweapons.weighted_net.throw": "Right-click: Throw and tether a target",
+  "tooltip.foxsweapons.weighted_net.release": "Right-click again: Release and inflict Rope Burns"
 }

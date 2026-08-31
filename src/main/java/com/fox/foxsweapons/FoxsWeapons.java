@@ -1,17 +1,23 @@
 package com.fox.foxsweapons;
 
 import com.fox.foxsweapons.config.WeaponStats;
+import com.fox.foxsweapons.effect.RopeBurnsEffect;
+import com.fox.foxsweapons.entity.WeightedNetProjectile;
 import com.fox.foxsweapons.item.BlunderbussItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
+import com.fox.foxsweapons.item.WeightedNetItem;
 import com.fox.foxsweapons.network.BlunderbussNetwork;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.CreativeModeTab;
@@ -38,6 +44,12 @@ public class FoxsWeapons {
 
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(MODID);
+
+    public static final DeferredRegister.Entities ENTITY_TYPES =
+            DeferredRegister.createEntities(MODID);
+
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS =
+            DeferredRegister.create(Registries.MOB_EFFECT, MODID);
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -138,6 +150,40 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // WEIGHTED NET
+    // =========================================================
+
+    public static final DeferredItem<WeightedNetItem> WEIGHTED_NET =
+            ITEMS.registerItem(
+                    "weighted_net",
+                    WeightedNetItem::new,
+                    p -> p
+                            .durability(WeaponStats.WEIGHTED_NET_DURABILITY)
+                            .repairable(Items.STRING)
+                            .enchantable(WeaponStats.WEIGHTED_NET_ENCHANTABILITY)
+                            .rarity(Rarity.UNCOMMON)
+            );
+
+    public static final DeferredHolder<EntityType<?>, EntityType<WeightedNetProjectile>> WEIGHTED_NET_PROJECTILE =
+            ENTITY_TYPES.registerEntityType(
+                    "weighted_net",
+                    WeightedNetProjectile::new,
+                    MobCategory.MISC,
+                    builder -> builder
+                            .noLootTable()
+                            .noSave()
+                            .sized(0.5F, 0.5F)
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+            );
+
+    public static final DeferredHolder<MobEffect, RopeBurnsEffect> ROPE_BURNS =
+            MOB_EFFECTS.register(
+                    "rope_burns",
+                    RopeBurnsEffect::new
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -153,12 +199,15 @@ public class FoxsWeapons {
                                 output.accept(BLUNDERBUSS.get());
                                 output.accept(SOUL_REAPER.get());
                                 output.accept(TEMPEST_BOW.get());
+                                output.accept(WEIGHTED_NET.get());
                             })
                             .build()
             );
 
     public FoxsWeapons(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
+        ENTITY_TYPES.register(modEventBus);
+        MOB_EFFECTS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(

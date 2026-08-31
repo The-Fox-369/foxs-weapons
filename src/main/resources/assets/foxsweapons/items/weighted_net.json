@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/weighted_net",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

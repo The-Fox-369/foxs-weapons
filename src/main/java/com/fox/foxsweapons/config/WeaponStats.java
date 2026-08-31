@@ -73,4 +73,26 @@ public final class WeaponStats {
      * allowing Power and armor to matter.
      */
     public static final float TEMPEST_BOW_DAMAGE_BONUS = 14.0F;
+
+    // =========================================================
+    // WEIGHTED NET
+    // =========================================================
+
+    public static final int WEIGHTED_NET_DURABILITY = 384;
+    public static final int WEIGHTED_NET_ENCHANTABILITY = 10;
+
+    /** Speed of the bundled net projectile. */
+    public static final float WEIGHTED_NET_THROW_POWER = 1.35F;
+    public static final float WEIGHTED_NET_INACCURACY = 0.75F;
+
+    /** Tether is slack inside this radius. */
+    public static final double WEIGHTED_NET_SLACK_RANGE = 6.0;
+
+    /** The tether snaps beyond this radius. */
+    public static final double WEIGHTED_NET_SNAP_RANGE = 12.0;
+
+    public static final int WEIGHTED_NET_THROW_COOLDOWN = 12;
+
+    /** Five seconds at 20 ticks per second. */
+    public static final int ROPE_BURNS_DURATION_TICKS = 100;
 }
