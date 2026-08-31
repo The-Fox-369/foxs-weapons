@@ -3,6 +3,9 @@
   "item.foxsweapons.blunderbuss": "Blunderbuss",
   "item.foxsweapons.soul_reaper": "Soul Reaper",
   "item.foxsweapons.tempest_bow": "Tempest Bow",
+  "item.foxsweapons.weighted_net": "Weighted Net",
+  "effect.foxsweapons.rope_burns": "Rope Burns",
+  "entity.foxsweapons.weighted_net_projectile": "Weighted Net",
 
   "itemGroup.foxsweapons": "Fox's Weapons",
 
@@ -24,5 +27,14 @@
   "tooltip.foxsweapons.tempest_bow.description": "A storm-forged bow that calls down real lightning.",
   "tooltip.foxsweapons.tempest_bow.ability": "Arrow hit: Lightning Strike",
   "tooltip.foxsweapons.tempest_bow.damage": "Damage: 20 + Lightning",
-  "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds"
+  "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds",
+
+  "tooltip.foxsweapons.weighted_net.description": "A bundled restraint weapon that tethers its target.",
+  "tooltip.foxsweapons.weighted_net.throw": "Right-click: Throw / tether target",
+  "tooltip.foxsweapons.weighted_net.release": "Right-click again: Release + Rope Burns V (3s)",
+  "tooltip.foxsweapons.weighted_net.damage": "Damage: 0",
+
+  "message.foxsweapons.weighted_net.tethered": "Target caught! Right-click to release.",
+  "message.foxsweapons.weighted_net.released": "Released — Rope Burns!",
+  "message.foxsweapons.weighted_net.already_tethered": "That target is already tethered."
 }
