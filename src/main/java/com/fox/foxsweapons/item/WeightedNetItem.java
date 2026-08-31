@@ -27,16 +27,9 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 
-/**
- * Tier 1 utility weapon.
- *
- * Right-click with no active tether: throw the bundled net.
- * Right-click while a target is tethered: release it and inflict Rope Burns.
- */
 public class WeightedNetItem extends Item implements GeoItem {
 
-    private final AnimatableInstanceCache cache =
-            GeckoLibUtil.createInstanceCache(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     public WeightedNetItem(Properties properties) {
         super(properties);
@@ -60,13 +53,7 @@ public class WeightedNetItem extends Item implements GeoItem {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(
-                new AnimationController<>(
-                        "controller",
-                        0,
-                        state -> PlayState.STOP
-                )
-        );
+        controllers.add(new AnimationController<>("controller", 0, state -> PlayState.STOP));
     }
 
     @Override
@@ -87,12 +74,8 @@ public class WeightedNetItem extends Item implements GeoItem {
             return InteractionResult.FAIL;
         }
 
-        // The same button is the release control once somebody is caught.
         if (WeightedNetTetherManager.release(serverPlayer, true)) {
-            player.getCooldowns().addCooldown(
-                    stack,
-                    WeaponStats.WEIGHTED_NET_THROW_COOLDOWN_TICKS
-            );
+            player.getCooldowns().addCooldown(stack, WeaponStats.WEIGHTED_NET_THROW_COOLDOWN_TICKS);
             player.swing(hand, true);
             return InteractionResult.SUCCESS;
         }
@@ -122,13 +105,10 @@ public class WeightedNetItem extends Item implements GeoItem {
                 SoundEvents.SNOWBALL_THROW,
                 SoundSource.PLAYERS,
                 0.8F,
-                0.85F + serverLevel.random.nextFloat() * 0.2F
+                0.85F + serverLevel.getRandom().nextFloat() * 0.2F
         );
 
-        player.getCooldowns().addCooldown(
-                stack,
-                WeaponStats.WEIGHTED_NET_THROW_COOLDOWN_TICKS
-        );
+        player.getCooldowns().addCooldown(stack, WeaponStats.WEIGHTED_NET_THROW_COOLDOWN_TICKS);
         player.swing(hand, true);
 
         return InteractionResult.SUCCESS;

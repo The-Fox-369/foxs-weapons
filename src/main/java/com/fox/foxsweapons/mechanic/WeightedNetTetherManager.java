@@ -20,13 +20,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Server-side ranged-lead state for Weighted Net.
- *
- * One owner may tether one target, and one target may only be tethered by
- * one owner at a time. The state intentionally stays out of the entity NBT:
- * it is a temporary combat restraint, not a permanent leash.
- */
 @EventBusSubscriber(modid = FoxsWeapons.MODID)
 public final class WeightedNetTetherManager {
 
@@ -41,9 +34,9 @@ public final class WeightedNetTetherManager {
 
         UUID existingOwner = OWNER_BY_TARGET.get(targetId);
         if (existingOwner != null && !existingOwner.equals(ownerId)) {
-            owner.sendOverlayMessage(
-                    Component.translatable("message.foxsweapons.weighted_net.already_tethered")
-            );
+            owner.sendOverlayMessage(Component.translatable(
+                    "message.foxsweapons.weighted_net.already_tethered"
+            ));
             return false;
         }
 
@@ -52,27 +45,22 @@ public final class WeightedNetTetherManager {
         BY_OWNER.put(ownerId, new Tether(owner, target));
         OWNER_BY_TARGET.put(targetId, ownerId);
 
-        owner.sendOverlayMessage(
-                Component.translatable("message.foxsweapons.weighted_net.tethered")
-        );
+        owner.sendOverlayMessage(Component.translatable(
+                "message.foxsweapons.weighted_net.tethered"
+        ));
 
         owner.level().playSound(
                 null,
-                target.getX(),
-                target.getY(),
-                target.getZ(),
-                SoundEvents.LEASH_KNOT_PLACE,
+                target.getX(), target.getY(), target.getZ(),
+                SoundEvents.SNOWBALL_THROW,
                 SoundSource.PLAYERS,
-                1.0F,
-                1.0F
+                0.55F,
+                0.65F
         );
 
         return true;
     }
 
-    /**
-     * @param applyRopeBurns true only for an intentional player release.
-     */
     public static boolean release(ServerPlayer owner, boolean applyRopeBurns) {
         return remove(owner.getUUID(), applyRopeBurns);
     }
@@ -89,27 +77,23 @@ public final class WeightedNetTetherManager {
         ServerPlayer owner = tether.owner();
 
         if (applyRopeBurns && target.isAlive()) {
-            target.addEffect(
-                    new MobEffectInstance(
-                            FoxsWeapons.ROPE_BURNS,
-                            WeaponStats.WEIGHTED_NET_ROPE_BURNS_DURATION_TICKS,
-                            WeaponStats.WEIGHTED_NET_ROPE_BURNS_AMPLIFIER
-                    )
-            );
+            target.addEffect(new MobEffectInstance(
+                    FoxsWeapons.ROPE_BURNS,
+                    WeaponStats.WEIGHTED_NET_ROPE_BURNS_DURATION_TICKS,
+                    WeaponStats.WEIGHTED_NET_ROPE_BURNS_AMPLIFIER
+            ));
 
-            owner.sendOverlayMessage(
-                    Component.translatable("message.foxsweapons.weighted_net.released")
-            );
+            owner.sendOverlayMessage(Component.translatable(
+                    "message.foxsweapons.weighted_net.released"
+            ));
 
             owner.level().playSound(
                     null,
-                    target.getX(),
-                    target.getY(),
-                    target.getZ(),
-                    SoundEvents.LEASH_KNOT_BREAK,
+                    target.getX(), target.getY(), target.getZ(),
+                    SoundEvents.SNOWBALL_THROW,
                     SoundSource.PLAYERS,
-                    1.0F,
-                    0.9F
+                    0.45F,
+                    1.35F
             );
         }
 
@@ -118,12 +102,10 @@ public final class WeightedNetTetherManager {
 
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
-        Iterator<Map.Entry<UUID, Tether>> iterator =
-                BY_OWNER.entrySet().iterator();
+        Iterator<Map.Entry<UUID, Tether>> iterator = BY_OWNER.entrySet().iterator();
 
         while (iterator.hasNext()) {
-            Map.Entry<UUID, Tether> entry = iterator.next();
-            Tether tether = entry.getValue();
+            Tether tether = iterator.next().getValue();
             ServerPlayer owner = tether.owner();
             LivingEntity target = tether.target();
 
@@ -132,7 +114,6 @@ public final class WeightedNetTetherManager {
                     || target.isRemoved()
                     || !target.isAlive()
                     || owner.level() != target.level()) {
-
                 OWNER_BY_TARGET.remove(target.getUUID());
                 iterator.remove();
                 continue;
@@ -146,22 +127,16 @@ public final class WeightedNetTetherManager {
         Vec3 delta = owner.position().subtract(target.position());
         double distance = delta.length();
 
-        if (distance <= WeaponStats.WEIGHTED_NET_TETHER_SOFT_RANGE
-                || distance < 0.001D) {
+        if (distance <= WeaponStats.WEIGHTED_NET_TETHER_SOFT_RANGE || distance < 0.001D) {
             return;
         }
 
         double excess = distance - WeaponStats.WEIGHTED_NET_TETHER_SOFT_RANGE;
-        double strength;
-
-        if (distance >= WeaponStats.WEIGHTED_NET_TETHER_HARD_RANGE) {
-            strength = Math.min(0.48D, 0.18D + excess * 0.035D);
-        } else {
-            strength = Math.min(0.18D, 0.035D + excess * 0.025D);
-        }
+        double strength = distance >= WeaponStats.WEIGHTED_NET_TETHER_HARD_RANGE
+                ? Math.min(0.48D, 0.18D + excess * 0.035D)
+                : Math.min(0.18D, 0.035D + excess * 0.025D);
 
         Vec3 pull = delta.normalize().scale(strength);
-
         target.setDeltaMovement(target.getDeltaMovement().add(pull));
         target.hurtMarked = true;
     }
