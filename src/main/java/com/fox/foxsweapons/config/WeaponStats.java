@@ -12,11 +12,9 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int VOLCANO_HAMMER_DURABILITY = 1200;
-    public static final int VOLCANO_HAMMER_ENCHANTABILITY = 15;
-
+    public static final int VOLCANO_HAMMER_ENMERCHANTABILITY = 15;
     public static final double VOLCANO_HAMMER_ATTACK_DAMAGE = 8.0;
     public static final double VOLCANO_HAMMER_ATTACK_SPEED = -3.2;
-
     public static final int VOLCANO_HAMMER_SWING_TICKS = 15;
     public static final int VOLCANO_HAMMER_SMASH_COOLDOWN_TICKS = 120;
     public static final int VOLCANO_HAMMER_SMASH_DURABILITY_COST = 3;
@@ -26,17 +24,13 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int BLUNDERBUSS_DURABILITY = 450;
-    public static final int BLUNDERBUSS_ENCHANTABILITY = 15;
-
+    public static final int BLUNDERBUSS_ENMERCHANTABILITY = 15;
     public static final int BLUNDERBUSS_SWING_TICKS = 10;
     public static final double BLUNDERBUSS_RANGE = 32.0;
-
     public static final double BLUNDERBUSS_SINGLE_SPREAD = 0.008;
     public static final double BLUNDERBUSS_BURST_SPREAD = 0.095;
-
     public static final float BLUNDERBUSS_SINGLE_DAMAGE = 8.0F;
     public static final float BLUNDERBUSS_BURST_PELLET_DAMAGE = 5.0F;
-
     public static final int BLUNDERBUSS_SINGLE_COOLDOWN = 12;
     public static final int BLUNDERBUSS_BURST_COOLDOWN = 24;
 
@@ -45,11 +39,9 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int SOUL_REAPER_DURABILITY = 1450;
-    public static final int SOUL_REAPER_ENCHANTABILITY = 15;
-
+    public static final int SOUL_REAPER_ENMERCHANTABILITY = 15;
     public static final double SOUL_REAPER_ATTACK_DAMAGE = 20.0;
     public static final double SOUL_REAPER_ATTACK_SPEED = -3.1;
-
     public static final int SOUL_REAPER_SWING_TICKS = 16;
 
     /** 1 health point = half a heart. */
@@ -60,17 +52,32 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int TEMPEST_BOW_DURABILITY = 1000;
-    public static final int TEMPEST_BOW_ENCHANTABILITY = 15;
+    public static final int TEMPEST_BOW_ENMERCHANTABILITY = 15;
 
     /** Five ticks = 0.25 seconds. */
     public static final int TEMPEST_BOW_DRAW_TICKS = 5;
 
-    /**
-     * Added before armor reduction.
-     *
-     * Normal fully drawn arrow damage + 14
-     * gives roughly 20+ raw damage while still
-     * allowing Power and armor to matter.
-     */
+    /** Added before armor reduction. */
     public static final float TEMPEST_BOW_DAMAGE_BONUS = 14.0F;
+
+    // =========================================================
+    // WEIGHTED NET
+    // =========================================================
+
+    /** Maximum distance the thrown bundle may travel from its owner. */
+    public static final double WEIGHTED_NET_THROW_RANGE = 16.0;
+
+    /** Distance where the tether begins pulling the caught target. */
+    public static final double WEIGHTED_NET_TETHER_SOFT_RANGE = 6.0;
+
+    /** Distance where the tether starts pulling much harder. */
+    public static final double WEIGHTED_NET_TETHER_HARD_RANGE = 12.0;
+
+    public static final int WEIGHTED_NET_THROW_COOLDOWN_TICKS = 10;
+
+    /** Original Tier 1 control duration: 3 seconds. */
+    public static final int WEIGHTED_NET_ROPE_BURNS_DURATION_TICKS = 60;
+
+    /** Amplifier 4 = level V. */
+    public static final int WEIGHTED_NET_ROPE_BURNS_AMPLIFIER = 4;
 }
