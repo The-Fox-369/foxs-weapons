@@ -54,7 +54,10 @@ public final class WeightedNetTetherManager {
                 target.getUUID()
         );
 
-        owner.serverLevel().playSound(
+        ServerLevel level =
+                (ServerLevel) owner.level();
+
+        level.playSound(
                 null,
                 target.getX(),
                 target.getY(),
@@ -93,7 +96,10 @@ public final class WeightedNetTetherManager {
             );
         }
 
-        owner.serverLevel().playSound(
+        ServerLevel level =
+                (ServerLevel) owner.level();
+
+        level.playSound(
                 null,
                 owner.getX(),
                 owner.getY(),
@@ -155,7 +161,7 @@ public final class WeightedNetTetherManager {
 
         if (owner.tickCount % 4 == 0) {
             spawnRopeParticles(
-                    owner.serverLevel(),
+                    (ServerLevel) owner.level(),
                     owner,
                     target
             );
@@ -255,9 +261,11 @@ public final class WeightedNetTetherManager {
             ServerPlayer owner,
             UUID targetId
     ) {
+        ServerLevel level =
+                (ServerLevel) owner.level();
+
         Entity entity =
-                owner.serverLevel()
-                        .getEntity(targetId);
+                level.getEntity(targetId);
 
         if (entity instanceof LivingEntity living) {
             return living;
