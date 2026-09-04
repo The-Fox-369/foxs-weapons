@@ -31,5 +31,11 @@
 
   "tooltip.foxsweapons.weighted_net.description": "A bundled weighted net for catching targets at range.",
   "tooltip.foxsweapons.weighted_net.throw": "Right-click: Throw and tether a target",
-  "tooltip.foxsweapons.weighted_net.release": "Right-click again: Release and inflict Rope Burns"
+  "tooltip.foxsweapons.weighted_net.release": "Right-click again: Release and inflict Rope Burns",
+
+  "item.foxsweapons.sling_pocket": "Sling Pocket",
+  "tooltip.foxsweapons.sling_pocket.description": "A primitive elastic launcher built for geological violence.",
+  "tooltip.foxsweapons.sling_pocket.fire": "Right-click: Launch stone",
+  "tooltip.foxsweapons.sling_pocket.ammo": "Ammo: Stone-type blocks",
+  "message.foxsweapons.sling_pocket.no_ammo": "You need stone ammo!"
 }

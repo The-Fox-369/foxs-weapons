@@ -21,40 +21,102 @@ import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsE
 )
 public final class WeaponClientExtensions {
 
-    private WeaponClientExtensions() {}
+    private WeaponClientExtensions() {
+    }
+
 
     @SubscribeEvent
     public static void registerClientExtensions(
             RegisterClientExtensionsEvent event
     ) {
-        event.registerItem(
-                pose(WeaponPlayerAnimations.CUSTOM_WEAPON_POSE),
-                FoxsWeapons.VOLCANO_HAMMER.get()
-        );
+
+        // =====================================================
+        // VOLCANO HAMMER
+        // =====================================================
 
         event.registerItem(
-                pose(WeaponPlayerAnimations.BLUNDERBUSS_POSE),
-                FoxsWeapons.BLUNDERBUSS.get()
+                pose(
+                        WeaponPlayerAnimations
+                                .CUSTOM_WEAPON_POSE
+                ),
+
+                FoxsWeapons
+                        .VOLCANO_HAMMER
+                        .get()
         );
 
+
+        // =====================================================
+        // BLUNDERBUSS
+        // =====================================================
+
         event.registerItem(
-                pose(WeaponPlayerAnimations.SOUL_REAPER_POSE),
-                FoxsWeapons.SOUL_REAPER.get()
+                pose(
+                        WeaponPlayerAnimations
+                                .BLUNDERBUSS_POSE
+                ),
+
+                FoxsWeapons
+                        .BLUNDERBUSS
+                        .get()
+        );
+
+
+        // =====================================================
+        // SOUL REAPER
+        // =====================================================
+
+        event.registerItem(
+                pose(
+                        WeaponPlayerAnimations
+                                .SOUL_REAPER_POSE
+                ),
+
+                FoxsWeapons
+                        .SOUL_REAPER
+                        .get()
+        );
+
+
+        // =====================================================
+        // SLING POCKET
+        // =====================================================
+
+        event.registerItem(
+                pose(
+                        WeaponPlayerAnimations
+                                .SLING_POCKET_POSE
+                ),
+
+                FoxsWeapons
+                        .SLING_POCKET
+                        .get()
         );
     }
+
+
+    // =========================================================
+    // POSE HELPER
+    // =========================================================
 
     private static IClientItemExtensions pose(
             EnumProxy<HumanoidModel.ArmPose> pose
     ) {
+
         return new IClientItemExtensions() {
+
             @Override
             public HumanoidModel.ArmPose getArmPose(
                     LivingEntity entity,
                     InteractionHand hand,
                     ItemStack stack
             ) {
-                return hand == InteractionHand.MAIN_HAND
+
+                return hand
+                        == InteractionHand.MAIN_HAND
+
                         ? pose.getValue()
+
                         : null;
             }
         };

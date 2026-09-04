@@ -224,8 +224,8 @@ public final class WeaponTooltips {
         }
 
         // =====================================================
-// WEIGHTED NET
-// =====================================================
+        // WEIGHTED NET
+        // =====================================================
 
         if (stack.is(FoxsWeapons.WEIGHTED_NET.get())) {
 
@@ -260,6 +260,51 @@ public final class WeaponTooltips {
                     4,
                     Component.translatable(
                             "tooltip.foxsweapons.weighted_net.release"
+                    ).withStyle(
+                            ChatFormatting.DARK_GRAY
+                    )
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // SLING POCKET
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.SLING_POCKET.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.sling_pocket.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.sling_pocket.fire"
+                    ).withStyle(
+                            ChatFormatting.GREEN
+                    )
+            );
+
+            event.getToolTip().add(
+                    4,
+                    Component.translatable(
+                            "tooltip.foxsweapons.sling_pocket.ammo"
                     ).withStyle(
                             ChatFormatting.DARK_GRAY
                     )

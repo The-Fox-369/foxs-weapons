@@ -26,6 +26,15 @@
         "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
         "field": "SOUL_REAPER_POSE"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "foxsweapons_SLING_POCKET",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
+        "field": "SLING_POCKET_POSE"
+      }
     }
   ]
 }

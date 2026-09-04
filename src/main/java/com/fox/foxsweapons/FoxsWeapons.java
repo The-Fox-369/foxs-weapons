@@ -9,6 +9,8 @@ import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
 import com.fox.foxsweapons.item.WeightedNetItem;
 import com.fox.foxsweapons.network.BlunderbussNetwork;
+import com.fox.foxsweapons.entity.SlingStoneProjectile;
+import com.fox.foxsweapons.item.SlingPocketItem;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -150,6 +152,38 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // SLING POCKET
+    // =========================================================
+
+    public static final DeferredItem<SlingPocketItem> SLING_POCKET =
+            ITEMS.registerItem(
+                    "sling_pocket",
+                    SlingPocketItem::new,
+                    p -> p
+                            .rarity(Rarity.COMMON)
+            );
+
+    public static final DeferredHolder<
+            EntityType<?>,
+            EntityType<SlingStoneProjectile>
+            > SLING_STONE_PROJECTILE =
+
+            ENTITY_TYPES.registerEntityType(
+                    "sling_stone",
+                    SlingStoneProjectile::new,
+                    MobCategory.MISC,
+                    builder -> builder
+                            .noLootTable()
+                            .noSave()
+                            .sized(
+                                    0.25F,
+                                    0.25F
+                            )
+                            .clientTrackingRange(4)
+                            .updateInterval(10)
+            );
+
+    // =========================================================
     // WEIGHTED NET
     // =========================================================
 
@@ -200,6 +234,7 @@ public class FoxsWeapons {
                                 output.accept(SOUL_REAPER.get());
                                 output.accept(TEMPEST_BOW.get());
                                 output.accept(WEIGHTED_NET.get());
+                                output.accept(SLING_POCKET.get());
                             })
                             .build()
             );
@@ -208,7 +243,7 @@ public class FoxsWeapons {
         ITEMS.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
         MOB_EFFECTS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
+            CREATIVE_MODE_TABS.register(modEventBus);
 
         modEventBus.addListener(
                 BlunderbussNetwork::registerPayloads

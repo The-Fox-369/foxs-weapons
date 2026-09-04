@@ -23,6 +23,9 @@ public final class WeaponPlayerAnimations {
     public static final EnumProxy<HumanoidModel.ArmPose> SOUL_REAPER_POSE =
             pose(WeaponPlayerAnimations::applySoulReaperPose);
 
+    public static final EnumProxy<HumanoidModel.ArmPose> SLING_POCKET_POSE =
+            pose(WeaponPlayerAnimations::applySlingPocketPose);
+
 
     // =========================================================
     // SOUL REAPER KEYFRAMES
@@ -514,6 +517,91 @@ public final class WeaponPlayerAnimations {
 
         model.leftLeg.xRot -=
                 0.025F * recoil;
+    }
+
+
+    // =========================================================
+    // SLING POCKET
+    // =========================================================
+    //
+    // Main hand holds the launcher forward.
+    //
+    // Support hand reaches toward the centre,
+    // as though the player has just pulled/released
+    // the elastic sling.
+    //
+    // NO charging animation.
+    // NO recoil animation.
+    // NO swing animation.
+    //
+    // Rock simply goes BONK.
+    // =========================================================
+
+    private static void applySlingPocketPose(
+            HumanoidModel<?> model,
+            HumanoidRenderState state,
+            HumanoidArm arm
+    ) {
+
+        ModelPart launcherArm =
+                model.getArm(arm);
+
+        ModelPart supportArm =
+                model.getArm(
+                        arm.getOpposite()
+                );
+
+        float side =
+                side(arm);
+
+
+        // -----------------------------------------------------
+        // LAUNCHER ARM
+        //
+        // Mostly straight forward.
+        // -----------------------------------------------------
+
+        setArm(
+                launcherArm,
+
+                -1.48F,
+
+                -0.10F * side,
+
+                0.04F * side
+        );
+
+
+        // -----------------------------------------------------
+        // SUPPORT ARM
+        //
+        // Pulled inward toward the sling.
+        // -----------------------------------------------------
+
+        setArm(
+                supportArm,
+
+                -1.20F,
+
+                0.48F * side,
+
+                -0.20F * side
+        );
+
+
+        // -----------------------------------------------------
+        // BODY
+        //
+        // Small sideways turn toward the weapon.
+        // -----------------------------------------------------
+
+        model.body.yRot +=
+                -0.07F * side;
+
+
+        // Tiny head compensation.
+        model.head.yRot +=
+                0.03F * side;
     }
 
 

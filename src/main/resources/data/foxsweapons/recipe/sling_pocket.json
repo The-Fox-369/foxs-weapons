@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "S S",
+    "L L",
+    " W "
+  ],
+  "key": {
+    "S": "minecraft:slime_ball",
+    "L": "minecraft:leather",
+    "W": "minecraft:stick"
+  },
+  "result": {
+    "id": "foxsweapons:sling_pocket",
+    "count": 1
+  }
+}

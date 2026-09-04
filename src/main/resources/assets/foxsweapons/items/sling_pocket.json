@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/sling_pocket",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

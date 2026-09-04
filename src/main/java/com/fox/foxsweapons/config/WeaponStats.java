@@ -95,4 +95,30 @@ public final class WeaponStats {
 
     /** Five seconds at 20 ticks per second. */
     public static final int ROPE_BURNS_DURATION_TICKS = 100;
+
+    // =========================================================
+// SLING POCKET
+// =========================================================
+
+    /**
+     * Instant-fire primitive stone launcher.
+     */
+    public static final float SLING_POCKET_POWER = 1.75F;
+
+    public static final float SLING_POCKET_INACCURACY = 1.0F;
+
+    /**
+     * Low direct damage. The main purpose is knockback.
+     */
+    public static final float SLING_POCKET_DAMAGE = 2.0F;
+
+    /**
+     * Additional velocity applied to struck targets.
+     */
+    public static final double SLING_POCKET_KNOCKBACK = 0.90;
+
+    /**
+     * 8 ticks = 0.4 seconds.
+     */
+    public static final int SLING_POCKET_COOLDOWN = 8;
 }
