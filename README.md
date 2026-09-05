@@ -1,142 +1,153 @@
 # Fox's Weapons 🦊⚔️
 
-A Minecraft weapon mod for **Minecraft 26.2 / NeoForge**, using **GeckoLib 5** for custom 3D models and animations.
+**Fox's Weapons** is a NeoForge weapon mod for Minecraft 26.2 focused on weapons that actually have their own distinct mechanics, custom models, and playstyles instead of simply being another sword with a bigger damage number.
 
-Fox's Weapons is planned to contain **15 unique weapons**. The goal is simple: every weapon should have its own mechanic, model, effects, and playstyle instead of just being another sword with a larger damage number.
+The finished base mod is planned to contain **15 unique weapons**, divided across three progression tiers.
 
-> **Current alpha:** `0.4.0-alpha.1` — Tempest Bow
+---
 
-## Current Weapons
+> ⚠️ **IMPORTANT: DOCUMENTATION UPDATE NOTICE**
+> 
+> Maintaining documentation across the GitHub README, the GitHub Wiki, and Modrinth as a **solo developer** has become too tiring and time-consuming. 
+> 
+> **The GitHub README and GitHub Wiki are now OBSOLETE and will NO LONGER BE UPDATED.**
+> 
+> Please consult the official **[Modrinth Page](https://modrinth.com/mod/foxs-weapons)** for all future up-to-date documentation, changelogs, weapon stats, and guides. The Modrinth description will continue to be updated with every new release.
 
-| Version | Weapon | Tier | Main mechanic | Repair material |
-|---|---|---:|---|---|
-| `0.1.0-alpha.1` | **Volcano Hammer** | 3 | Volcano Smash + Fire Resistance | Magma Cream |
-| `0.2.0-alpha.1` | **Blunderbuss** | 2 | Single shot + four-pellet burst | Iron Ingot |
-| `0.3.0-alpha.1` | **Soul Reaper** | 3 | Critical-hit life steal | Diamond |
-| `0.4.0-alpha.1` | **Tempest Bow** | 3 | Fast draw + real lightning on impact | Copper Ingot |
+---
 
-**4 weapons down. 11 to go.**
+## 📜 Addons & Usage Policy
 
-## Volcano Hammer
+- **Addons & Compatibility:** You are completely welcome to make addons, compatibility patches, and custom content for *Fox's Weapons*!
+- **Credit Required:** You must clearly credit *Fox's Weapons* and link back to the official [Modrinth Page](https://modrinth.com/mod/foxs-weapons). Never reupload the base mod or claim ownership of the original code or assets.
+- **Strictly Non-Commercial:** Neither *Fox's Weapons* nor any addon built for it may be sold, put behind paywalls (including early access), or monetized in any way. Keep it 100% free for the community.
 
-A slow, heavy volcanic melee weapon.
+---
 
-- 1200 durability
-- +8 Attack Damage modifier
-- -3.2 Attack Speed modifier
+## 🎯 Current Alpha: `0.6.0-alpha.1` — Sling Pocket
+
+### Currently Implemented Weapons (6 / 15)
+
+#### 🌋 Volcano Hammer (Tier 3)
+A slow volcanic demolition mallet.
 - Custom heavy swing animation
-- Right-click **Volcano Smash**
-- Creates a 3×3 fire ring with a safe center
-- Fire Resistance while held
-- Passive lava particles while held
-- Volcano Smash cooldown: 6 seconds
-- Volcano Smash durability cost: 3
-- Repair material: **Magma Cream**
-- Intended enchantment family: **mace-style**
+- Right-click **Volcano Smash**: Creates a 3×3 fire ring with a safe center
+- Grants Fire Resistance while held + passive lava particles
+- 1200 durability | Repairable with **Magma Cream** | Mace-style enchantments
 
-## Blunderbuss
+#### 💥 Blunderbuss (Tier 2)
+A close-range firearm with dual firing modes.
+- Left-click: accurate single shot | Right-click: four-pellet blast
+- Uses **Iron Nuggets** as ammunition | 32-block max range
+- Muzzle flash, smoke trails, impact effects, and strong knockback
+- 450 durability | Repairable with **Iron Ingots** | Durability enchantments
 
-A close-range firearm with two firing modes.
+#### 💀 Soul Reaper (Tier 3)
+A heavy vampiric scythe built around vanilla critical hits.
+- Vanilla jump criticals trigger **Soul Steal**
+- Soul Steal adds +5 damage (+2.5 hearts) and heals the wielder by up to 5 HP
+- Visible soul particles travel from the victim toward the wielder
+- 1450 durability | Repairable with **Diamonds** | Spear-like melee enchantments
 
-- 450 durability
-- Uses **Iron Nuggets** as ammunition
-- Maximum range: 32 blocks
-- Left click: precise single shot
-  - 8 damage
-  - very low spread
-  - 0.6-second cooldown
-- Right click: four-pellet burst
-  - 5 damage per pellet
-  - up to 20 total damage if all four pellets connect
-  - wider spread
-  - 1.2-second cooldown
-- Muzzle flash, smoke trails, impact particles, and knockback
-- Repair material: **Iron Ingot**
-- Supports durability-compatible enchantments
-
-## Soul Reaper
-
-A heavy scythe built around powerful melee attacks and actual vanilla critical hits.
-
-- 1450 durability
-- +20 Attack Damage modifier
-- -3.1 Attack Speed modifier
-- Custom heavy scythe swing animation
-- Vanilla jump critical hits trigger **Soul Steal**
-- Soul Steal adds **5 health points / 2.5 hearts** of damage
-- Heals the wielder by up to **5 health points / 2.5 hearts**, limited by health actually lost by the victim
-- Soul particles visibly travel from the victim toward the wielder
-- Repair material: **Diamond**
-- Intended enchantment family: **spear-like melee**
-
-## Tempest Bow
-
-A storm-powered bow designed around extremely fast firing and real vanilla lightning.
-
-- 1000 durability
-- Full-strength draw after only **0.25 seconds / 5 ticks**
-- Uses vanilla bow ammunition
-- Adds **+14 damage** to Tempest arrow hits before normal armor mitigation
-- Summons **real vanilla lightning** at the exact impact location
-- Works on entities, blocks, walls, roofs, trees, the ground, and missed shots
-- Each Tempest arrow can summon lightning only once
-- Uses normal vanilla lightning, including its normal side effects
+#### ⚡ Tempest Bow (Tier 3)
+A storm-powered bow designed with thoroughly questionable levels of power.
+- Full-strength draw in **0.25 seconds / 5 ticks**
+- Adds **+14 Tempest damage** and summons **real vanilla lightning** on impact (entities, blocks, or missed shots)
 - Custom GeckoLib draw-and-release animation
-- Repair material: **Copper Ingot**
-- Intended enchantment family: **bow**
-- Holding a Tempest Bow in the offhand can affect arrows fired from another bow
-- Yes, that survived development. It is a feature.
+- 1000 durability | Repairable with **Copper Ingots** | Bow enchantments
 
-## Enchanting and Repair
+#### 🕸️ Weighted Net (Tier 1)
+A ranged control weapon that deals **zero direct damage**.
+- Right-click to throw; tethers a living target to the wielder (cannot break from distance)
+- Right-click again to release, applying **Rope Burns** (temporarily reduces movement speed)
+- Custom bundled 3D model, custom projectile, and visible rope tether effect
 
-All four current weapons have **15 enchantability** and have repair materials.
+#### 🪨 Sling Pocket (Tier 1)
+A primitive ranged weapon containing wood, rubber, and rock.
+- Fires instantly with **no charge-up** using stone-based ammunition
+- Strong projectile knockback with custom stone projectiles, 3D model, and poses
+- **Can hit Endermen** (Yes, this is intentional. They dodge arrows, not aggressive rocks).
 
-| Weapon | Repair material | Enchantment direction |
+---
+
+## 🧪 Status Effects
+
+### Rope Burns
+Applied when a target tethered by the Weighted Net is released.
+- Reduces movement speed for approximately **5 seconds**.
+
+---
+
+## 🗺️ Planned 15-Weapon Progression
+
+| # | Weapon | Tier | Status |
+|---|---|---|---|
+| 1 | Bone Shiv | Tier 1 | Planned |
+| 2 | Flint Spear | Tier 1 | Planned |
+| 3 | Sling Pocket | Tier 1 | ✅ Implemented (`0.6.0-alpha.1`) |
+| 4 | Weighted Net | Tier 1 | ✅ Implemented (`0.5.0-alpha.1`) |
+| 5 | Spiked Club | Tier 1 | Planned |
+| 6 | Heavy Greatsword | Tier 2 | Planned |
+| 7 | Poisoned Needle | Tier 2 | Planned |
+| 8 | Blunderbuss | Tier 2 | ✅ Implemented |
+| 9 | Iron Vanguard Shield | Tier 2 | Planned |
+| 10 | Smoke Bomb | Tier 2 | Planned |
+| 11 | Soul Reaper | Tier 3 | ✅ Implemented |
+| 12 | Tempest Bow | Tier 3 | ✅ Implemented |
+| 13 | Volcano Hammer | Tier 3 | ✅ Implemented |
+| 14 | Ender Rapier / Staff | Tier 3 | Planned |
+| 15 | Withering Katana | Tier 3 | Planned |
+
+---
+
+## 🛠️ Repair and Enchanting
+
+| Weapon | Repair Material | Enchantment Family |
 |---|---|---|
 | Volcano Hammer | Magma Cream | Mace-style |
 | Blunderbuss | Iron Ingot | Durability-compatible |
 | Soul Reaper | Diamond | Spear-like melee |
 | Tempest Bow | Copper Ingot | Bow |
+| Weighted Net | TBD | TBD |
+| Sling Pocket | TBD | TBD |
 
-Alpha builds may still receive balancing or compatibility changes.
+---
 
-## Requirements
+## 📋 Requirements
 
-- **Java 25**
-- **Minecraft 26.2**
-- **NeoForge 26.2.0.59**
-- **GeckoLib 5.5.3**
+- **Minecraft:** `26.2`
+- **NeoForge:** `26.2.0.59`
+- **Java:** `25`
+- **GeckoLib:** `5.5.4`
 
-## Build From Source
+---
 
-Windows PowerShell:
+## 🛠️ Build From Source
 
-```powershell
+To build the development JAR locally:
+
+```bash
+# On Linux / macOS:
+./gradlew build
+
+# On Windows PowerShell:
 .\gradlew.bat build
 ```
 
-To assemble the development JAR without running the full build lifecycle:
+The generated JAR will be located in `build/libs/`.
 
-```powershell
-.\gradlew.bat assemble
-```
+---
 
-The generated JAR is placed in:
+## 🔗 Official Links
 
-```text
-build/libs/
-```
+- **Modrinth (Primary Source of Truth):** [modrinth.com/mod/foxs-weapons](https://modrinth.com/mod/foxs-weapons)
+- **Source Code:** [github.com/The-Fox-369/foxs-weapons](https://github.com/The-Fox-369/foxs-weapons)
+- **Issue Tracker:** [github.com/The-Fox-369/foxs-weapons/issues](https://github.com/The-Fox-369/foxs-weapons/issues)
 
-## Links
+> **Testing Tip:** The target dummy is recommended for weapon testing. The Sulfur Cube tried. It was not effective.
 
-- [Modrinth](https://modrinth.com/mod/foxs-weapons)
-- [Wiki](https://github.com/The-Fox-369/foxs-weapons/wiki)
-- [Issues](https://github.com/The-Fox-369/foxs-weapons/issues)
+---
 
-## Testing Tip
+## 📄 License
 
-> **The dummy is recommended for weapon testing. The Sulfur Cube tried. It was not effective.**
-
-## License
-
-**All Rights Reserved**
+**All Rights Reserved** (See Addon & Usage Policy for third-party integration terms).
