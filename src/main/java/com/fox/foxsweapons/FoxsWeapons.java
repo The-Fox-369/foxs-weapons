@@ -2,20 +2,22 @@ package com.fox.foxsweapons;
 
 import com.fox.foxsweapons.config.WeaponStats;
 import com.fox.foxsweapons.effect.RopeBurnsEffect;
+import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 import com.fox.foxsweapons.item.BlunderbussItem;
+import com.fox.foxsweapons.item.IronVanguardShieldItem;
+import com.fox.foxsweapons.item.SlingPocketItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
 import com.fox.foxsweapons.item.WeightedNetItem;
 import com.fox.foxsweapons.network.BlunderbussNetwork;
-import com.fox.foxsweapons.entity.SlingStoneProjectile;
-import com.fox.foxsweapons.item.SlingPocketItem;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -29,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwingAnimationType;
+import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.Weapon;
@@ -38,6 +41,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.List;
+import java.util.Optional;
 
 @Mod(FoxsWeapons.MODID)
 public class FoxsWeapons {
@@ -51,10 +57,16 @@ public class FoxsWeapons {
             DeferredRegister.createEntities(MODID);
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
-            DeferredRegister.create(Registries.MOB_EFFECT, MODID);
+            DeferredRegister.create(
+                    Registries.MOB_EFFECT,
+                    MODID
+            );
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
-            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+            DeferredRegister.create(
+                    Registries.CREATIVE_MODE_TAB,
+                    MODID
+            );
 
     // =========================================================
     // VOLCANO HAMMER
@@ -65,15 +77,25 @@ public class FoxsWeapons {
                     "volcano_hammer",
                     VolcanoHammerItem::new,
                     p -> p
-                            .durability(WeaponStats.VOLCANO_HAMMER_DURABILITY)
+                            .durability(
+                                    WeaponStats.VOLCANO_HAMMER_DURABILITY
+                            )
                             .fireResistant()
-                            .repairable(Items.MAGMA_CREAM)
-                            .enchantable(WeaponStats.VOLCANO_HAMMER_ENCHANTABILITY)
-                            .rarity(Rarity.RARE)
-                            .attributes(meleeAttributes(
-                                    WeaponStats.VOLCANO_HAMMER_ATTACK_DAMAGE,
-                                    WeaponStats.VOLCANO_HAMMER_ATTACK_SPEED
-                            ))
+                            .repairable(
+                                    Items.MAGMA_CREAM
+                            )
+                            .enchantable(
+                                    WeaponStats.VOLCANO_HAMMER_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.RARE
+                            )
+                            .attributes(
+                                    meleeAttributes(
+                                            WeaponStats.VOLCANO_HAMMER_ATTACK_DAMAGE,
+                                            WeaponStats.VOLCANO_HAMMER_ATTACK_SPEED
+                                    )
+                            )
                             .component(
                                     DataComponents.WEAPON,
                                     new Weapon(1)
@@ -95,10 +117,18 @@ public class FoxsWeapons {
                     "blunderbuss",
                     BlunderbussItem::new,
                     p -> p
-                            .durability(WeaponStats.BLUNDERBUSS_DURABILITY)
-                            .repairable(Items.IRON_INGOT)
-                            .enchantable(WeaponStats.BLUNDERBUSS_ENCHANTABILITY)
-                            .rarity(Rarity.UNCOMMON)
+                            .durability(
+                                    WeaponStats.BLUNDERBUSS_DURABILITY
+                            )
+                            .repairable(
+                                    Items.IRON_INGOT
+                            )
+                            .enchantable(
+                                    WeaponStats.BLUNDERBUSS_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.UNCOMMON
+                            )
                             .component(
                                     DataComponents.SWING_ANIMATION,
                                     noVanillaSwing(
@@ -116,14 +146,24 @@ public class FoxsWeapons {
                     "soul_reaper",
                     SoulReaperItem::new,
                     p -> p
-                            .durability(WeaponStats.SOUL_REAPER_DURABILITY)
-                            .repairable(Items.DIAMOND)
-                            .enchantable(WeaponStats.SOUL_REAPER_ENCHANTABILITY)
-                            .rarity(Rarity.EPIC)
-                            .attributes(meleeAttributes(
-                                    WeaponStats.SOUL_REAPER_ATTACK_DAMAGE,
-                                    WeaponStats.SOUL_REAPER_ATTACK_SPEED
-                            ))
+                            .durability(
+                                    WeaponStats.SOUL_REAPER_DURABILITY
+                            )
+                            .repairable(
+                                    Items.DIAMOND
+                            )
+                            .enchantable(
+                                    WeaponStats.SOUL_REAPER_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.EPIC
+                            )
+                            .attributes(
+                                    meleeAttributes(
+                                            WeaponStats.SOUL_REAPER_ATTACK_DAMAGE,
+                                            WeaponStats.SOUL_REAPER_ATTACK_SPEED
+                                    )
+                            )
                             .component(
                                     DataComponents.WEAPON,
                                     new Weapon(1)
@@ -145,10 +185,18 @@ public class FoxsWeapons {
                     "tempest_bow",
                     TempestBowItem::new,
                     p -> p
-                            .durability(WeaponStats.TEMPEST_BOW_DURABILITY)
-                            .repairable(Items.COPPER_INGOT)
-                            .enchantable(WeaponStats.TEMPEST_BOW_ENCHANTABILITY)
-                            .rarity(Rarity.EPIC)
+                            .durability(
+                                    WeaponStats.TEMPEST_BOW_DURABILITY
+                            )
+                            .repairable(
+                                    Items.COPPER_INGOT
+                            )
+                            .enchantable(
+                                    WeaponStats.TEMPEST_BOW_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.EPIC
+                            )
             );
 
     // =========================================================
@@ -160,7 +208,9 @@ public class FoxsWeapons {
                     "sling_pocket",
                     SlingPocketItem::new,
                     p -> p
-                            .rarity(Rarity.COMMON)
+                            .rarity(
+                                    Rarity.COMMON
+                            )
             );
 
     public static final DeferredHolder<
@@ -192,13 +242,25 @@ public class FoxsWeapons {
                     "weighted_net",
                     WeightedNetItem::new,
                     p -> p
-                            .durability(WeaponStats.WEIGHTED_NET_DURABILITY)
-                            .repairable(Items.STRING)
-                            .enchantable(WeaponStats.WEIGHTED_NET_ENCHANTABILITY)
-                            .rarity(Rarity.UNCOMMON)
+                            .durability(
+                                    WeaponStats.WEIGHTED_NET_DURABILITY
+                            )
+                            .repairable(
+                                    Items.STRING
+                            )
+                            .enchantable(
+                                    WeaponStats.WEIGHTED_NET_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.UNCOMMON
+                            )
             );
 
-    public static final DeferredHolder<EntityType<?>, EntityType<WeightedNetProjectile>> WEIGHTED_NET_PROJECTILE =
+    public static final DeferredHolder<
+            EntityType<?>,
+            EntityType<WeightedNetProjectile>
+            > WEIGHTED_NET_PROJECTILE =
+
             ENTITY_TYPES.registerEntityType(
                     "weighted_net",
                     WeightedNetProjectile::new,
@@ -206,47 +268,239 @@ public class FoxsWeapons {
                     builder -> builder
                             .noLootTable()
                             .noSave()
-                            .sized(0.5F, 0.5F)
+                            .sized(
+                                    0.5F,
+                                    0.5F
+                            )
                             .clientTrackingRange(4)
                             .updateInterval(10)
             );
 
-    public static final DeferredHolder<MobEffect, RopeBurnsEffect> ROPE_BURNS =
+    public static final DeferredHolder<
+            MobEffect,
+            RopeBurnsEffect
+            > ROPE_BURNS =
+
             MOB_EFFECTS.register(
                     "rope_burns",
                     RopeBurnsEffect::new
             );
 
     // =========================================================
+    // IRON VANGUARD SHIELD
+    // =========================================================
+
+    public static final DeferredItem<IronVanguardShieldItem>
+            IRON_VANGUARD_SHIELD =
+
+            ITEMS.registerItem(
+                    "iron_vanguard_shield",
+                    IronVanguardShieldItem::new,
+                    p -> p
+                            /*
+                             * 600 durability.
+                             *
+                             * We are keeping this here for now
+                             * without changing WeaponStats.java.
+                             */
+                            .durability(
+                                    600
+                            )
+
+                            /*
+                             * Repair using Iron Ingots.
+                             */
+                            .repairable(
+                                    Items.IRON_INGOT
+                            )
+
+                            /*
+                             * No enchantable() call.
+                             *
+                             * The Iron Vanguard Shield itself
+                             * is intentionally not enchantable.
+                             */
+                            .rarity(
+                                    Rarity.UNCOMMON
+                            )
+
+                            /*
+                             * Weak melee capability.
+                             */
+                            .attributes(
+                                    meleeAttributes(
+                                            2.0,
+                                            -2.8
+                                    )
+                            )
+
+                            /*
+                             * Treat the item as a weapon so
+                             * hitting entities costs durability.
+                             */
+                            .component(
+                                    DataComponents.WEAPON,
+                                    new Weapon(1)
+                            )
+
+                            /*
+                             * Actual shield blocking behaviour.
+                             */
+                            .component(
+                                    DataComponents.BLOCKS_ATTACKS,
+                                    vanguardShieldBlocking()
+                            )
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> WEAPONS_TAB =
+    public static final DeferredHolder<
+            CreativeModeTab,
+            CreativeModeTab
+            > WEAPONS_TAB =
+
             CREATIVE_MODE_TABS.register(
                     "weapons",
                     () -> CreativeModeTab.builder()
-                            .title(Component.translatable("itemGroup.foxsweapons"))
-                            .withTabsBefore(CreativeModeTabs.COMBAT)
-                            .icon(FoxsWeapons::createTabIcon)
-                            .displayItems((parameters, output) -> {
-                                output.accept(VOLCANO_HAMMER.get());
-                                output.accept(BLUNDERBUSS.get());
-                                output.accept(SOUL_REAPER.get());
-                                output.accept(TEMPEST_BOW.get());
-                                output.accept(WEIGHTED_NET.get());
-                                output.accept(SLING_POCKET.get());
-                            })
+                            .title(
+                                    Component.translatable(
+                                            "itemGroup.foxsweapons"
+                                    )
+                            )
+                            .withTabsBefore(
+                                    CreativeModeTabs.COMBAT
+                            )
+                            .icon(
+                                    FoxsWeapons::createTabIcon
+                            )
+                            .displayItems(
+                                    (parameters, output) -> {
+
+                                        output.accept(
+                                                VOLCANO_HAMMER.get()
+                                        );
+
+                                        output.accept(
+                                                BLUNDERBUSS.get()
+                                        );
+
+                                        output.accept(
+                                                SOUL_REAPER.get()
+                                        );
+
+                                        output.accept(
+                                                TEMPEST_BOW.get()
+                                        );
+
+                                        output.accept(
+                                                WEIGHTED_NET.get()
+                                        );
+
+                                        output.accept(
+                                                SLING_POCKET.get()
+                                        );
+
+                                        output.accept(
+                                                IRON_VANGUARD_SHIELD.get()
+                                        );
+                                    }
+                            )
                             .build()
             );
 
-    public FoxsWeapons(IEventBus modEventBus) {
-        ITEMS.register(modEventBus);
-        ENTITY_TYPES.register(modEventBus);
-        MOB_EFFECTS.register(modEventBus);
-            CREATIVE_MODE_TABS.register(modEventBus);
+    // =========================================================
+    // CONSTRUCTOR
+    // =========================================================
+
+    public FoxsWeapons(
+            IEventBus modEventBus
+    ) {
+        ITEMS.register(
+                modEventBus
+        );
+
+        ENTITY_TYPES.register(
+                modEventBus
+        );
+
+        MOB_EFFECTS.register(
+                modEventBus
+        );
+
+        CREATIVE_MODE_TABS.register(
+                modEventBus
+        );
 
         modEventBus.addListener(
                 BlunderbussNetwork::registerPayloads
+        );
+    }
+
+    // =========================================================
+    // IRON VANGUARD SHIELD BLOCKING
+    // =========================================================
+
+    private static BlocksAttacks
+    vanguardShieldBlocking() {
+
+        return new BlocksAttacks(
+
+                /*
+                 * 0.25 seconds before blocking activates.
+                 */
+                0.25F,
+
+                /*
+                 * Cooldown multiplier if a weapon
+                 * disables the shield.
+                 */
+                1.0F,
+
+                /*
+                 * Block 100% of incoming damage
+                 * inside the 90-degree defensive arc.
+                 */
+                List.of(
+                        new BlocksAttacks.DamageReduction(
+                                90.0F,
+                                Optional.empty(),
+                                0.0F,
+                                1.0F
+                        )
+                ),
+
+                /*
+                 * Shield durability behaviour.
+                 *
+                 * Hits below 3 damage do not
+                 * consume shield durability.
+                 */
+                new BlocksAttacks.ItemDamageFunction(
+                        3.0F,
+                        1.0F,
+                        0.0F
+                ),
+
+                /*
+                 * No special bypass set for now.
+                 */
+                Optional.empty(),
+
+                /*
+                 * Block sound.
+                 */
+                Optional.of(
+                        SoundEvents.SHIELD_BLOCK
+                ),
+
+                /*
+                 * Disable / break sound.
+                 */
+                Optional.of(
+                        SoundEvents.SHIELD_BREAK
+                )
         );
     }
 
@@ -280,16 +534,31 @@ public class FoxsWeapons {
                 .build();
     }
 
-    private static SwingAnimation noVanillaSwing(int ticks) {
+    // =========================================================
+    // CUSTOM SWING
+    // =========================================================
+
+    private static SwingAnimation
+    noVanillaSwing(
+            int ticks
+    ) {
         return new SwingAnimation(
                 SwingAnimationType.NONE,
                 ticks
         );
     }
 
-    private static ItemStack createTabIcon() {
+    // =========================================================
+    // CREATIVE TAB ICON
+    // =========================================================
+
+    private static ItemStack
+    createTabIcon() {
+
         ItemStack icon =
-                VOLCANO_HAMMER.get().getDefaultInstance();
+                VOLCANO_HAMMER
+                        .get()
+                        .getDefaultInstance();
 
         icon.set(
                 DataComponents.ITEM_MODEL,

@@ -89,7 +89,7 @@ public final class WeaponStats {
     public static final double WEIGHTED_NET_SLACK_RANGE = 6.0;
 
     /** The tether snaps beyond this radius. */
-    public static final double WEIGHTED_NET_SNAP_RANGE = 12.0;
+    // public static final double WEIGHTED_NET_SNAP_RANGE = 12.0;
 
     public static final int WEIGHTED_NET_THROW_COOLDOWN = 12;
 

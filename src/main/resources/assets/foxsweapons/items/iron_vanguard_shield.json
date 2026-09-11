@@ -1,0 +1,20 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:special",
+      "base": "foxsweapons:item/iron_vanguard_shield",
+      "model": {
+        "type": "geckolib:geckolib"
+      }
+    },
+    "on_true": {
+      "type": "minecraft:special",
+      "base": "foxsweapons:item/iron_vanguard_shield_blocking",
+      "model": {
+        "type": "geckolib:geckolib"
+      }
+    },
+    "property": "minecraft:using_item"
+  }
+}

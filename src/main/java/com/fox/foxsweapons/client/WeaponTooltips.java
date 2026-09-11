@@ -221,6 +221,8 @@ public final class WeaponTooltips {
                             ChatFormatting.DARK_GRAY
                     )
             );
+
+            return;
         }
 
         // =====================================================
@@ -305,6 +307,60 @@ public final class WeaponTooltips {
                     4,
                     Component.translatable(
                             "tooltip.foxsweapons.sling_pocket.ammo"
+                    ).withStyle(
+                            ChatFormatting.DARK_GRAY
+                    )
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // IRON VANGUARD SHIELD
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.IRON_VANGUARD_SHIELD.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.iron_vanguard_shield.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.iron_vanguard_shield.block"
+                    ).withStyle(
+                            ChatFormatting.GOLD
+                    )
+            );
+
+            event.getToolTip().add(
+                    4,
+                    Component.translatable(
+                            "tooltip.foxsweapons.iron_vanguard_shield.passive"
+                    ).withStyle(
+                            ChatFormatting.BLUE
+                    )
+            );
+
+            event.getToolTip().add(
+                    5,
+                    Component.translatable(
+                            "tooltip.foxsweapons.iron_vanguard_shield.melee"
                     ).withStyle(
                             ChatFormatting.DARK_GRAY
                     )
