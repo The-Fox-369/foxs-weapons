@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "id": "foxsweapons:withering_katana"
+    },
+    "title": {
+      "translate": "advancement.foxsweapons.narutoo.title"
+    },
+    "description": {
+      "translate": "advancement.foxsweapons.narutoo.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtain_withering_katana": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "foxsweapons:withering_katana"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtain_withering_katana"
+    ]
+  ]
+}

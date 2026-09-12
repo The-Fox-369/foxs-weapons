@@ -6,6 +6,7 @@
   "item.foxsweapons.weighted_net": "Weighted Net",
   "item.foxsweapons.sling_pocket": "Sling Pocket",
   "item.foxsweapons.iron_vanguard_shield": "Iron Vanguard Shield",
+  "item.foxsweapons.withering_katana": "Withering Katana",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
 
@@ -43,5 +44,12 @@
   "tooltip.foxsweapons.iron_vanguard_shield.description": "A reinforced wooden shield built to hold the line.",
   "tooltip.foxsweapons.iron_vanguard_shield.block": "Hold right-click: Block incoming attacks",
   "tooltip.foxsweapons.iron_vanguard_shield.passive": "Offhand: Resistance I",
-  "tooltip.foxsweapons.iron_vanguard_shield.melee": "Main hand: Weak melee weapon"
+  "tooltip.foxsweapons.iron_vanguard_shield.melee": "Main hand: Weak melee weapon",
+
+  "tooltip.foxsweapons.withering_katana.description": "A corrupted katana saturated with Wither energy.",
+  "tooltip.foxsweapons.withering_katana.ability": "Melee hit: Wither II for 4 seconds",
+  "tooltip.foxsweapons.withering_katana.recipe_hint": "Forged with a Wither Skeleton Skull",
+
+  "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
+  "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."
 }

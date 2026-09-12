@@ -368,5 +368,50 @@ public final class WeaponTooltips {
 
             return;
         }
+
+        // =====================================================
+        // WITHERING KATANA
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.WITHERING_KATANA.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.withering_katana.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.withering_katana.ability"
+                    ).withStyle(
+                            ChatFormatting.DARK_PURPLE
+                    )
+            );
+
+            event.getToolTip().add(
+                    4,
+                    Component.translatable(
+                            "tooltip.foxsweapons.withering_katana.recipe_hint"
+                    ).withStyle(
+                            ChatFormatting.DARK_GRAY
+                    )
+            );
+
+            return;
+        }
     }
 }
