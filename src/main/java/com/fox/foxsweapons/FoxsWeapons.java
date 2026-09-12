@@ -12,6 +12,7 @@ import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
 import com.fox.foxsweapons.item.WeightedNetItem;
 import com.fox.foxsweapons.network.BlunderbussNetwork;
+import com.fox.foxsweapons.item.WitheringKatanaItem;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -353,6 +354,41 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // WITHERING KATANA
+    // =========================================================
+
+    public static final DeferredItem<WitheringKatanaItem>
+            WITHERING_KATANA =
+
+            ITEMS.registerItem(
+                    "withering_katana",
+                    WitheringKatanaItem::new,
+                    p -> p
+                            .durability(
+                                    WeaponStats.WITHERING_KATANA_DURABILITY
+                            )
+                            .repairable(
+                                    Items.NETHERITE_INGOT
+                            )
+                            .enchantable(
+                                    WeaponStats.WITHERING_KATANA_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.EPIC
+                            )
+                            .attributes(
+                                    meleeAttributes(
+                                            WeaponStats.WITHERING_KATANA_ATTACK_DAMAGE,
+                                            WeaponStats.WITHERING_KATANA_ATTACK_SPEED
+                                    )
+                            )
+                            .component(
+                                    DataComponents.WEAPON,
+                                    new Weapon(1)
+                            )
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -404,6 +440,9 @@ public class FoxsWeapons {
 
                                         output.accept(
                                                 IRON_VANGUARD_SHIELD.get()
+                                        );
+                                        output.accept(
+                                                WITHERING_KATANA.get()
                                         );
                                     }
                             )

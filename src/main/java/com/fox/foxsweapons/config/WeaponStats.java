@@ -97,8 +97,8 @@ public final class WeaponStats {
     public static final int ROPE_BURNS_DURATION_TICKS = 100;
 
     // =========================================================
-// SLING POCKET
-// =========================================================
+    // SLING POCKET
+    // =========================================================
 
     /**
      * Instant-fire primitive stone launcher.
@@ -121,4 +121,25 @@ public final class WeaponStats {
      * 8 ticks = 0.4 seconds.
      */
     public static final int SLING_POCKET_COOLDOWN = 8;
+
+    // =========================================================
+    // WITHERING KATANA
+    // =========================================================
+
+    public static final int WITHERING_KATANA_DURABILITY = 1250;
+    public static final int WITHERING_KATANA_ENCHANTABILITY = 15;
+
+    public static final double WITHERING_KATANA_ATTACK_DAMAGE = 11.0;
+    public static final double WITHERING_KATANA_ATTACK_SPEED = -2.6;
+
+    /**
+     * Four seconds at 20 ticks per second.
+     */
+    public static final int WITHERING_KATANA_WITHER_DURATION_TICKS = 80;
+
+    /**
+     * 0 = Wither I
+     * 1 = Wither II
+     */
+    public static final int WITHERING_KATANA_WITHER_AMPLIFIER = 1;
 }
