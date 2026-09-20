@@ -142,4 +142,29 @@ public final class WeaponStats {
      * 1 = Wither II
      */
     public static final int WITHERING_KATANA_WITHER_AMPLIFIER = 1;
+
+    // =========================================================
+    // SPIKED CLUB
+    // =========================================================
+
+    public static final int SPIKED_CLUB_DURABILITY = 400;
+    public static final int SPIKED_CLUB_ENCHANTABILITY = 10;
+
+    /**
+     * Moderate damage with a deliberately heavy attack speed.
+     */
+    public static final double SPIKED_CLUB_ATTACK_DAMAGE = 6.0;
+    public static final double SPIKED_CLUB_ATTACK_SPEED = -3.0;
+
+    /**
+     * 51 ticks = exactly 2.55 seconds.
+     */
+    public static final int SPIKED_CLUB_NAUSEA_DURATION_TICKS = 51;
+
+    /**
+     * Minecraft status-effect amplifiers are zero-based.
+     *
+     * 254 = Nausea 255.
+     */
+    public static final int SPIKED_CLUB_NAUSEA_AMPLIFIER = 254;
 }

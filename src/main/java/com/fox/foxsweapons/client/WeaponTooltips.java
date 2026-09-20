@@ -413,5 +413,41 @@ public final class WeaponTooltips {
 
             return;
         }
+
+        // =====================================================
+        // SPIKED CLUB
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.SPIKED_CLUB.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.spiked_club.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.spiked_club.ability"
+                    ).withStyle(
+                            ChatFormatting.DARK_GREEN
+                    )
+            );
+
+            return;
+        }
     }
 }

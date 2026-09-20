@@ -8,11 +8,12 @@ import com.fox.foxsweapons.item.BlunderbussItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
+import com.fox.foxsweapons.item.SpikedClubItem;
 import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
 import com.fox.foxsweapons.item.WeightedNetItem;
-import com.fox.foxsweapons.network.BlunderbussNetwork;
 import com.fox.foxsweapons.item.WitheringKatanaItem;
+import com.fox.foxsweapons.network.BlunderbussNetwork;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -298,55 +299,25 @@ public class FoxsWeapons {
                     "iron_vanguard_shield",
                     IronVanguardShieldItem::new,
                     p -> p
-                            /*
-                             * 600 durability.
-                             *
-                             * We are keeping this here for now
-                             * without changing WeaponStats.java.
-                             */
                             .durability(
                                     600
                             )
-
-                            /*
-                             * Repair using Iron Ingots.
-                             */
                             .repairable(
                                     Items.IRON_INGOT
                             )
-
-                            /*
-                             * No enchantable() call.
-                             *
-                             * The Iron Vanguard Shield itself
-                             * is intentionally not enchantable.
-                             */
                             .rarity(
                                     Rarity.UNCOMMON
                             )
-
-                            /*
-                             * Weak melee capability.
-                             */
                             .attributes(
                                     meleeAttributes(
                                             2.0,
                                             -2.8
                                     )
                             )
-
-                            /*
-                             * Treat the item as a weapon so
-                             * hitting entities costs durability.
-                             */
                             .component(
                                     DataComponents.WEAPON,
                                     new Weapon(1)
                             )
-
-                            /*
-                             * Actual shield blocking behaviour.
-                             */
                             .component(
                                     DataComponents.BLOCKS_ATTACKS,
                                     vanguardShieldBlocking()
@@ -380,6 +351,41 @@ public class FoxsWeapons {
                                     meleeAttributes(
                                             WeaponStats.WITHERING_KATANA_ATTACK_DAMAGE,
                                             WeaponStats.WITHERING_KATANA_ATTACK_SPEED
+                                    )
+                            )
+                            .component(
+                                    DataComponents.WEAPON,
+                                    new Weapon(1)
+                            )
+            );
+
+    // =========================================================
+    // SPIKED CLUB
+    // =========================================================
+
+    public static final DeferredItem<SpikedClubItem>
+            SPIKED_CLUB =
+
+            ITEMS.registerItem(
+                    "spiked_club",
+                    SpikedClubItem::new,
+                    p -> p
+                            .durability(
+                                    WeaponStats.SPIKED_CLUB_DURABILITY
+                            )
+                            .repairable(
+                                    Items.IRON_INGOT
+                            )
+                            .enchantable(
+                                    WeaponStats.SPIKED_CLUB_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.COMMON
+                            )
+                            .attributes(
+                                    meleeAttributes(
+                                            WeaponStats.SPIKED_CLUB_ATTACK_DAMAGE,
+                                            WeaponStats.SPIKED_CLUB_ATTACK_SPEED
                                     )
                             )
                             .component(
@@ -441,8 +447,13 @@ public class FoxsWeapons {
                                         output.accept(
                                                 IRON_VANGUARD_SHIELD.get()
                                         );
+
                                         output.accept(
                                                 WITHERING_KATANA.get()
+                                        );
+
+                                        output.accept(
+                                                SPIKED_CLUB.get()
                                         );
                                     }
                             )
@@ -486,21 +497,10 @@ public class FoxsWeapons {
 
         return new BlocksAttacks(
 
-                /*
-                 * 0.25 seconds before blocking activates.
-                 */
                 0.25F,
 
-                /*
-                 * Cooldown multiplier if a weapon
-                 * disables the shield.
-                 */
                 1.0F,
 
-                /*
-                 * Block 100% of incoming damage
-                 * inside the 90-degree defensive arc.
-                 */
                 List.of(
                         new BlocksAttacks.DamageReduction(
                                 90.0F,
@@ -510,33 +510,18 @@ public class FoxsWeapons {
                         )
                 ),
 
-                /*
-                 * Shield durability behaviour.
-                 *
-                 * Hits below 3 damage do not
-                 * consume shield durability.
-                 */
                 new BlocksAttacks.ItemDamageFunction(
                         3.0F,
                         1.0F,
                         0.0F
                 ),
 
-                /*
-                 * No special bypass set for now.
-                 */
                 Optional.empty(),
 
-                /*
-                 * Block sound.
-                 */
                 Optional.of(
                         SoundEvents.SHIELD_BLOCK
                 ),
 
-                /*
-                 * Disable / break sound.
-                 */
                 Optional.of(
                         SoundEvents.SHIELD_BREAK
                 )

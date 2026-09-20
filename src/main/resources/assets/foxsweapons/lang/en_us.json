@@ -7,6 +7,7 @@
   "item.foxsweapons.sling_pocket": "Sling Pocket",
   "item.foxsweapons.iron_vanguard_shield": "Iron Vanguard Shield",
   "item.foxsweapons.withering_katana": "Withering Katana",
+  "item.foxsweapons.spiked_club": "Spiked Club",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
 
@@ -49,6 +50,9 @@
   "tooltip.foxsweapons.withering_katana.description": "A corrupted katana saturated with Wither energy.",
   "tooltip.foxsweapons.withering_katana.ability": "Melee hit: Wither II for 4 seconds",
   "tooltip.foxsweapons.withering_katana.recipe_hint": "Forged with a Wither Skeleton Skull",
+
+  "tooltip.foxsweapons.spiked_club.description": "A welded metal club built for blunt-force persuasion.",
+  "tooltip.foxsweapons.spiked_club.ability": "Melee hit: Nausea 255 for 2.55 seconds",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."
