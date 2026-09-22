@@ -167,4 +167,29 @@ public final class WeaponStats {
      * 254 = Nausea 255.
      */
     public static final int SPIKED_CLUB_NAUSEA_AMPLIFIER = 254;
+
+    // =========================================================
+    // HEAVY GREATSWORD
+    // =========================================================
+
+    public static final int HEAVY_GREATSWORD_DURABILITY = 850;
+    public static final int HEAVY_GREATSWORD_ENCHANTABILITY = 10;
+
+    /**
+     * High damage, but intentionally very slow.
+     */
+    public static final double HEAVY_GREATSWORD_ATTACK_DAMAGE = 9.0;
+    public static final double HEAVY_GREATSWORD_ATTACK_SPEED = -3.3;
+
+    /**
+     * Successful direct melee hits can damage up to
+     * three additional nearby enemies.
+     */
+    public static final double HEAVY_GREATSWORD_CLEAVE_RADIUS = 2.5;
+
+    public static final float
+            HEAVY_GREATSWORD_CLEAVE_DAMAGE_MULTIPLIER = 0.50F;
+
+    public static final int
+            HEAVY_GREATSWORD_CLEAVE_MAX_TARGETS = 3;
 }

@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/heavy_greatsword",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

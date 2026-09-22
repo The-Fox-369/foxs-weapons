@@ -8,6 +8,7 @@
   "item.foxsweapons.iron_vanguard_shield": "Iron Vanguard Shield",
   "item.foxsweapons.withering_katana": "Withering Katana",
   "item.foxsweapons.spiked_club": "Spiked Club",
+  "item.foxsweapons.heavy_greatsword": "Heavy Greatsword",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
 
@@ -53,6 +54,9 @@
 
   "tooltip.foxsweapons.spiked_club.description": "A welded metal club built for blunt-force persuasion.",
   "tooltip.foxsweapons.spiked_club.ability": "Melee hit: Nausea 255 for 2.55 seconds",
+
+  "tooltip.foxsweapons.heavy_greatsword.description": "An oversized slab of steel built to cut through crowds.",
+  "tooltip.foxsweapons.heavy_greatsword.ability": "Melee hit: Cleaves up to 3 nearby targets for 50% damage",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."

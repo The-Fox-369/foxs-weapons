@@ -5,6 +5,7 @@ import com.fox.foxsweapons.effect.RopeBurnsEffect;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 import com.fox.foxsweapons.item.BlunderbussItem;
+import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
@@ -395,6 +396,41 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // HEAVY GREATSWORD
+    // =========================================================
+
+    public static final DeferredItem<HeavyGreatswordItem>
+            HEAVY_GREATSWORD =
+
+            ITEMS.registerItem(
+                    "heavy_greatsword",
+                    HeavyGreatswordItem::new,
+                    p -> p
+                            .durability(
+                                    WeaponStats.HEAVY_GREATSWORD_DURABILITY
+                            )
+                            .repairable(
+                                    Items.IRON_INGOT
+                            )
+                            .enchantable(
+                                    WeaponStats.HEAVY_GREATSWORD_ENCHANTABILITY
+                            )
+                            .rarity(
+                                    Rarity.UNCOMMON
+                            )
+                            .attributes(
+                                    meleeAttributes(
+                                            WeaponStats.HEAVY_GREATSWORD_ATTACK_DAMAGE,
+                                            WeaponStats.HEAVY_GREATSWORD_ATTACK_SPEED
+                                    )
+                            )
+                            .component(
+                                    DataComponents.WEAPON,
+                                    new Weapon(1)
+                            )
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -454,6 +490,10 @@ public class FoxsWeapons {
 
                                         output.accept(
                                                 SPIKED_CLUB.get()
+                                        );
+
+                                        output.accept(
+                                                HEAVY_GREATSWORD.get()
                                         );
                                     }
                             )
