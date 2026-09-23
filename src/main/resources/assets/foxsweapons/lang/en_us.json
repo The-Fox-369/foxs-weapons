@@ -9,6 +9,7 @@
   "item.foxsweapons.withering_katana": "Withering Katana",
   "item.foxsweapons.spiked_club": "Spiked Club",
   "item.foxsweapons.heavy_greatsword": "Heavy Greatsword",
+  "item.foxsweapons.chakram": "Chakram",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
 
@@ -57,6 +58,11 @@
 
   "tooltip.foxsweapons.heavy_greatsword.description": "An oversized slab of steel built to cut through crowds.",
   "tooltip.foxsweapons.heavy_greatsword.ability": "Melee hit: Cleaves up to 3 nearby targets for 50% damage",
+
+  "tooltip.foxsweapons.chakram.description": "An autonomous throwing blade with an alarming sense of direction.",
+  "tooltip.foxsweapons.chakram.ability": "Right-click: Hunt every reachable entity in range",
+  "tooltip.foxsweapons.chakram.loot": "Retrieves dropped items and XP before returning",
+  "tooltip.foxsweapons.chakram.navigation": "Cannot pass through solid blocks",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."

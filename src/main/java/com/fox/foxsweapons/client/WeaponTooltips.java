@@ -24,6 +24,7 @@ public final class WeaponTooltips {
     public static void onItemTooltip(
             ItemTooltipEvent event
     ) {
+
         ItemStack stack =
                 event.getItemStack();
 
@@ -448,6 +449,94 @@ public final class WeaponTooltips {
             );
 
             return;
+        }
+
+        // =====================================================
+        // HEAVY GREATSWORD
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.HEAVY_GREATSWORD.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.heavy_greatsword.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.heavy_greatsword.ability"
+                    ).withStyle(
+                            ChatFormatting.RED
+                    )
+            );
+
+            return;
+        }
+
+        // =====================================================
+        // CHAKRAM
+        // =====================================================
+
+        if (stack.is(FoxsWeapons.CHAKRAM.get())) {
+
+            event.getToolTip().add(
+                    1,
+                    Component.translatable(
+                            "tooltip.foxsweapons.brand"
+                    ).withStyle(
+                            ChatFormatting.DARK_RED
+                    )
+            );
+
+            event.getToolTip().add(
+                    2,
+                    Component.translatable(
+                            "tooltip.foxsweapons.chakram.description"
+                    ).withStyle(
+                            ChatFormatting.GRAY
+                    )
+            );
+
+            event.getToolTip().add(
+                    3,
+                    Component.translatable(
+                            "tooltip.foxsweapons.chakram.ability"
+                    ).withStyle(
+                            ChatFormatting.AQUA
+                    )
+            );
+
+            event.getToolTip().add(
+                    4,
+                    Component.translatable(
+                            "tooltip.foxsweapons.chakram.loot"
+                    ).withStyle(
+                            ChatFormatting.GOLD
+                    )
+            );
+
+            event.getToolTip().add(
+                    5,
+                    Component.translatable(
+                            "tooltip.foxsweapons.chakram.navigation"
+                    ).withStyle(
+                            ChatFormatting.DARK_GRAY
+                    )
+            );
         }
     }
 }

@@ -88,9 +88,6 @@ public final class WeaponStats {
     /** Tether is slack inside this radius. */
     public static final double WEIGHTED_NET_SLACK_RANGE = 6.0;
 
-    /** The tether snaps beyond this radius. */
-    // public static final double WEIGHTED_NET_SNAP_RANGE = 12.0;
-
     public static final int WEIGHTED_NET_THROW_COOLDOWN = 12;
 
     /** Five seconds at 20 ticks per second. */
@@ -100,26 +97,10 @@ public final class WeaponStats {
     // SLING POCKET
     // =========================================================
 
-    /**
-     * Instant-fire primitive stone launcher.
-     */
     public static final float SLING_POCKET_POWER = 1.75F;
-
     public static final float SLING_POCKET_INACCURACY = 1.0F;
-
-    /**
-     * Low direct damage. The main purpose is knockback.
-     */
     public static final float SLING_POCKET_DAMAGE = 2.0F;
-
-    /**
-     * Additional velocity applied to struck targets.
-     */
     public static final double SLING_POCKET_KNOCKBACK = 0.90;
-
-    /**
-     * 8 ticks = 0.4 seconds.
-     */
     public static final int SLING_POCKET_COOLDOWN = 8;
 
     // =========================================================
@@ -132,15 +113,7 @@ public final class WeaponStats {
     public static final double WITHERING_KATANA_ATTACK_DAMAGE = 11.0;
     public static final double WITHERING_KATANA_ATTACK_SPEED = -2.6;
 
-    /**
-     * Four seconds at 20 ticks per second.
-     */
     public static final int WITHERING_KATANA_WITHER_DURATION_TICKS = 80;
-
-    /**
-     * 0 = Wither I
-     * 1 = Wither II
-     */
     public static final int WITHERING_KATANA_WITHER_AMPLIFIER = 1;
 
     // =========================================================
@@ -150,22 +123,10 @@ public final class WeaponStats {
     public static final int SPIKED_CLUB_DURABILITY = 400;
     public static final int SPIKED_CLUB_ENCHANTABILITY = 10;
 
-    /**
-     * Moderate damage with a deliberately heavy attack speed.
-     */
     public static final double SPIKED_CLUB_ATTACK_DAMAGE = 6.0;
     public static final double SPIKED_CLUB_ATTACK_SPEED = -3.0;
 
-    /**
-     * 51 ticks = exactly 2.55 seconds.
-     */
     public static final int SPIKED_CLUB_NAUSEA_DURATION_TICKS = 51;
-
-    /**
-     * Minecraft status-effect amplifiers are zero-based.
-     *
-     * 254 = Nausea 255.
-     */
     public static final int SPIKED_CLUB_NAUSEA_AMPLIFIER = 254;
 
     // =========================================================
@@ -175,16 +136,9 @@ public final class WeaponStats {
     public static final int HEAVY_GREATSWORD_DURABILITY = 850;
     public static final int HEAVY_GREATSWORD_ENCHANTABILITY = 10;
 
-    /**
-     * High damage, but intentionally very slow.
-     */
     public static final double HEAVY_GREATSWORD_ATTACK_DAMAGE = 9.0;
     public static final double HEAVY_GREATSWORD_ATTACK_SPEED = -3.3;
 
-    /**
-     * Successful direct melee hits can damage up to
-     * three additional nearby enemies.
-     */
     public static final double HEAVY_GREATSWORD_CLEAVE_RADIUS = 2.5;
 
     public static final float
@@ -192,4 +146,40 @@ public final class WeaponStats {
 
     public static final int
             HEAVY_GREATSWORD_CLEAVE_MAX_TARGETS = 3;
+
+    // =========================================================
+    // CHAKRAM
+    // =========================================================
+
+    /**
+     * One successful survival throw consumes exactly
+     * one durability point.
+     */
+    public static final int CHAKRAM_DURABILITY = 1000;
+
+    /**
+     * First-pass enchantability value.
+     *
+     * Actual enchantment support is handled separately
+     * because projectile enchantment effects must use
+     * the thrown ItemStack.
+     */
+    public static final int CHAKRAM_ENCHANTABILITY = 12;
+
+    public static final double CHAKRAM_HUNT_RADIUS = 24.0D;
+    public static final float CHAKRAM_DAMAGE = 6.0F;
+
+    public static final double CHAKRAM_LAUNCH_SPEED = 0.85D;
+    public static final double CHAKRAM_TRAVEL_SPEED = 0.70D;
+
+    public static final int CHAKRAM_PATH_RECALC_INTERVAL_TICKS = 4;
+    public static final int CHAKRAM_PATH_MAX_NODES = 20000;
+
+    public static final double CHAKRAM_WAYPOINT_REACH = 0.22D;
+
+    /**
+     * Collection phase must remain quiet this long
+     * before the Chakram commits to returning.
+     */
+    public static final int CHAKRAM_LOOT_QUIET_TICKS = 10;
 }

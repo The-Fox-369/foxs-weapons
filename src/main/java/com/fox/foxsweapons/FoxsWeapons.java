@@ -2,9 +2,11 @@ package com.fox.foxsweapons;
 
 import com.fox.foxsweapons.config.WeaponStats;
 import com.fox.foxsweapons.effect.RopeBurnsEffect;
+import com.fox.foxsweapons.entity.ChakramProjectile;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 import com.fox.foxsweapons.item.BlunderbussItem;
+import com.fox.foxsweapons.item.ChakramItem;
 import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
@@ -51,13 +53,22 @@ import java.util.Optional;
 @Mod(FoxsWeapons.MODID)
 public class FoxsWeapons {
 
-    public static final String MODID = "foxsweapons";
+    public static final String MODID =
+            "foxsweapons";
+
+    // =========================================================
+    // REGISTRIES
+    // =========================================================
 
     public static final DeferredRegister.Items ITEMS =
-            DeferredRegister.createItems(MODID);
+            DeferredRegister.createItems(
+                    MODID
+            );
 
     public static final DeferredRegister.Entities ENTITY_TYPES =
-            DeferredRegister.createEntities(MODID);
+            DeferredRegister.createEntities(
+                    MODID
+            );
 
     public static final DeferredRegister<MobEffect> MOB_EFFECTS =
             DeferredRegister.create(
@@ -65,7 +76,9 @@ public class FoxsWeapons {
                     MODID
             );
 
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
+    public static final DeferredRegister<CreativeModeTab>
+            CREATIVE_MODE_TABS =
+
             DeferredRegister.create(
                     Registries.CREATIVE_MODE_TAB,
                     MODID
@@ -75,145 +88,180 @@ public class FoxsWeapons {
     // VOLCANO HAMMER
     // =========================================================
 
-    public static final DeferredItem<VolcanoHammerItem> VOLCANO_HAMMER =
+    public static final DeferredItem<VolcanoHammerItem>
+            VOLCANO_HAMMER =
+
             ITEMS.registerItem(
                     "volcano_hammer",
                     VolcanoHammerItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.VOLCANO_HAMMER_DURABILITY
-                            )
-                            .fireResistant()
-                            .repairable(
-                                    Items.MAGMA_CREAM
-                            )
-                            .enchantable(
-                                    WeaponStats.VOLCANO_HAMMER_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.RARE
-                            )
-                            .attributes(
-                                    meleeAttributes(
-                                            WeaponStats.VOLCANO_HAMMER_ATTACK_DAMAGE,
-                                            WeaponStats.VOLCANO_HAMMER_ATTACK_SPEED
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .VOLCANO_HAMMER_DURABILITY
                                     )
-                            )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
-                            .component(
-                                    DataComponents.SWING_ANIMATION,
-                                    noVanillaSwing(
-                                            WeaponStats.VOLCANO_HAMMER_SWING_TICKS
+                                    .fireResistant()
+                                    .repairable(
+                                            Items.MAGMA_CREAM
                                     )
-                            )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .VOLCANO_HAMMER_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.RARE
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    WeaponStats
+                                                            .VOLCANO_HAMMER_ATTACK_DAMAGE,
+
+                                                    WeaponStats
+                                                            .VOLCANO_HAMMER_ATTACK_SPEED
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
+                                    .component(
+                                            DataComponents.SWING_ANIMATION,
+
+                                            noVanillaSwing(
+                                                    WeaponStats
+                                                            .VOLCANO_HAMMER_SWING_TICKS
+                                            )
+                                    )
             );
 
     // =========================================================
     // BLUNDERBUSS
     // =========================================================
 
-    public static final DeferredItem<BlunderbussItem> BLUNDERBUSS =
+    public static final DeferredItem<BlunderbussItem>
+            BLUNDERBUSS =
+
             ITEMS.registerItem(
                     "blunderbuss",
                     BlunderbussItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.BLUNDERBUSS_DURABILITY
-                            )
-                            .repairable(
-                                    Items.IRON_INGOT
-                            )
-                            .enchantable(
-                                    WeaponStats.BLUNDERBUSS_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.UNCOMMON
-                            )
-                            .component(
-                                    DataComponents.SWING_ANIMATION,
-                                    noVanillaSwing(
-                                            WeaponStats.BLUNDERBUSS_SWING_TICKS
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .BLUNDERBUSS_DURABILITY
                                     )
-                            )
+                                    .repairable(
+                                            Items.IRON_INGOT
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .BLUNDERBUSS_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.UNCOMMON
+                                    )
+                                    .component(
+                                            DataComponents.SWING_ANIMATION,
+
+                                            noVanillaSwing(
+                                                    WeaponStats
+                                                            .BLUNDERBUSS_SWING_TICKS
+                                            )
+                                    )
             );
 
     // =========================================================
     // SOUL REAPER
     // =========================================================
 
-    public static final DeferredItem<SoulReaperItem> SOUL_REAPER =
+    public static final DeferredItem<SoulReaperItem>
+            SOUL_REAPER =
+
             ITEMS.registerItem(
                     "soul_reaper",
                     SoulReaperItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.SOUL_REAPER_DURABILITY
-                            )
-                            .repairable(
-                                    Items.DIAMOND
-                            )
-                            .enchantable(
-                                    WeaponStats.SOUL_REAPER_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.EPIC
-                            )
-                            .attributes(
-                                    meleeAttributes(
-                                            WeaponStats.SOUL_REAPER_ATTACK_DAMAGE,
-                                            WeaponStats.SOUL_REAPER_ATTACK_SPEED
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .SOUL_REAPER_DURABILITY
                                     )
-                            )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
-                            .component(
-                                    DataComponents.SWING_ANIMATION,
-                                    noVanillaSwing(
-                                            WeaponStats.SOUL_REAPER_SWING_TICKS
+                                    .repairable(
+                                            Items.DIAMOND
                                     )
-                            )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .SOUL_REAPER_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.EPIC
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    WeaponStats
+                                                            .SOUL_REAPER_ATTACK_DAMAGE,
+
+                                                    WeaponStats
+                                                            .SOUL_REAPER_ATTACK_SPEED
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
+                                    .component(
+                                            DataComponents.SWING_ANIMATION,
+
+                                            noVanillaSwing(
+                                                    WeaponStats
+                                                            .SOUL_REAPER_SWING_TICKS
+                                            )
+                                    )
             );
 
     // =========================================================
     // TEMPEST BOW
     // =========================================================
 
-    public static final DeferredItem<TempestBowItem> TEMPEST_BOW =
+    public static final DeferredItem<TempestBowItem>
+            TEMPEST_BOW =
+
             ITEMS.registerItem(
                     "tempest_bow",
                     TempestBowItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.TEMPEST_BOW_DURABILITY
-                            )
-                            .repairable(
-                                    Items.COPPER_INGOT
-                            )
-                            .enchantable(
-                                    WeaponStats.TEMPEST_BOW_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.EPIC
-                            )
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .TEMPEST_BOW_DURABILITY
+                                    )
+                                    .repairable(
+                                            Items.COPPER_INGOT
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .TEMPEST_BOW_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.EPIC
+                                    )
             );
 
     // =========================================================
     // SLING POCKET
     // =========================================================
 
-    public static final DeferredItem<SlingPocketItem> SLING_POCKET =
+    public static final DeferredItem<SlingPocketItem>
+            SLING_POCKET =
+
             ITEMS.registerItem(
                     "sling_pocket",
                     SlingPocketItem::new,
-                    p -> p
-                            .rarity(
-                                    Rarity.COMMON
-                            )
+                    properties ->
+                            properties
+                                    .rarity(
+                                            Rarity.COMMON
+                                    )
             );
 
     public static final DeferredHolder<
@@ -225,38 +273,48 @@ public class FoxsWeapons {
                     "sling_stone",
                     SlingStoneProjectile::new,
                     MobCategory.MISC,
-                    builder -> builder
-                            .noLootTable()
-                            .noSave()
-                            .sized(
-                                    0.25F,
-                                    0.25F
-                            )
-                            .clientTrackingRange(4)
-                            .updateInterval(10)
+                    builder ->
+                            builder
+                                    .noLootTable()
+                                    .noSave()
+                                    .sized(
+                                            0.25F,
+                                            0.25F
+                                    )
+                                    .clientTrackingRange(
+                                            4
+                                    )
+                                    .updateInterval(
+                                            10
+                                    )
             );
 
     // =========================================================
     // WEIGHTED NET
     // =========================================================
 
-    public static final DeferredItem<WeightedNetItem> WEIGHTED_NET =
+    public static final DeferredItem<WeightedNetItem>
+            WEIGHTED_NET =
+
             ITEMS.registerItem(
                     "weighted_net",
                     WeightedNetItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.WEIGHTED_NET_DURABILITY
-                            )
-                            .repairable(
-                                    Items.STRING
-                            )
-                            .enchantable(
-                                    WeaponStats.WEIGHTED_NET_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.UNCOMMON
-                            )
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .WEIGHTED_NET_DURABILITY
+                                    )
+                                    .repairable(
+                                            Items.STRING
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .WEIGHTED_NET_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.UNCOMMON
+                                    )
             );
 
     public static final DeferredHolder<
@@ -268,15 +326,20 @@ public class FoxsWeapons {
                     "weighted_net",
                     WeightedNetProjectile::new,
                     MobCategory.MISC,
-                    builder -> builder
-                            .noLootTable()
-                            .noSave()
-                            .sized(
-                                    0.5F,
-                                    0.5F
-                            )
-                            .clientTrackingRange(4)
-                            .updateInterval(10)
+                    builder ->
+                            builder
+                                    .noLootTable()
+                                    .noSave()
+                                    .sized(
+                                            0.5F,
+                                            0.5F
+                                    )
+                                    .clientTrackingRange(
+                                            4
+                                    )
+                                    .updateInterval(
+                                            10
+                                    )
             );
 
     public static final DeferredHolder<
@@ -299,30 +362,31 @@ public class FoxsWeapons {
             ITEMS.registerItem(
                     "iron_vanguard_shield",
                     IronVanguardShieldItem::new,
-                    p -> p
-                            .durability(
-                                    600
-                            )
-                            .repairable(
-                                    Items.IRON_INGOT
-                            )
-                            .rarity(
-                                    Rarity.UNCOMMON
-                            )
-                            .attributes(
-                                    meleeAttributes(
-                                            2.0,
-                                            -2.8
+                    properties ->
+                            properties
+                                    .durability(
+                                            600
                                     )
-                            )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
-                            .component(
-                                    DataComponents.BLOCKS_ATTACKS,
-                                    vanguardShieldBlocking()
-                            )
+                                    .repairable(
+                                            Items.IRON_INGOT
+                                    )
+                                    .rarity(
+                                            Rarity.UNCOMMON
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    2.0,
+                                                    -2.8
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
+                                    .component(
+                                            DataComponents.BLOCKS_ATTACKS,
+                                            vanguardShieldBlocking()
+                                    )
             );
 
     // =========================================================
@@ -335,29 +399,35 @@ public class FoxsWeapons {
             ITEMS.registerItem(
                     "withering_katana",
                     WitheringKatanaItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.WITHERING_KATANA_DURABILITY
-                            )
-                            .repairable(
-                                    Items.NETHERITE_INGOT
-                            )
-                            .enchantable(
-                                    WeaponStats.WITHERING_KATANA_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.EPIC
-                            )
-                            .attributes(
-                                    meleeAttributes(
-                                            WeaponStats.WITHERING_KATANA_ATTACK_DAMAGE,
-                                            WeaponStats.WITHERING_KATANA_ATTACK_SPEED
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .WITHERING_KATANA_DURABILITY
                                     )
-                            )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
+                                    .repairable(
+                                            Items.NETHERITE_INGOT
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .WITHERING_KATANA_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.EPIC
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    WeaponStats
+                                                            .WITHERING_KATANA_ATTACK_DAMAGE,
+
+                                                    WeaponStats
+                                                            .WITHERING_KATANA_ATTACK_SPEED
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
             );
 
     // =========================================================
@@ -370,29 +440,35 @@ public class FoxsWeapons {
             ITEMS.registerItem(
                     "spiked_club",
                     SpikedClubItem::new,
-                    p -> p
-                            .durability(
-                                    WeaponStats.SPIKED_CLUB_DURABILITY
-                            )
-                            .repairable(
-                                    Items.IRON_INGOT
-                            )
-                            .enchantable(
-                                    WeaponStats.SPIKED_CLUB_ENCHANTABILITY
-                            )
-                            .rarity(
-                                    Rarity.COMMON
-                            )
-                            .attributes(
-                                    meleeAttributes(
-                                            WeaponStats.SPIKED_CLUB_ATTACK_DAMAGE,
-                                            WeaponStats.SPIKED_CLUB_ATTACK_SPEED
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .SPIKED_CLUB_DURABILITY
                                     )
-                            )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
+                                    .repairable(
+                                            Items.IRON_INGOT
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .SPIKED_CLUB_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.COMMON
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    WeaponStats
+                                                            .SPIKED_CLUB_ATTACK_DAMAGE,
+
+                                                    WeaponStats
+                                                            .SPIKED_CLUB_ATTACK_SPEED
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
             );
 
     // =========================================================
@@ -405,29 +481,78 @@ public class FoxsWeapons {
             ITEMS.registerItem(
                     "heavy_greatsword",
                     HeavyGreatswordItem::new,
-                    p -> p
+                    properties ->
+                            properties
+                                    .durability(
+                                            WeaponStats
+                                                    .HEAVY_GREATSWORD_DURABILITY
+                                    )
+                                    .repairable(
+                                            Items.IRON_INGOT
+                                    )
+                                    .enchantable(
+                                            WeaponStats
+                                                    .HEAVY_GREATSWORD_ENCHANTABILITY
+                                    )
+                                    .rarity(
+                                            Rarity.UNCOMMON
+                                    )
+                                    .attributes(
+                                            meleeAttributes(
+                                                    WeaponStats
+                                                            .HEAVY_GREATSWORD_ATTACK_DAMAGE,
+
+                                                    WeaponStats
+                                                            .HEAVY_GREATSWORD_ATTACK_SPEED
+                                            )
+                                    )
+                                    .component(
+                                            DataComponents.WEAPON,
+                                            new Weapon(1)
+                                    )
+            );
+
+    // =========================================================
+    // CHAKRAM
+    // =========================================================
+
+    public static final DeferredItem<ChakramItem> CHAKRAM =
+            ITEMS.registerItem(
+                    "chakram",
+                    ChakramItem::new,
+                    properties -> properties
                             .durability(
-                                    WeaponStats.HEAVY_GREATSWORD_DURABILITY
+                                    WeaponStats.CHAKRAM_DURABILITY
                             )
                             .repairable(
                                     Items.IRON_INGOT
                             )
                             .enchantable(
-                                    WeaponStats.HEAVY_GREATSWORD_ENCHANTABILITY
+                                    WeaponStats.CHAKRAM_ENCHANTABILITY
                             )
                             .rarity(
-                                    Rarity.UNCOMMON
+                                    Rarity.RARE
                             )
-                            .attributes(
-                                    meleeAttributes(
-                                            WeaponStats.HEAVY_GREATSWORD_ATTACK_DAMAGE,
-                                            WeaponStats.HEAVY_GREATSWORD_ATTACK_SPEED
-                                    )
+            );
+
+    public static final DeferredHolder<
+            EntityType<?>,
+            EntityType<ChakramProjectile>
+            > CHAKRAM_PROJECTILE =
+
+            ENTITY_TYPES.registerEntityType(
+                    "chakram_projectile",
+                    ChakramProjectile::new,
+                    MobCategory.MISC,
+                    builder -> builder
+                            .noLootTable()
+                            .noSave()
+                            .sized(
+                                    0.90F,
+                                    0.22F
                             )
-                            .component(
-                                    DataComponents.WEAPON,
-                                    new Weapon(1)
-                            )
+                            .clientTrackingRange(8)
+                            .updateInterval(1)
             );
 
     // =========================================================
@@ -441,63 +566,69 @@ public class FoxsWeapons {
 
             CREATIVE_MODE_TABS.register(
                     "weapons",
-                    () -> CreativeModeTab.builder()
-                            .title(
-                                    Component.translatable(
-                                            "itemGroup.foxsweapons"
+                    () ->
+                            CreativeModeTab
+                                    .builder()
+                                    .title(
+                                            Component.translatable(
+                                                    "itemGroup.foxsweapons"
+                                            )
                                     )
-                            )
-                            .withTabsBefore(
-                                    CreativeModeTabs.COMBAT
-                            )
-                            .icon(
-                                    FoxsWeapons::createTabIcon
-                            )
-                            .displayItems(
-                                    (parameters, output) -> {
+                                    .withTabsBefore(
+                                            CreativeModeTabs.COMBAT
+                                    )
+                                    .icon(
+                                            FoxsWeapons::createTabIcon
+                                    )
+                                    .displayItems(
+                                            (parameters, output) -> {
 
-                                        output.accept(
-                                                VOLCANO_HAMMER.get()
-                                        );
+                                                output.accept(
+                                                        VOLCANO_HAMMER.get()
+                                                );
 
-                                        output.accept(
-                                                BLUNDERBUSS.get()
-                                        );
+                                                output.accept(
+                                                        BLUNDERBUSS.get()
+                                                );
 
-                                        output.accept(
-                                                SOUL_REAPER.get()
-                                        );
+                                                output.accept(
+                                                        SOUL_REAPER.get()
+                                                );
 
-                                        output.accept(
-                                                TEMPEST_BOW.get()
-                                        );
+                                                output.accept(
+                                                        TEMPEST_BOW.get()
+                                                );
 
-                                        output.accept(
-                                                WEIGHTED_NET.get()
-                                        );
+                                                output.accept(
+                                                        WEIGHTED_NET.get()
+                                                );
 
-                                        output.accept(
-                                                SLING_POCKET.get()
-                                        );
+                                                output.accept(
+                                                        SLING_POCKET.get()
+                                                );
 
-                                        output.accept(
-                                                IRON_VANGUARD_SHIELD.get()
-                                        );
+                                                output.accept(
+                                                        IRON_VANGUARD_SHIELD.get()
+                                                );
 
-                                        output.accept(
-                                                WITHERING_KATANA.get()
-                                        );
+                                                output.accept(
+                                                        WITHERING_KATANA.get()
+                                                );
 
-                                        output.accept(
-                                                SPIKED_CLUB.get()
-                                        );
+                                                output.accept(
+                                                        SPIKED_CLUB.get()
+                                                );
 
-                                        output.accept(
-                                                HEAVY_GREATSWORD.get()
-                                        );
-                                    }
-                            )
-                            .build()
+                                                output.accept(
+                                                        HEAVY_GREATSWORD.get()
+                                                );
+
+                                                output.accept(
+                                                        CHAKRAM.get()
+                                                );
+                                            }
+                                    )
+                                    .build()
             );
 
     // =========================================================
@@ -507,6 +638,7 @@ public class FoxsWeapons {
     public FoxsWeapons(
             IEventBus modEventBus
     ) {
+
         ITEMS.register(
                 modEventBus
         );
@@ -576,23 +708,29 @@ public class FoxsWeapons {
             double damage,
             double speed
     ) {
-        return ItemAttributeModifiers.builder()
+
+        return ItemAttributeModifiers
+                .builder()
                 .add(
                         Attributes.ATTACK_DAMAGE,
+
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
                                 damage,
                                 AttributeModifier.Operation.ADD_VALUE
                         ),
+
                         EquipmentSlotGroup.MAINHAND
                 )
                 .add(
                         Attributes.ATTACK_SPEED,
+
                         new AttributeModifier(
                                 Item.BASE_ATTACK_SPEED_ID,
                                 speed,
                                 AttributeModifier.Operation.ADD_VALUE
                         ),
+
                         EquipmentSlotGroup.MAINHAND
                 )
                 .build();
@@ -602,10 +740,10 @@ public class FoxsWeapons {
     // CUSTOM SWING
     // =========================================================
 
-    private static SwingAnimation
-    noVanillaSwing(
+    private static SwingAnimation noVanillaSwing(
             int ticks
     ) {
+
         return new SwingAnimation(
                 SwingAnimationType.NONE,
                 ticks
@@ -616,8 +754,7 @@ public class FoxsWeapons {
     // CREATIVE TAB ICON
     // =========================================================
 
-    private static ItemStack
-    createTabIcon() {
+    private static ItemStack createTabIcon() {
 
         ItemStack icon =
                 VOLCANO_HAMMER
@@ -626,6 +763,7 @@ public class FoxsWeapons {
 
         icon.set(
                 DataComponents.ITEM_MODEL,
+
                 Identifier.fromNamespaceAndPath(
                         MODID,
                         "fox_icon"
