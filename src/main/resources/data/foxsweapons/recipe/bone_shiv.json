@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:bone",
+  "result": {
+    "id": "foxsweapons:bone_shiv",
+    "count": 2
+  }
+}

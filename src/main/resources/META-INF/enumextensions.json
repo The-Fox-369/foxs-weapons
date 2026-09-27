@@ -35,6 +35,15 @@
         "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
         "field": "SLING_POCKET_POSE"
       }
+    },
+    {
+      "enum": "net/minecraft/client/model/HumanoidModel$ArmPose",
+      "name": "foxsweapons_BONE_SHIV",
+      "constructor": "(ZZLnet/neoforged/neoforge/client/IArmPoseTransformer;)V",
+      "parameters": {
+        "class": "com/fox/foxsweapons/client/animation/WeaponPlayerAnimations",
+        "field": "BONE_SHIV_POSE"
+      }
     }
   ]
 }

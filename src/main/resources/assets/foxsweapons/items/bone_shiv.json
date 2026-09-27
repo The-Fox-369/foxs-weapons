@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/bone_shiv",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}

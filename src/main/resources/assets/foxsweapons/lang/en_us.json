@@ -10,6 +10,7 @@
   "item.foxsweapons.spiked_club": "Spiked Club",
   "item.foxsweapons.heavy_greatsword": "Heavy Greatsword",
   "item.foxsweapons.chakram": "Chakram",
+  "item.foxsweapons.bone_shiv": "Bone Shiv",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
 
@@ -63,6 +64,10 @@
   "tooltip.foxsweapons.chakram.ability": "Right-click: Hunt every reachable entity in range",
   "tooltip.foxsweapons.chakram.loot": "Retrieves dropped items and XP before returning",
   "tooltip.foxsweapons.chakram.navigation": "Cannot pass through solid blocks",
+
+  "tooltip.foxsweapons.bone_shiv.description": "A crude bone blade made to be wielded in pairs.",
+  "tooltip.foxsweapons.bone_shiv.left_attack": "Left-click: Attack with left-hand Shiv",
+  "tooltip.foxsweapons.bone_shiv.right_attack": "Right-click: Attack with right-hand Shiv",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."

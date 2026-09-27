@@ -3,7 +3,9 @@ package com.fox.foxsweapons.client.animation;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+
 import net.minecraft.util.Mth;
+
 import net.minecraft.world.entity.HumanoidArm;
 
 import net.neoforged.fml.common.asm.enumextension.EnumProxy;
@@ -26,16 +28,42 @@ public final class WeaponPlayerAnimations {
     public static final EnumProxy<HumanoidModel.ArmPose> SLING_POCKET_POSE =
             pose(WeaponPlayerAnimations::applySlingPocketPose);
 
+    public static final EnumProxy<HumanoidModel.ArmPose> BONE_SHIV_POSE =
+            pose(WeaponPlayerAnimations::applyBoneShivPose);
+
+
+    // =========================================================
+    // BONE SHIV
+    // =========================================================
+
+    private static final float BONE_SHIV_ARM_ANGLE =
+            (float) Math.toRadians(
+                    -105.0D
+            );
+
+
+    /*
+     * Vanilla WHACK duration = 6 ticks.
+     *
+     * 20 ticks per second:
+     *
+     * 6 / 20 = 0.3 seconds.
+     */
+    private static final long BONE_SHIV_SWING_DURATION_NANOS =
+            300_000_000L;
+
+
+    private static long boneShivLeftSwingStart =
+            Long.MIN_VALUE;
+
+
+    private static long boneShivRightSwingStart =
+            Long.MIN_VALUE;
+
 
     // =========================================================
     // SOUL REAPER KEYFRAMES
     // =========================================================
-
-    /*
-     * These are player-arm poses, NOT item-model rotations.
-     *
-     * The item itself is positioned by soul_reaper.json.
-     */
 
     private static final SoulPose SOUL_IDLE = new SoulPose(
             -1.05F, -0.32F, 0.10F,
@@ -43,30 +71,21 @@ public final class WeaponPlayerAnimations {
             0.00F, -0.10F, 0.00F
     );
 
-    /*
-     * Pull the weapon behind the body.
-     */
+
     private static final SoulPose SOUL_WINDUP = new SoulPose(
             -1.55F, -0.85F, 0.30F,
             -1.40F, 0.88F, -0.24F,
             -0.06F, -0.28F, 0.10F
     );
 
-    /*
-     * Main cutting frame.
-     *
-     * Main arm travels across the body.
-     */
+
     private static final SoulPose SOUL_REAP = new SoulPose(
             -0.62F, 0.72F, -0.20F,
             -0.78F, -0.06F, 0.12F,
             0.07F, 0.28F, -0.12F
     );
 
-    /*
-     * Let the scythe continue past the target instead of
-     * instantly snapping back after impact.
-     */
+
     private static final SoulPose SOUL_FOLLOW_THROUGH = new SoulPose(
             -0.78F, 0.92F, -0.12F,
             -0.95F, -0.22F, 0.10F,
@@ -81,12 +100,265 @@ public final class WeaponPlayerAnimations {
     private static EnumProxy<HumanoidModel.ArmPose> pose(
             IArmPoseTransformer transformer
     ) {
+
         return new EnumProxy<>(
                 HumanoidModel.ArmPose.class,
                 true,
                 true,
                 transformer
         );
+    }
+
+
+    // =========================================================
+    // BONE SHIV SWING TIMER
+    // =========================================================
+
+    public static void startBoneShivSwing(
+            HumanoidArm arm
+    ) {
+
+        long now =
+                System.nanoTime();
+
+
+        if (arm == HumanoidArm.LEFT) {
+
+            boneShivLeftSwingStart =
+                    now;
+
+        } else {
+
+            boneShivRightSwingStart =
+                    now;
+        }
+    }
+
+
+    public static float getBoneShivSwingProgress(
+            HumanoidArm arm
+    ) {
+
+        long start =
+                arm == HumanoidArm.LEFT
+
+                        ? boneShivLeftSwingStart
+
+                        : boneShivRightSwingStart;
+
+
+        if (start == Long.MIN_VALUE) {
+
+            return 0.0F;
+        }
+
+
+        long elapsed =
+                System.nanoTime()
+                        - start;
+
+
+        if (elapsed < 0L
+                || elapsed
+                >= BONE_SHIV_SWING_DURATION_NANOS) {
+
+            if (arm == HumanoidArm.LEFT) {
+
+                boneShivLeftSwingStart =
+                        Long.MIN_VALUE;
+
+            } else {
+
+                boneShivRightSwingStart =
+                        Long.MIN_VALUE;
+            }
+
+
+            return 0.0F;
+        }
+
+
+        return Mth.clamp(
+                (float) elapsed
+                        / (float)
+                        BONE_SHIV_SWING_DURATION_NANOS,
+
+                0.0F,
+                1.0F
+        );
+    }
+
+
+    // =========================================================
+    // BONE SHIV PLAYER POSE
+    // =========================================================
+
+    private static void applyBoneShivPose(
+            HumanoidModel<?> model,
+            HumanoidRenderState state,
+            HumanoidArm ignoredArm
+    ) {
+
+        ModelPart leftArm =
+                model.leftArm;
+
+
+        ModelPart rightArm =
+                model.rightArm;
+
+
+        // -----------------------------------------------------
+        // REVERSE-GRIP IDLE
+        // -----------------------------------------------------
+
+        setArm(
+                leftArm,
+                BONE_SHIV_ARM_ANGLE,
+                0.0F,
+                0.0F
+        );
+
+
+        setArm(
+                rightArm,
+                BONE_SHIV_ARM_ANGLE,
+                0.0F,
+                0.0F
+        );
+
+
+        // -----------------------------------------------------
+        // PHYSICAL LEFT BONK
+        // -----------------------------------------------------
+
+        float leftSwing =
+                getBoneShivSwingProgress(
+                        HumanoidArm.LEFT
+                );
+
+
+        if (leftSwing > 0.0F) {
+
+            applyBoneShivWhack(
+                    model,
+                    leftArm,
+                    HumanoidArm.LEFT,
+                    leftSwing
+            );
+        }
+
+
+        // -----------------------------------------------------
+        // PHYSICAL RIGHT BONK
+        // -----------------------------------------------------
+
+        float rightSwing =
+                getBoneShivSwingProgress(
+                        HumanoidArm.RIGHT
+                );
+
+
+        if (rightSwing > 0.0F) {
+
+            applyBoneShivWhack(
+                    model,
+                    rightArm,
+                    HumanoidArm.RIGHT,
+                    rightSwing
+            );
+        }
+    }
+
+
+    private static void applyBoneShivWhack(
+            HumanoidModel<?> model,
+            ModelPart attackArm,
+            HumanoidArm arm,
+            float attackTime
+    ) {
+
+        /*
+         * Vanilla WHACK uses an ease-out-quart curve.
+         */
+
+        float inverse =
+                1.0F
+                        - attackTime;
+
+
+        float eased =
+                1.0F
+                        - inverse
+                        * inverse
+                        * inverse
+                        * inverse;
+
+
+        float mainSwing =
+                Mth.sin(
+                        eased
+                                * (float) Math.PI
+                );
+
+
+        float headCompensation =
+                Mth.sin(
+                        attackTime
+                                * (float) Math.PI
+                )
+
+                        * -(
+                        model.head.xRot
+                                - 0.7F
+                )
+
+                        * 0.75F;
+
+
+        float side =
+                arm == HumanoidArm.RIGHT
+                        ? 1.0F
+                        : -1.0F;
+
+
+        float bodyMotion =
+                Mth.sin(
+                        Mth.sqrt(
+                                attackTime
+                        )
+
+                                * (float)
+                                (Math.PI * 2.0D)
+                )
+
+                        * 0.2F
+                        * side;
+
+
+        attackArm.xRot -=
+                mainSwing
+                        * 1.2F
+                        + headCompensation;
+
+
+        attackArm.yRot +=
+                bodyMotion
+                        * 2.0F;
+
+
+        attackArm.zRot +=
+                Mth.sin(
+                        attackTime
+                                * (float) Math.PI
+                )
+
+                        * -0.4F
+                        * side;
+
+
+        model.body.yRot +=
+                bodyMotion
+                        * 0.35F;
     }
 
 
@@ -99,30 +371,45 @@ public final class WeaponPlayerAnimations {
             HumanoidRenderState state,
             HumanoidArm arm
     ) {
-        float t = attackTime(state);
+
+        float t =
+                attackTime(
+                        state
+                );
+
 
         ModelPart attackArm =
-                model.getArm(arm);
+                model.getArm(
+                        arm
+                );
+
 
         ModelPart supportArm =
-                model.getArm(arm.getOpposite());
+                model.getArm(
+                        arm.getOpposite()
+                );
+
 
         float side =
-                side(arm);
+                side(
+                        arm
+                );
 
-
-        // -----------------------------------------------------
-        // IDLE
-        // -----------------------------------------------------
 
         if (t <= 0.001F) {
 
             attackArm.xRot =
-                    attackArm.xRot * 0.5F
-                            - (float) Math.PI / 10.0F;
+                    attackArm.xRot
+                            * 0.5F
+
+                            - (float)
+                            Math.PI
+                            / 10.0F;
+
 
             attackArm.yRot =
                     0.0F;
+
 
             return;
         }
@@ -147,16 +434,13 @@ public final class WeaponPlayerAnimations {
                 supportArm.zRot;
 
 
-        // -----------------------------------------------------
-        // WINDUP
-        // -----------------------------------------------------
-
         if (t < 0.35F) {
 
             float p =
                     smooth(
                             t / 0.35F
                     );
+
 
             setArm(
                     attackArm,
@@ -170,15 +454,18 @@ public final class WeaponPlayerAnimations {
                     Mth.lerp(
                             p,
                             attackBaseY,
-                            -0.22F * side
+                            -0.22F
+                                    * side
                     ),
 
                     Mth.lerp(
                             p,
                             attackBaseZ,
-                            0.12F * side
+                            0.12F
+                                    * side
                     )
             );
+
 
             setArm(
                     supportArm,
@@ -192,45 +479,57 @@ public final class WeaponPlayerAnimations {
                     Mth.lerp(
                             p,
                             supportBaseY,
-                            0.82F * side
+                            0.82F
+                                    * side
                     ),
 
                     Mth.lerp(
                             p,
                             supportBaseZ,
-                            -0.28F * side
+                            -0.28F
+                                    * side
                     )
             );
 
+
             model.body.xRot +=
-                    -0.22F * p;
+                    -0.22F
+                            * p;
+
 
             model.body.yRot +=
-                    -0.20F * side * p;
+                    -0.20F
+                            * side
+                            * p;
+
 
             model.head.xRot +=
-                    -0.10F * p;
+                    -0.10F
+                            * p;
+
 
             model.rightLeg.xRot +=
-                    0.08F * p;
+                    0.08F
+                            * p;
+
 
             model.leftLeg.xRot +=
-                    -0.05F * p;
+                    -0.05F
+                            * p;
+
 
             return;
         }
 
 
-        // -----------------------------------------------------
-        // SLAM
-        // -----------------------------------------------------
-
         if (t < 0.62F) {
 
             float p =
                     smooth(
-                            (t - 0.35F) / 0.27F
+                            (t - 0.35F)
+                                    / 0.27F
                     );
+
 
             setArm(
                     attackArm,
@@ -243,16 +542,23 @@ public final class WeaponPlayerAnimations {
 
                     Mth.lerp(
                             p,
-                            -0.22F * side,
-                            0.08F * side
+                            -0.22F
+                                    * side,
+
+                            0.08F
+                                    * side
                     ),
 
                     Mth.lerp(
                             p,
-                            0.12F * side,
-                            -0.06F * side
+                            0.12F
+                                    * side,
+
+                            -0.06F
+                                    * side
                     )
             );
+
 
             setArm(
                     supportArm,
@@ -265,16 +571,23 @@ public final class WeaponPlayerAnimations {
 
                     Mth.lerp(
                             p,
-                            0.82F * side,
-                            0.52F * side
+                            0.82F
+                                    * side,
+
+                            0.52F
+                                    * side
                     ),
 
                     Mth.lerp(
                             p,
-                            -0.28F * side,
-                            -0.12F * side
+                            -0.28F
+                                    * side,
+
+                            -0.12F
+                                    * side
                     )
             );
+
 
             model.body.xRot +=
                     Mth.lerp(
@@ -283,12 +596,17 @@ public final class WeaponPlayerAnimations {
                             0.55F
                     );
 
+
             model.body.yRot +=
                     Mth.lerp(
                             p,
-                            -0.20F * side,
-                            0.12F * side
+                            -0.20F
+                                    * side,
+
+                            0.12F
+                                    * side
                     );
+
 
             model.head.xRot +=
                     Mth.lerp(
@@ -297,12 +615,14 @@ public final class WeaponPlayerAnimations {
                             0.25F
                     );
 
+
             model.rightLeg.xRot +=
                     Mth.lerp(
                             p,
                             0.08F,
                             0.18F
                     );
+
 
             model.leftLeg.xRot +=
                     Mth.lerp(
@@ -311,22 +631,26 @@ public final class WeaponPlayerAnimations {
                             0.10F
                     );
 
+
             return;
         }
 
 
-        // -----------------------------------------------------
-        // RECOVERY
-        // -----------------------------------------------------
-
         float p =
                 smooth(
-                        (t - 0.62F) / 0.38F
+                        (t - 0.62F)
+                                / 0.38F
                 );
 
+
         float idleAttackX =
-                attackBaseX * 0.5F
-                        - (float) Math.PI / 10.0F;
+                attackBaseX
+                        * 0.5F
+
+                        - (float)
+                        Math.PI
+                        / 10.0F;
+
 
         setArm(
                 attackArm,
@@ -339,16 +663,21 @@ public final class WeaponPlayerAnimations {
 
                 Mth.lerp(
                         p,
-                        0.08F * side,
+                        0.08F
+                                * side,
+
                         0.0F
                 ),
 
                 Mth.lerp(
                         p,
-                        -0.06F * side,
+                        -0.06F
+                                * side,
+
                         attackBaseZ
                 )
         );
+
 
         setArm(
                 supportArm,
@@ -361,16 +690,21 @@ public final class WeaponPlayerAnimations {
 
                 Mth.lerp(
                         p,
-                        0.52F * side,
+                        0.52F
+                                * side,
+
                         supportBaseY
                 ),
 
                 Mth.lerp(
                         p,
-                        -0.12F * side,
+                        -0.12F
+                                * side,
+
                         supportBaseZ
                 )
         );
+
 
         model.body.xRot +=
                 Mth.lerp(
@@ -379,12 +713,16 @@ public final class WeaponPlayerAnimations {
                         0.0F
                 );
 
+
         model.body.yRot +=
                 Mth.lerp(
                         p,
-                        0.12F * side,
+                        0.12F
+                                * side,
+
                         0.0F
                 );
+
 
         model.head.xRot +=
                 Mth.lerp(
@@ -393,12 +731,14 @@ public final class WeaponPlayerAnimations {
                         0.0F
                 );
 
+
         model.rightLeg.xRot +=
                 Mth.lerp(
                         p,
                         0.18F,
                         0.0F
                 );
+
 
         model.leftLeg.xRot +=
                 Mth.lerp(
@@ -418,44 +758,55 @@ public final class WeaponPlayerAnimations {
             HumanoidRenderState state,
             HumanoidArm arm
     ) {
+
         ModelPart triggerArm =
-                model.getArm(arm);
+                model.getArm(
+                        arm
+                );
+
 
         ModelPart supportArm =
-                model.getArm(arm.getOpposite());
+                model.getArm(
+                        arm.getOpposite()
+                );
+
 
         float side =
-                side(arm);
+                side(
+                        arm
+                );
 
-
-        // -----------------------------------------------------
-        // IDLE AIM
-        // -----------------------------------------------------
 
         setArm(
                 triggerArm,
                 -1.18F,
-                -0.12F * side,
-                0.05F * side
+                -0.12F
+                        * side,
+                0.05F
+                        * side
         );
+
 
         setArm(
                 supportArm,
                 -1.32F,
-                0.72F * side,
-                -0.18F * side
+                0.72F
+                        * side,
+                -0.18F
+                        * side
         );
 
+
         model.body.yRot +=
-                -0.10F * side;
+                -0.10F
+                        * side;
 
-
-        // -----------------------------------------------------
-        // RECOIL
-        // -----------------------------------------------------
 
         float t =
-                attackTime(state);
+                attackTime(
+                        state
+                );
+
 
         if (t <= 0.001F) {
             return;
@@ -463,6 +814,7 @@ public final class WeaponPlayerAnimations {
 
 
         float recoil;
+
 
         if (t < 0.18F) {
 
@@ -476,7 +828,8 @@ public final class WeaponPlayerAnimations {
             recoil =
                     1.0F
                             - smooth(
-                            (t - 0.18F) / 0.44F
+                            (t - 0.18F)
+                                    / 0.44F
                     );
 
         } else {
@@ -487,54 +840,62 @@ public final class WeaponPlayerAnimations {
 
 
         triggerArm.xRot -=
-                0.30F * recoil;
+                0.30F
+                        * recoil;
+
 
         triggerArm.yRot -=
-                0.03F * side * recoil;
+                0.03F
+                        * side
+                        * recoil;
 
 
         supportArm.xRot -=
-                0.34F * recoil;
+                0.34F
+                        * recoil;
+
 
         supportArm.yRot +=
-                0.08F * side * recoil;
+                0.08F
+                        * side
+                        * recoil;
+
 
         supportArm.zRot -=
-                0.03F * side * recoil;
+                0.03F
+                        * side
+                        * recoil;
 
 
         model.body.xRot -=
-                0.16F * recoil;
+                0.16F
+                        * recoil;
+
 
         model.body.yRot -=
-                0.04F * side * recoil;
+                0.04F
+                        * side
+                        * recoil;
+
 
         model.head.xRot +=
-                0.07F * recoil;
+                0.07F
+                        * recoil;
+
 
         model.rightLeg.xRot +=
-                0.035F * recoil;
+                0.035F
+                        * recoil;
+
 
         model.leftLeg.xRot -=
-                0.025F * recoil;
+                0.025F
+                        * recoil;
     }
 
 
     // =========================================================
     // SLING POCKET
-    // =========================================================
-    //
-    // Main hand holds the launcher forward.
-    //
-    // Support hand reaches toward the centre,
-    // as though the player has just pulled/released
-    // the elastic sling.
-    //
-    // NO charging animation.
-    // NO recoil animation.
-    // NO swing animation.
-    //
-    // Rock simply goes BONK.
     // =========================================================
 
     private static void applySlingPocketPose(
@@ -544,64 +905,51 @@ public final class WeaponPlayerAnimations {
     ) {
 
         ModelPart launcherArm =
-                model.getArm(arm);
+                model.getArm(
+                        arm
+                );
+
 
         ModelPart supportArm =
                 model.getArm(
                         arm.getOpposite()
                 );
 
+
         float side =
-                side(arm);
+                side(
+                        arm
+                );
 
-
-        // -----------------------------------------------------
-        // LAUNCHER ARM
-        //
-        // Mostly straight forward.
-        // -----------------------------------------------------
 
         setArm(
                 launcherArm,
-
                 -1.48F,
-
-                -0.10F * side,
-
-                0.04F * side
+                -0.10F
+                        * side,
+                0.04F
+                        * side
         );
 
-
-        // -----------------------------------------------------
-        // SUPPORT ARM
-        //
-        // Pulled inward toward the sling.
-        // -----------------------------------------------------
 
         setArm(
                 supportArm,
-
                 -1.20F,
-
-                0.48F * side,
-
-                -0.20F * side
+                0.48F
+                        * side,
+                -0.20F
+                        * side
         );
 
 
-        // -----------------------------------------------------
-        // BODY
-        //
-        // Small sideways turn toward the weapon.
-        // -----------------------------------------------------
-
         model.body.yRot +=
-                -0.07F * side;
+                -0.07F
+                        * side;
 
 
-        // Tiny head compensation.
         model.head.yRot +=
-                0.03F * side;
+                0.03F
+                        * side;
     }
 
 
@@ -614,22 +962,30 @@ public final class WeaponPlayerAnimations {
             HumanoidRenderState state,
             HumanoidArm arm
     ) {
+
         ModelPart attackArm =
-                model.getArm(arm);
+                model.getArm(
+                        arm
+                );
+
 
         ModelPart supportArm =
-                model.getArm(arm.getOpposite());
+                model.getArm(
+                        arm.getOpposite()
+                );
+
 
         float side =
-                side(arm);
+                side(
+                        arm
+                );
+
 
         float t =
-                attackTime(state);
+                attackTime(
+                        state
+                );
 
-
-        // -----------------------------------------------------
-        // IDLE
-        // -----------------------------------------------------
 
         if (t <= 0.001F) {
 
@@ -641,17 +997,10 @@ public final class WeaponPlayerAnimations {
                     SOUL_IDLE
             );
 
+
             return;
         }
 
-
-        // -----------------------------------------------------
-        // WINDUP
-        //
-        // 0% -> 18%
-        //
-        // Pull the scythe backward before the cut.
-        // -----------------------------------------------------
 
         if (t < 0.18F) {
 
@@ -661,6 +1010,7 @@ public final class WeaponPlayerAnimations {
                             0.00F,
                             0.18F
                     );
+
 
             applySoulPose(
                     model,
@@ -675,17 +1025,10 @@ public final class WeaponPlayerAnimations {
                     )
             );
 
+
             return;
         }
 
-
-        // -----------------------------------------------------
-        // REAP
-        //
-        // 18% -> 48%
-        //
-        // Fastest and largest part of the animation.
-        // -----------------------------------------------------
 
         if (t < 0.48F) {
 
@@ -695,6 +1038,7 @@ public final class WeaponPlayerAnimations {
                             0.18F,
                             0.48F
                     );
+
 
             applySoulPose(
                     model,
@@ -709,17 +1053,10 @@ public final class WeaponPlayerAnimations {
                     )
             );
 
+
             return;
         }
 
-
-        // -----------------------------------------------------
-        // FOLLOW THROUGH
-        //
-        // 48% -> 68%
-        //
-        // Weapon continues after hitting instead of snapping.
-        // -----------------------------------------------------
 
         if (t < 0.68F) {
 
@@ -729,6 +1066,7 @@ public final class WeaponPlayerAnimations {
                             0.48F,
                             0.68F
                     );
+
 
             applySoulPose(
                     model,
@@ -743,17 +1081,10 @@ public final class WeaponPlayerAnimations {
                     )
             );
 
+
             return;
         }
 
-
-        // -----------------------------------------------------
-        // RECOVERY
-        //
-        // 68% -> 100%
-        //
-        // Smoothly return exactly to idle.
-        // -----------------------------------------------------
 
         float p =
                 segment(
@@ -761,6 +1092,7 @@ public final class WeaponPlayerAnimations {
                         0.68F,
                         1.00F
                 );
+
 
         applySoulPose(
                 model,
@@ -778,7 +1110,7 @@ public final class WeaponPlayerAnimations {
 
 
     // =========================================================
-    // SOUL REAPER POSE HELPERS
+    // SOUL REAPER HELPERS
     // =========================================================
 
     private static void applySoulPose(
@@ -788,28 +1120,39 @@ public final class WeaponPlayerAnimations {
             float side,
             SoulPose pose
     ) {
+
         setArm(
                 attackArm,
                 pose.attackX(),
-                pose.attackY() * side,
-                pose.attackZ() * side
+                pose.attackY()
+                        * side,
+                pose.attackZ()
+                        * side
         );
+
 
         setArm(
                 supportArm,
                 pose.supportX(),
-                pose.supportY() * side,
-                pose.supportZ() * side
+                pose.supportY()
+                        * side,
+                pose.supportZ()
+                        * side
         );
+
 
         model.body.xRot +=
                 pose.bodyX();
 
+
         model.body.yRot +=
-                pose.bodyY() * side;
+                pose.bodyY()
+                        * side;
+
 
         model.head.yRot +=
-                pose.headY() * side;
+                pose.headY()
+                        * side;
     }
 
 
@@ -818,6 +1161,7 @@ public final class WeaponPlayerAnimations {
             SoulPose to,
             float progress
     ) {
+
         return new SoulPose(
                 Mth.lerp(
                         progress,
@@ -886,15 +1230,24 @@ public final class WeaponPlayerAnimations {
             float y,
             float z
     ) {
-        arm.xRot = x;
-        arm.yRot = y;
-        arm.zRot = z;
+
+        arm.xRot =
+                x;
+
+
+        arm.yRot =
+                y;
+
+
+        arm.zRot =
+                z;
     }
 
 
     private static float attackTime(
             HumanoidRenderState state
     ) {
+
         return Mth.clamp(
                 state.attackTime,
                 0.0F,
@@ -906,7 +1259,10 @@ public final class WeaponPlayerAnimations {
     private static float side(
             HumanoidArm arm
     ) {
-        return arm == HumanoidArm.RIGHT
+
+        return arm
+                == HumanoidArm.RIGHT
+
                 ? 1.0F
                 : -1.0F;
     }
@@ -917,6 +1273,7 @@ public final class WeaponPlayerAnimations {
             float start,
             float end
     ) {
+
         return smooth(
                 (value - start)
                         / (end - start)
@@ -924,24 +1281,26 @@ public final class WeaponPlayerAnimations {
     }
 
 
-    /*
-     * Faster acceleration during the actual Soul Reaper cut.
-     */
     private static float fastSegment(
             float value,
             float start,
             float end
     ) {
+
         float p =
                 Mth.clamp(
                         (value - start)
                                 / (end - start),
+
                         0.0F,
                         1.0F
                 );
 
+
         float inverse =
-                1.0F - p;
+                1.0F
+                        - p;
+
 
         return 1.0F
                 - inverse
@@ -953,6 +1312,7 @@ public final class WeaponPlayerAnimations {
     private static float smooth(
             float value
     ) {
+
         value =
                 Mth.clamp(
                         value,
@@ -960,11 +1320,14 @@ public final class WeaponPlayerAnimations {
                         1.0F
                 );
 
+
         return value
                 * value
+
                 * (
                 3.0F
-                        - 2.0F * value
+                        - 2.0F
+                        * value
         );
     }
 

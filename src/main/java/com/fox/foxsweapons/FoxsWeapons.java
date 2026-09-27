@@ -6,6 +6,7 @@ import com.fox.foxsweapons.entity.ChakramProjectile;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 import com.fox.foxsweapons.item.BlunderbussItem;
+import com.fox.foxsweapons.item.BoneShivItem;
 import com.fox.foxsweapons.item.ChakramItem;
 import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
@@ -556,6 +557,20 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // BONE SHIV
+    // =========================================================
+
+    public static final DeferredItem<BoneShivItem> BONE_SHIV =
+            ITEMS.registerItem(
+                    "bone_shiv",
+                    BoneShivItem::new,
+                    properties -> properties
+                            .rarity(
+                                    Rarity.COMMON
+                            )
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -625,6 +640,10 @@ public class FoxsWeapons {
 
                                                 output.accept(
                                                         CHAKRAM.get()
+                                                );
+
+                                                output.accept(
+                                                        BONE_SHIV.get()
                                                 );
                                             }
                                     )

@@ -28,7 +28,8 @@ public final class BlunderbussNetwork {
      */
 
     public static void registerPayloads(
-            RegisterPayloadHandlersEvent event) {
+            RegisterPayloadHandlersEvent event
+    ) {
 
         PayloadRegistrar registrar =
                 event.registrar("1");
@@ -60,6 +61,22 @@ public final class BlunderbussNetwork {
                                 true
                         )
         );
+
+        /*
+         * =====================================================
+         * BONE SHIV
+         * =====================================================
+         *
+         * Reuse the existing mod-network registration point.
+         *
+         * FoxsWeapons already registers this method on the
+         * mod event bus, so BoneShivNetwork does not need
+         * another listener in the main mod class.
+         */
+
+        BoneShivNetwork.registerPayloads(
+                registrar
+        );
     }
 
     /*
@@ -70,7 +87,8 @@ public final class BlunderbussNetwork {
 
     private static void handleFire(
             IPayloadContext context,
-            boolean burst) {
+            boolean burst
+    ) {
 
         if (!(context.player()
                 instanceof ServerPlayer player)) {
@@ -111,7 +129,8 @@ public final class BlunderbussNetwork {
 
         public static final StreamCodec<
                 RegistryFriendlyByteBuf,
-                SingleFirePayload> STREAM_CODEC =
+                SingleFirePayload
+                > STREAM_CODEC =
 
                 StreamCodec.unit(
                         new SingleFirePayload()
@@ -150,7 +169,8 @@ public final class BlunderbussNetwork {
 
         public static final StreamCodec<
                 RegistryFriendlyByteBuf,
-                BurstFirePayload> STREAM_CODEC =
+                BurstFirePayload
+                > STREAM_CODEC =
 
                 StreamCodec.unit(
                         new BurstFirePayload()

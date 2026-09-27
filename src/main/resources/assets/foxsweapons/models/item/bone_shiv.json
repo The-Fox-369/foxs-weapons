@@ -1,0 +1,81 @@
+{
+  "credit": "Made with Blockbench",
+  "parent": "builtin/entity",
+  "texture_size": [
+    32,
+    32
+  ],
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [
+        -92,
+        90,
+        -80
+      ],
+      "translation": [
+        0,
+        -3.75,
+        2
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        -92,
+        90,
+        -80
+      ],
+      "translation": [
+        0,
+        -3.75,
+        2
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        -33,
+        71,
+        -80
+      ],
+      "translation": [
+        -1.25,
+        10,
+        5.5
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        -33,
+        71,
+        -80
+      ],
+      "translation": [
+        -1.25,
+        10,
+        5.5
+      ],
+      "scale": [
+        0.45,
+        0.45,
+        0.45
+      ]
+    }
+  },
+  "textures": {
+    "particle": "foxsweapons:item/bone_shiv"
+  }
+}
