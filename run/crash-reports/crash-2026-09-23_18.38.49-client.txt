@@ -1,0 +1,376 @@
+---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 2026-09-23 18:38:49
+Description: Render Frame
+
+java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlCommandEncoder.validateDraw(GlCommandEncoder.java:506) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinGlCommandEncoder from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlCommandEncoder.executeDraws(GlCommandEncoder.java:541) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinGlCommandEncoder from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlRenderPass.multiDrawIndexed(GlRenderPass.java:163) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.GlRenderPassAccessor from mod sodium,APP:mixins.iris.json:MixinRenderPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.systems.RenderPass.multiDrawIndexed(RenderPass.java:227) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.RenderPassAccessor from mod sodium,APP:mixins.iris.json:MixinRenderPass3 from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.gpu.device.batch.GLDrawBatch.draw(GLDrawBatch.java:35) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.chunk.DefaultChunkRenderer.render(DefaultChunkRenderer.java:151) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinDefaultChunkRenderer from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer.renderLayer(SodiumWorldRenderer.java:301) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinSodiumWorldRenderer from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer.drawChunkLayer(SodiumWorldRenderer.java:291) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinSodiumWorldRenderer from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.chunk.ChunkSectionsToRender.handler$zzp000$sodium$renderGroup(ChunkSectionsToRender.java:537) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.render.world.ChunkSectionsToRenderMixin from mod sodium]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.chunk.ChunkSectionsToRender.renderGroup(ChunkSectionsToRender.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.render.world.ChunkSectionsToRenderMixin from mod sodium]}
+	at TRANSFORMER/iris@1.11.4+mc26.2/net.irisshaders.iris.shadows.ShadowRenderer.renderShadows(ShadowRenderer.java:521) ~[iris-neoforge-1.11.4+mc26.2.jar:?] {neoforge:mixin[APP:mixins.iris.forge.json:MixinShadowRenderer from mod iris]}
+	at TRANSFORMER/iris@1.11.4+mc26.2/net.irisshaders.iris.pipeline.IrisRenderingPipeline.renderShadows(IrisRenderingPipeline.java:1020) ~[iris-neoforge-1.11.4+mc26.2.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.LevelRenderer.handler$zff000$iris$renderTerrainShadows2(LevelRenderer.java:2822) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.vertexformat.json:immediate.MixinLevelRenderer from mod iris,APP:sodium-common.mixins.json:core.render.world.LevelRendererMixin from mod sodium,APP:mixins.iris.json:LevelRendererAccessor from mod iris,APP:mixins.iris.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:MixinLevelRenderer_Sky from mod iris,APP:mixins.iris.json:shadows.MixinLevelRenderer from mod iris,APP:mixins.iris.forge.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:shadows.MixinPreventRebuildNearInShadowPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.LevelRenderer.render(LevelRenderer.java:214) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.vertexformat.json:immediate.MixinLevelRenderer from mod iris,APP:sodium-common.mixins.json:core.render.world.LevelRendererMixin from mod sodium,APP:mixins.iris.json:LevelRendererAccessor from mod iris,APP:mixins.iris.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:MixinLevelRenderer_Sky from mod iris,APP:mixins.iris.json:shadows.MixinLevelRenderer from mod iris,APP:mixins.iris.forge.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:shadows.MixinPreventRebuildNearInShadowPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.mixinextras$bridge$render$81(GameRenderer.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.wrapOperation$zfm000$iris$renderLevel(GameRenderer.java:3880) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.wrapOperation$zfm000$iris$renderLevel$mixinextras$bridge$69(GameRenderer.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.renderLevel(GameRenderer.java:569) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.render(GameRenderer.java:429) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.renderFrame(Minecraft.java:1328) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.runTick(Minecraft.java:1230) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.run(Minecraft.java:928) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:294) [minecraft-patched-26.2.0.86.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.16.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlCommandEncoder.validateDraw(GlCommandEncoder.java:506) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinGlCommandEncoder from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlCommandEncoder.executeDraws(GlCommandEncoder.java:541) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinGlCommandEncoder from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.opengl.GlRenderPass.multiDrawIndexed(GlRenderPass.java:163) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.GlRenderPassAccessor from mod sodium,APP:mixins.iris.json:MixinRenderPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/com.mojang.blaze3d.systems.RenderPass.multiDrawIndexed(RenderPass.java:227) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.RenderPassAccessor from mod sodium,APP:mixins.iris.json:MixinRenderPass3 from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.gpu.device.batch.GLDrawBatch.draw(GLDrawBatch.java:35) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.chunk.DefaultChunkRenderer.render(DefaultChunkRenderer.java:151) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinDefaultChunkRenderer from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer.renderLayer(SodiumWorldRenderer.java:301) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinSodiumWorldRenderer from mod iris]}
+	at TRANSFORMER/sodium@0.9.2+mc26.2/net.caffeinemc.mods.sodium.client.render.SodiumWorldRenderer.drawChunkLayer(SodiumWorldRenderer.java:291) ~[net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.jar:?] {neoforge:mixin[APP:mixins.iris.compat.sodium.json:MixinSodiumWorldRenderer from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.chunk.ChunkSectionsToRender.handler$zzp000$sodium$renderGroup(ChunkSectionsToRender.java:537) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.render.world.ChunkSectionsToRenderMixin from mod sodium]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.chunk.ChunkSectionsToRender.renderGroup(ChunkSectionsToRender.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:mixin[APP:sodium-common.mixins.json:core.render.world.ChunkSectionsToRenderMixin from mod sodium]}
+	at TRANSFORMER/iris@1.11.4+mc26.2/net.irisshaders.iris.shadows.ShadowRenderer.renderShadows(ShadowRenderer.java:521) ~[iris-neoforge-1.11.4+mc26.2.jar:?] {neoforge:mixin[APP:mixins.iris.forge.json:MixinShadowRenderer from mod iris]}
+	at TRANSFORMER/iris@1.11.4+mc26.2/net.irisshaders.iris.pipeline.IrisRenderingPipeline.renderShadows(IrisRenderingPipeline.java:1020) ~[iris-neoforge-1.11.4+mc26.2.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.LevelRenderer.handler$zff000$iris$renderTerrainShadows2(LevelRenderer.java:2822) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.vertexformat.json:immediate.MixinLevelRenderer from mod iris,APP:sodium-common.mixins.json:core.render.world.LevelRendererMixin from mod sodium,APP:mixins.iris.json:LevelRendererAccessor from mod iris,APP:mixins.iris.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:MixinLevelRenderer_Sky from mod iris,APP:mixins.iris.json:shadows.MixinLevelRenderer from mod iris,APP:mixins.iris.forge.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:shadows.MixinPreventRebuildNearInShadowPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.LevelRenderer.render(LevelRenderer.java:214) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.vertexformat.json:immediate.MixinLevelRenderer from mod iris,APP:sodium-common.mixins.json:core.render.world.LevelRendererMixin from mod sodium,APP:mixins.iris.json:LevelRendererAccessor from mod iris,APP:mixins.iris.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:MixinLevelRenderer_Sky from mod iris,APP:mixins.iris.json:shadows.MixinLevelRenderer from mod iris,APP:mixins.iris.forge.json:MixinLevelRenderer from mod iris,APP:mixins.iris.json:shadows.MixinPreventRebuildNearInShadowPass from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.mixinextras$bridge$render$81(GameRenderer.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.wrapOperation$zfm000$iris$renderLevel(GameRenderer.java:3880) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.wrapOperation$zfm000$iris$renderLevel$mixinextras$bridge$69(GameRenderer.java) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.renderLevel(GameRenderer.java:569) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.renderer.GameRenderer.render(GameRenderer.java:429) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:sodium-common.mixins.json:core.render.frustum.GameRendererAccessor from mod sodium,APP:sodium-common.mixins.json:core.render.world.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.console.GameRendererMixin from mod sodium,APP:sodium-common.mixins.json:workarounds.window_minimized_state.GameRendererMixin from mod sodium,APP:mixins.iris.json:GameRendererAccessor from mod iris,APP:mixins.iris.json:MixinGameRenderer from mod iris,APP:mixins.iris.json:MixinModelViewBobbing from mod iris,APP:mixins.iris.json:MixinGameRenderer_NightVisionCompat from mod iris]}
+-- Render Frame Details --
+Details:
+	Modules: 
+		ADVAPI32.dll:Advanced Windows 32 Base API:10.0.26100.3624 (WinBuild.160101.0800):Microsoft Corporation
+		AUDIOSES.DLL:Audio Session:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		AVRT.dll:Multimedia Realtime Runtime:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		COMCTL32.dll:User Experience Controls Library:6.10 (WinBuild.160101.0800):Microsoft Corporation
+		COMDLG32.dll:Common Dialogs DLL:10.0.26100.8117 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPT32.dll:Crypto API32:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTBASE.DLL:Base cryptographic API DLL:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTSP.dll:Cryptographic Service Provider API:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		CoreMessaging.dll:Microsoft CoreMessaging Dll:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		CoreUIComponents.dll:Microsoft Core UI Components Dll:10.0.26100.9278:Microsoft Corporation
+		DBGHELP.DLL:Windows Image Helper:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		DEVOBJ.dll:Device Information Set DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		DNSAPI.dll:DNS Client API DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		DSPARSE.dll:Active Directory Domain Services API:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		DWrite.dll:Microsoft DirectX Typography Services:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		GDI32.dll:GDI Client DLL:10.0.26100.8328 (WinBuild.160101.0800):Microsoft Corporation
+		GLU32.dll:OpenGL Utility Library DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		IMM32.DLL:Multi-User Windows IMM32 API Client DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		IPHLPAPI.DLL:IP Helper API:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		KERNEL32.DLL:Windows NT BASE API Client DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		KERNELBASE.dll:Windows NT BASE API Client DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		MMDevApi.dll:MMDevice API:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		MSCTF.dll:MSCTF Server DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		MpOav.dll:IOfficeAntiVirus Module:4.18.26080.4 (ccacee407da609d5c2c557d13db39624e32a0227):Microsoft Corporation
+		NSI.dll:NSI User-mode interface DLL:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		NTASN1.dll:Microsoft ASN.1 API:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		OLEAUT32.dll:OLEAUT32.DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		OpenAL.dll:Main implementation library:1.25.1:
+		POWRPROF.dll:Power Profile Helper DLL:10.0.26100.8117 (WinBuild.160101.0800):Microsoft Corporation
+		PSAPI.DLL:Process Status Helper:10.0.26100.8521 (WinBuild.160101.0800):Microsoft Corporation
+		RPCRT4.dll:Remote Procedure Call Runtime:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		SHCORE.dll:SHCORE:10.0.26100.8117 (WinBuild.160101.0800):Microsoft Corporation
+		SHELL32.dll:Windows Shell Common Dll:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		SspiCli.dll:Security Support Provider Interface:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		UMPDC.dll:User Mode Power Dependency Coordinator:10.0.26100.8972 (WinBuild.160101.0800):Microsoft Corporation
+		USER32.dll:Multi-User Windows USER API Client DLL:10.0.26100.8117 (WinBuild.160101.0800):Microsoft Corporation
+		USERENV.dll:Userenv:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		USP10.dll:Uniscribe Unicode script processor:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		VCRUNTIME140.dll:Microsoft® C Runtime Library:14.40.33810.0:Microsoft Corporation
+		VERSION.dll:Version Checking and File Installation Libraries:10.0.26100.1150 (WinBuild.160101.0800):Microsoft Corporation
+		WINMM.dll:MCI API DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		WINSTA.dll:Winstation Library:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		WS2_32.dll:Windows Socket 2.0 32-Bit DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		Wtsapi32.dll:Windows Remote Desktop Session Host Server SDK APIs:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		amsi.dll:Anti-Malware Scan Interface:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		bcrypt.dll:Windows Cryptographic Primitives Library:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		bcryptPrimitives.dll:Windows Cryptographic Primitives Library:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		cfgmgr32.dll:Configuration Manager DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		clbcatq.dll:COM+ Configuration Catalog:2001.12.10941.16384 (WinBuild.160101.0800):Microsoft Corporation
+		combase.dll:Microsoft COM for Windows:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		dbgcore.DLL:Windows Core Debugging Helpers:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		dinput8.dll:Microsoft DirectInput:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		directxdatabasehelper.dll:DirectXDatabaseHelper:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		dwmapi.dll:Microsoft Desktop Window Manager API:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		dxcore.dll:DXCore:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		dxgi.dll:DirectX Graphics Infrastructure:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		extnet.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		fastprox.dll:WMI Custom Marshaller:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		freetype.dll:Font Rendering Library:2.14.1:The FreeType Project
+		fwpuclnt.dll:FWP/IPsec User-Mode API:10.0.26100.3915 (WinBuild.160101.0800):Microsoft Corporation
+		gdi32full.dll:GDI Client DLL:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		glfw.dll:GLFW 3.5.0 DLL:3.5.0:GLFW
+		icm32.dll:Microsoft Color Management Module (CMM):10.0.26100.9168 (WinBuild.160101.0800):Microsoft Corporation
+		ig11icd64.dll:OpenGL(R) Driver for Intel(R) Graphics Accelerator:27.20.100.9664:Intel Corporation
+		igc64.dll:Intel Graphics Shader Compiler for Intel(R) Graphics Accelerator:27.20.100.9664:Intel Corporation
+		igdgmm64.dll:User Mode Driver for Intel(R) Graphics Technology:27.20.100.9664:Intel Corporation
+		igdml64.dll:Metrics Library for Intel(R) Graphics Technology:27.20.100.9664:Intel Corporation
+		inputhost.dll:InputHost:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		java.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		java.exe:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		jemalloc.dll
+		jimage.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		jli.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		jna6716249280976072696.dll:JNA native library:7.0.2:Java(TM) Native Access (JNA)
+		jvm.dll:OpenJDK 64-Bit server VM:25.0.4.0:Eclipse Adoptium
+		kernel.appcore.dll:AppModel API Host:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		lwjgl.dll
+		lwjgl_opengl.dll
+		lwjgl_stb.dll
+		lwjgl_tinyfd.dll
+		lwjgl_vma.dll
+		management.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		management_ext.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		mscms.dll:Microsoft Color Matching System DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		msvcp140.dll:Microsoft® C Runtime Library:14.40.33810.0:Microsoft Corporation
+		msvcp_win.dll:Microsoft® C Runtime Library:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		msvcrt.dll:Windows NT CRT DLL:7.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		mswsock.dll:Microsoft Windows Sockets 2.0 Service Provider:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		napinsp.dll:E-mail Naming Shim Provider:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		ncrypt.dll:Windows NCrypt Router:10.0.26100.1591 (WinBuild.160101.0800):Microsoft Corporation
+		net.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		nio.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		nlansp_c.dll:NLA Namespace Service Provider DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		ntdll.dll:NT Layer DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		ole32.dll:Microsoft OLE for Windows:10.0.26100.6725 (WinBuild.160101.0800):Microsoft Corporation
+		opengl32.dll:OpenGL Client DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		pdh.dll:Windows Performance Data Helper DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		perfos.dll:Windows System Performance Objects DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		perfproc.dll:Windows System Process Performance Objects DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		pfclient.dll:SysMain Client:10.0.26100.4202 (WinBuild.160101.0800):Microsoft Corporation
+		profapi.dll:User Profile Basic API:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		rasadhlp.dll:Remote Access AutoDial Helper:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		resourcepolicyclient.dll:Resource Policy Client:10.0.26100.8115 (WinBuild.160101.0800):Microsoft Corporation
+		rsaenh.dll:Microsoft Enhanced Cryptographic Provider:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		sapi.dll:Speech API:5.3.29131.00 (WinBuild.160101.0800):Microsoft Corporation
+		sechost.dll:Host for SCM/SDDL/LSA Lookup APIs:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		shaderc.dll
+		shlwapi.dll:Shell Light-weight Utility Library:10.0.26100.8117 (WinBuild.160101.0800):Microsoft Corporation
+		spirv-cross.dll
+		sunmscapi.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		textinputframework.dll:"TextInputFramework.DYNLINK":10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		ucrtbase.dll:Microsoft® C Runtime Library:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		uxtheme.dll:Microsoft UxTheme Library:10.0.26100.7019 (WinBuild.160101.0800):Microsoft Corporation
+		vcruntime140_1.dll:Microsoft® C Runtime Library:14.40.33810.0:Microsoft Corporation
+		verify.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+		vulkan-1.dll:Vulkan Loader:1.3.300.0:
+		wbemcomn.dll:WMI:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		wbemprox.dll:WMI:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		wbemsvc.dll:WMI:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		win32u.dll:Win32u:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		windows.staterepositorycore.dll:Windows StateRepository API Core:10.0.26100.9444 (WinBuild.160101.0800):Microsoft Corporation
+		windows.storage.dll:Microsoft WinRT Storage API:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		winrnr.dll:LDAP RnR Provider DLL:10.0.26100.9278 (WinBuild.160101.0800):Microsoft Corporation
+		wintypes.dll:Windows Base Types DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		wshbth.dll:Windows Sockets Helper DLL:10.0.26100.8875 (WinBuild.160101.0800):Microsoft Corporation
+		wshunix.dll:AF_UNIX Winsock2 Helper DLL:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		xinput1_4.dll:Microsoft Common Controller API:10.0.26100.8457 (WinBuild.160101.0800):Microsoft Corporation
+		zip.dll:OpenJDK Platform binary:25.0.4.0:Eclipse Adoptium
+Stacktrace:
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.runTick(Minecraft.java:1230) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.run(Minecraft.java:928) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:294) [minecraft-patched-26.2.0.86.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.16.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+
+
+-- Uptime --
+Details:
+	JVM uptime: 231.893s
+	Wall uptime: 181.741s
+	High-res time: 227.905s
+	Client ticks: 2516 ticks / 125.800s
+Stacktrace:
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.fillReport(Minecraft.java:2446) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.emergencySaveAndCrash(Minecraft.java:975) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.Minecraft.run(Minecraft.java:948) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer,neoforge:access_transformer,neoforge:mixin[APP:mixins.iris.json:MixinOptions_Entrypoint from mod iris,APP:sodium-common.mixins.json:core.MinecraftMixin from mod sodium,APP:sodium-common.mixins.json:features.gui.hooks.debug.MinecraftRenderFrameMixin from mod sodium,APP:sodium-neoforge.mixins.json:platform.neoforge.EntrypointMixin from mod sodium,APP:mixins.iris.json:MixinMinecraft_Images from mod iris,APP:mixins.iris.json:MixinMinecraft_Keybinds from mod iris,APP:mixins.iris.json:MixinMinecraft_PipelineManagement from mod iris,APP:architectury.mixins.json:MixinMinecraft from mod architectury]}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:294) [minecraft-patched-26.2.0.86.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.16.jar:11.0] {}
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) ~[?:?] {}
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) ~[?:?] {}
+	at net.neoforged.devlaunch.Main.main(Main.java:57) [DevLaunch-1.0.2.jar:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 1 total; LocalPlayer{name=Dev, id=16, pos=(82.56400296820937, 7.287409997887499, -505.0978395695542), mode=CREATIVE, permission=owner}
+	Chunk stats: 529, 169
+	Level dimension: minecraft:overworld
+	Level time: 559356 game time, 247984 day time
+	Level spawn location: World: (0,0,0), Section: (at 0,0,0 in 0,0,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Server brand: neoforge
+	Server type: Integrated singleplayer server
+	Tracked entity count: 35
+	Client weather: Raining: false, thundering: false
+
+-- Last reload --
+Details:
+	Reload number: 1
+	Reload reason: initial
+	Finished: Yes
+	Packs: vanilla, mod_resources, mod/sodium, mod/better_modlist, mod/placeholder_api, mod/iris, mod/roughlyenoughitems, mod/cloth_config, mod/geckolib, mod/architectury, mod/neoforge, mod/foxsweapons
+
+-- System Details --
+Details:
+	Minecraft Version: 26.2
+	Minecraft Version ID: 26.2
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 25.0.4, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 231325424 bytes (220 MiB) / 811597824 bytes (774 MiB) up to 4236247040 bytes (4040 MiB)
+	Memory (heap): init: 254MiB, used: 551MiB, committed: 774MiB, max: 4040MiB
+	Memory (non-head): init: 007MiB, used: 259MiB, committed: 262MiB, max: 000MiB
+	CPUs: 8
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
+	Identifier: Intel64 Family 6 Model 126 Stepping 5
+	Microarchitecture: Ice Lake (Client)
+	Frequency (GHz): 1.19
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 8
+	Graphics card #0 name: Intel(R) UHD Graphics
+	Graphics card #0 vendor: Intel Corporation
+	Graphics card #0 VRAM (MiB): 1024.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 27.20.100.9664
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 3.20
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 24863.99
+	Virtual memory used (MiB): 21821.13
+	Swap memory total (MiB): 8704.00
+	Swap memory used (MiB): 1622.52
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 42738.36, total: 363029.00
+	Space in storage for workdir (MiB): available: 14495.05, total: 122879.00
+	Operating System Version: Microsoft Windows 11 (Home) build 26200
+	Process Elevated: false
+	Process Loads: Uptime: 230s, user: 483s (210.51%), kernel: 42s (18.30%), total: 525s (228.81%)
+	Process Virtual Size (MiB): 3996.17
+	Process Resident Size (MiB): 2352.74
+	JVM Flags: 0 total; 
+	Debug Flags: 0 total; 
+	Loaded Shaderpack: miniature-shader-2.19.zip
+		Profile: NORMAL (+0 options changed by user)
+	Launched Version: 26.2.0.86
+	Backend library: LWJGL version 3.4.1+2
+	Window size: 3840x2054
+	Surface Info: acquired, IMMEDIATE, 3840 x 2054
+	GFLW Platform: win32
+	Graphics Device: Intel(R) UHD Graphics
+	Graphics Backend: OpenGL
+	Graphics Vendor: Intel
+	Graphics Drivers: 3.3.0 - Build 27.20.100.9664
+	Graphics Device Extensions: GL_ARB_multi_draw_indirect, GL_ARB_buffer_storage, GL_ARB_shader_draw_parameters, GL_ARB_base_instance, GL_KHR_debug, GL_ARB_draw_indirect, GL_ARB_clip_control, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+	Graphics Device Type: INTEGRATED
+	Graphics Device Features: DeviceFeatures[shaderDrawParameters=true, multiDrawDirectInterleaved=false, multiDrawDirectSeparate=true, multiDrawIndirect=true, drawIndirect=true, nonZeroFirstInstance=true, persistentMapping=true]
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'neoforge'
+	Universe: 400921fb54442d18
+	Type: Client
+	Transparency: regular
+	Render Distance: 8/8 chunks
+	Narrator config: OFF
+	Narrator status: true
+	Resource Packs: vanilla, mod_resources, mod/sodium, mod/better_modlist, mod/placeholder_api, mod/iris, mod/roughlyenoughitems (incompatible), mod/cloth_config (incompatible), mod/geckolib, mod/architectury (incompatible), mod/neoforge (incompatible), mod/foxsweapons
+	Sound Cache: 781796 bytes in 3 buffers
+	Current Language: en_us
+	Locale: en_US
+	System encoding: Cp1252
+	File encoding: UTF-8
+	CPU: 8x Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/16, l='ServerLevel[Test World]', x=82.56, y=7.29, z=-505.10]]
+	Active Data Packs: vanilla, mod_data, mod/sodium, mod/better_modlist, mod/placeholder_api, mod/iris, mod/roughlyenoughitems (incompatible), mod/cloth_config (incompatible), mod/geckolib, mod/architectury (incompatible), mod/neoforge, mod/foxsweapons, trade_rebalance, redstone_experiments, minecart_improvements
+	Available Data Packs: minecart_improvements, redstone_experiments, trade_rebalance, vanilla, mod/architectury (incompatible), mod/better_modlist, mod/cloth_config (incompatible), mod/foxsweapons, mod/geckolib, mod/iris, mod/neoforge, mod/placeholder_api, mod/roughlyenoughitems (incompatible), mod/sodium, mod_data
+	Enabled Feature Flags: minecraft:redstone_experiments, minecraft:vanilla, minecraft:trade_rebalance, minecraft:minecart_improvements
+	World Generation: Stable
+	World Seed: -4539139685152539870
+	Suppressed Exceptions: ~~NONE~~
+	Type: Integrated Server
+	Is Modded: Definitely; Client brand changed to 'neoforge'; Server brand changed to 'neoforge'
+	Launched Version: 26.2.0.86
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.01%: neoforge:runtime_enum_extender
+		04.17%: neoforge:access_transformer
+		02.05%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.21%: neoforge.coremods:method_redirector
+	Mod List: 
+		architectury-neoforge-21.1.10.jar                 |Architectury                  |architectury                  |21.1.10             |Manifest: 4bf1a11cf4829f8e1dfb3ea4199532372f56e4aa470612bbf0a7338fcc187b76
+		better_modlist-26.2.2.jar                         |Better ModList                |better_modlist                |26.2.2              |Manifest: 877663ad134ed6ef7926e68a263445e15e5eee10545dcde817a128defc136551
+		cloth-config-26.2.155.jar                         |Cloth Config v26.2 API        |cloth_config                  |26.2.155            |Manifest: 650cdc79fcb3332dd08d75634443b93b012dba49b748359a4a97f0975bc55c31
+		main                                              |Fox's Weapons                 |foxsweapons                   |0.11.0-alpha.1      |Manifest: NOSIGNATURE
+		geckolib-neoforge-26.2-5.5.6.jar                  |GeckoLib 5                    |geckolib                      |5.5.6               |Manifest: 32f91b9e6d5f62dab0740a0cec1a1f5619aaa07a0249c250df2f7918eb0c30e2
+		iris-neoforge-1.11.4+mc26.2.jar                   |Iris                          |iris                          |1.11.4+mc26.2       |Manifest: 5faeb646ff117bfc29e636baa9085f6fff6d048a328618749a991fd01c70019d
+		minecraft-patched-26.2.0.86.jar                   |Minecraft                     |minecraft                     |26.2                |Manifest: NOSIGNATURE
+		neoforge-26.2.0.86-universal.jar                  |NeoForge                      |neoforge                      |26.2.0.86           |Manifest: NOSIGNATURE
+		TextPlaceholderAPI-neoforge-1.21.4-neoforge-SNAPSH|Placeholder API Neoforge      |placeholder_api               |3.1.0-beta.1+26.2   |Manifest: 46be4e56828b6bdad592b30ee56c1d00bd44c14129450bc7634281667720de75
+		RoughlyEnoughItems-26.2.820.jar                   |Roughly Enough Items (REI)    |roughlyenoughitems            |26.2.820            |Manifest: d46284ac4d8b0d714cba03f62178ab57d8ca6805acf700855db0ab1e84dfebad
+		net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.ja|Sodium                        |sodium                        |0.9.2+mc26.2        |Manifest: 709bff1cf59d37a8ed59589f7fd7bf335fdc5268602eece5bc6c1269a3bceffb
+	Crash Report UUID: 4175dc1f-dc55-4447-8953-0dd2d1c1d7ce
+	FML: 11.0.16
+	NeoForge: 26.2.0.86
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.01%: neoforge:runtime_enum_extender
+		04.17%: neoforge:access_transformer
+		02.05%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.21%: neoforge.coremods:method_redirector
+	Mod List: 
+		architectury-neoforge-21.1.10.jar                 |Architectury                  |architectury                  |21.1.10             |Manifest: 4bf1a11cf4829f8e1dfb3ea4199532372f56e4aa470612bbf0a7338fcc187b76
+		better_modlist-26.2.2.jar                         |Better ModList                |better_modlist                |26.2.2              |Manifest: 877663ad134ed6ef7926e68a263445e15e5eee10545dcde817a128defc136551
+		cloth-config-26.2.155.jar                         |Cloth Config v26.2 API        |cloth_config                  |26.2.155            |Manifest: 650cdc79fcb3332dd08d75634443b93b012dba49b748359a4a97f0975bc55c31
+		main                                              |Fox's Weapons                 |foxsweapons                   |0.11.0-alpha.1      |Manifest: NOSIGNATURE
+		geckolib-neoforge-26.2-5.5.6.jar                  |GeckoLib 5                    |geckolib                      |5.5.6               |Manifest: 32f91b9e6d5f62dab0740a0cec1a1f5619aaa07a0249c250df2f7918eb0c30e2
+		iris-neoforge-1.11.4+mc26.2.jar                   |Iris                          |iris                          |1.11.4+mc26.2       |Manifest: 5faeb646ff117bfc29e636baa9085f6fff6d048a328618749a991fd01c70019d
+		minecraft-patched-26.2.0.86.jar                   |Minecraft                     |minecraft                     |26.2                |Manifest: NOSIGNATURE
+		neoforge-26.2.0.86-universal.jar                  |NeoForge                      |neoforge                      |26.2.0.86           |Manifest: NOSIGNATURE
+		TextPlaceholderAPI-neoforge-1.21.4-neoforge-SNAPSH|Placeholder API Neoforge      |placeholder_api               |3.1.0-beta.1+26.2   |Manifest: 46be4e56828b6bdad592b30ee56c1d00bd44c14129450bc7634281667720de75
+		RoughlyEnoughItems-26.2.820.jar                   |Roughly Enough Items (REI)    |roughlyenoughitems            |26.2.820            |Manifest: d46284ac4d8b0d714cba03f62178ab57d8ca6805acf700855db0ab1e84dfebad
+		net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.ja|Sodium                        |sodium                        |0.9.2+mc26.2        |Manifest: 709bff1cf59d37a8ed59589f7fd7bf335fdc5268602eece5bc6c1269a3bceffb
+	Crash Report UUID: 6a39895b-0420-48e4-980d-e34e1159dc77
+	FML: 11.0.16
+	NeoForge: 26.2.0.86

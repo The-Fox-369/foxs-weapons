@@ -2,9 +2,6 @@
 .gradle/
 bin/
 
-# Local game/run output
-run/
-
 # IDE/editor-local files
 .idea/
 .vscode/
