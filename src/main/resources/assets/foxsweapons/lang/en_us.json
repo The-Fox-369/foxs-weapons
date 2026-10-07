@@ -11,8 +11,10 @@
   "item.foxsweapons.heavy_greatsword": "Heavy Greatsword",
   "item.foxsweapons.chakram": "Chakram",
   "item.foxsweapons.bone_shiv": "Bone Shiv",
+  "item.foxsweapons.poisoned_needle": "Poisoned Needle",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
+  "effect.foxsweapons.toxin": "Toxin",
 
   "itemGroup.foxsweapons": "Fox's Weapons",
 
@@ -69,6 +71,13 @@
   "tooltip.foxsweapons.bone_shiv.left_attack": "Left-click: Attack with left-hand Shiv",
   "tooltip.foxsweapons.bone_shiv.right_attack": "Right-click: Attack with right-hand Shiv",
 
+  "tooltip.foxsweapons.poisoned_needle.description": "A slender needle coated in an unnatural purple toxin.",
+  "tooltip.foxsweapons.poisoned_needle.throw": "Right-click: Throw a piercing needle",
+  "tooltip.foxsweapons.poisoned_needle.toxin": "Toxin: 1 heart every 5 ticks until removed",
+
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
-  "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part."
+  "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part.",
+
+  "advancement.foxsweapons.thats_a_lotta_damage.title": "THAT'S A LOTTA DAMAGE",
+  "advancement.foxsweapons.thats_a_lotta_damage.description": "Successfully introduce something to the Poisoned Needle."
 }

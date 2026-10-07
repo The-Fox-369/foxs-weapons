@@ -1,42 +1,3 @@
-/gamemode creative
-/effect clear
-/kill @e[type= minecraft:item]
-/give Dev minecraft:flint_and_steel
-/gamemode spectator
-/gamemode creative
-/gamemode spectator
-/gamemode creative
-/item modify entity @s hotbar.0 {"function":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}
-/effect clear Dev
-/kill @e
-/gamemode survival
-/gamemode creative
-/clear Dev
-/kill @e[type= foxsweapons:chakram_projectile]
-/gamerule mob_griefing false
-/kill @e[type= minecraft:item]
-/kill @e[type= minecraft:villager]
-/kill @e[type= minecraft:iron_golem]
-/gamerule fire_damage false
-/dummy remove
-/dummy
-/dummy remove
-/dummy
-/kill @e[type= foxsweapons:chakram_projectile]
-/kill Dev
-/time set minecraft:day
-/raid start
-/raid start 1
-/raid glow
-/dummy remove
-/time set minecraft:day
-/kill @e[type= minecraft:evoker]
-/kill @e[type= minecraft:item]
-/kill @e[type= minecraft:villager]
-/dummy
-/raid start 255555555
-/kill @e[type= item]
-/gamemode survival
 /give Dev minecraft:lever
 /kill Dev
 /gamemode creative
@@ -48,3 +9,42 @@
 /gamemode spectator
 /gamemode creative
 /effect clear Dev minecraft:invisibility
+/kill @e[type= item]
+/tick freeze
+/tick unfreeze
+/weather clear
+/time set minecraft:night
+/dummy remove
+/dummy
+/dummy\
+/dummy
+/raid sp
+/raid spawnleader
+/raid sp
+/raid spawnleader
+/raid start 255
+/raid glow
+/time set minecraft:day
+/gamemode spectator
+/gamemode creative
+/gamemode spectator
+/gamemode creative
+/gamemode spectator
+/gamemode creative
+/tick
+/tick rate
+/tick rate 20
+/raid glow
+/kill @e[type= minecraft:item]
+/damage f0fb9670-19ed-48e2-a8af-89dbe632acf3 340000000000000000000000000000000000000 minecraft:fly_into_wall
+/dummy
+/gamemode survival
+/give Dev minecraft:enchanted_golden_apple 640000000
+/give Dev minecraft:enchanted_golden_apple 6400
+/give Dev minecraft:saddle
+/gamemode creative
+/dummy
+/gamemode survival
+/gamemode creative
+/gamemode survival
+/gamemode creative

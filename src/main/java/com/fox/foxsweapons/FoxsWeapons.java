@@ -1,15 +1,21 @@
 package com.fox.foxsweapons;
 
 import com.fox.foxsweapons.config.WeaponStats;
+
 import com.fox.foxsweapons.effect.RopeBurnsEffect;
+import com.fox.foxsweapons.effect.ToxinEffect;
+
 import com.fox.foxsweapons.entity.ChakramProjectile;
+import com.fox.foxsweapons.entity.PoisonedNeedleProjectile;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
+
 import com.fox.foxsweapons.item.BlunderbussItem;
 import com.fox.foxsweapons.item.BoneShivItem;
 import com.fox.foxsweapons.item.ChakramItem;
 import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
+import com.fox.foxsweapons.item.PoisonedNeedleItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.SpikedClubItem;
@@ -17,19 +23,27 @@ import com.fox.foxsweapons.item.TempestBowItem;
 import com.fox.foxsweapons.item.VolcanoHammerItem;
 import com.fox.foxsweapons.item.WeightedNetItem;
 import com.fox.foxsweapons.item.WitheringKatanaItem;
+
 import com.fox.foxsweapons.network.BlunderbussNetwork;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
+
 import net.minecraft.network.chat.Component;
+
 import net.minecraft.resources.Identifier;
+
 import net.minecraft.sounds.SoundEvents;
+
 import net.minecraft.world.effect.MobEffect;
+
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.MobCategory;
+
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -37,13 +51,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.SwingAnimationType;
+
 import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.Weapon;
 
 import net.neoforged.bus.api.IEventBus;
+
 import net.neoforged.fml.common.Mod;
+
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -571,6 +588,60 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // POISONED NEEDLE
+    // =========================================================
+
+    public static final DeferredItem<PoisonedNeedleItem>
+            POISONED_NEEDLE =
+
+            ITEMS.registerItem(
+                    "poisoned_needle",
+                    PoisonedNeedleItem::new,
+                    properties ->
+                            properties
+                                    .rarity(
+                                            Rarity.UNCOMMON
+                                    )
+            );
+
+
+    public static final DeferredHolder<
+            EntityType<?>,
+            EntityType<PoisonedNeedleProjectile>
+            > POISONED_NEEDLE_PROJECTILE =
+
+            ENTITY_TYPES.registerEntityType(
+                    "poisoned_needle_projectile",
+                    PoisonedNeedleProjectile::new,
+                    MobCategory.MISC,
+                    builder ->
+                            builder
+                                    .noLootTable()
+                                    .noSave()
+                                    .sized(
+                                            0.15F,
+                                            0.15F
+                                    )
+                                    .clientTrackingRange(
+                                            8
+                                    )
+                                    .updateInterval(
+                                            1
+                                    )
+            );
+
+
+    public static final DeferredHolder<
+            MobEffect,
+            ToxinEffect
+            > TOXIN =
+
+            MOB_EFFECTS.register(
+                    "toxin",
+                    ToxinEffect::new
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -644,6 +715,10 @@ public class FoxsWeapons {
 
                                                 output.accept(
                                                         BONE_SHIV.get()
+                                                );
+
+                                                output.accept(
+                                                        POISONED_NEEDLE.get()
                                                 );
                                             }
                                     )

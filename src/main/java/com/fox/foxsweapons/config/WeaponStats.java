@@ -151,19 +151,7 @@ public final class WeaponStats {
     // CHAKRAM
     // =========================================================
 
-    /**
-     * One successful survival throw consumes exactly
-     * one durability point.
-     */
     public static final int CHAKRAM_DURABILITY = 1000;
-
-    /**
-     * First-pass enchantability value.
-     *
-     * Actual enchantment support is handled separately
-     * because projectile enchantment effects must use
-     * the thrown ItemStack.
-     */
     public static final int CHAKRAM_ENCHANTABILITY = 12;
 
     public static final double CHAKRAM_HUNT_RADIUS = 24.0D;
@@ -177,9 +165,36 @@ public final class WeaponStats {
 
     public static final double CHAKRAM_WAYPOINT_REACH = 0.22D;
 
-    /**
-     * Collection phase must remain quiet this long
-     * before the Chakram commits to returning.
-     */
     public static final int CHAKRAM_LOOT_QUIET_TICKS = 10;
+
+    // =========================================================
+    // POISONED NEEDLE
+    // =========================================================
+
+    /**
+     * Initial projectile impact.
+     *
+     * 6 health = 3 hearts.
+     */
+    public static final float POISONED_NEEDLE_DIRECT_DAMAGE = 6.0F;
+
+    /**
+     * Full vanilla bow launch speed.
+     */
+    public static final float POISONED_NEEDLE_THROW_POWER = 3.0F;
+
+    /**
+     * Same uncertainty value used by a normal bow.
+     */
+    public static final float POISONED_NEEDLE_INACCURACY = 1.0F;
+
+    /**
+     * 2 health = 1 heart.
+     */
+    public static final float TOXIN_DAMAGE = 2.0F;
+
+    /**
+     * Four toxin procs per second.
+     */
+    public static final int TOXIN_INTERVAL_TICKS = 5;
 }

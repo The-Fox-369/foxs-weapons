@@ -1,0 +1,28 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "id": "foxsweapons:poisoned_needle"
+    },
+    "title": {
+      "translate": "advancement.foxsweapons.thats_a_lotta_damage.title"
+    },
+    "description": {
+      "translate": "advancement.foxsweapons.thats_a_lotta_damage.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "hit_with_poisoned_needle": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "hit_with_poisoned_needle"
+    ]
+  ]
+}
