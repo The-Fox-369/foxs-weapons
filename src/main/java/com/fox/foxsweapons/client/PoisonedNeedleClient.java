@@ -1,16 +1,13 @@
 package com.fox.foxsweapons.client;
 
 import com.fox.foxsweapons.FoxsWeapons;
-
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import com.fox.foxsweapons.client.renderer.PoisonedNeedleProjectileRenderer;
 
 import net.neoforged.api.distmarker.Dist;
-
 import net.neoforged.bus.api.SubscribeEvent;
-
 import net.neoforged.fml.common.EventBusSubscriber;
-
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+
 
 @EventBusSubscriber(
         modid = FoxsWeapons.MODID,
@@ -32,7 +29,7 @@ public final class PoisonedNeedleClient {
                         .POISONED_NEEDLE_PROJECTILE
                         .get(),
 
-                ThrownItemRenderer::new
+                PoisonedNeedleProjectileRenderer::new
         );
     }
 }

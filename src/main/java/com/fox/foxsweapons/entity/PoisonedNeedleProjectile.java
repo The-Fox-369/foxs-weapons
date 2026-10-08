@@ -4,40 +4,26 @@ import com.fox.foxsweapons.FoxsWeapons;
 import com.fox.foxsweapons.config.WeaponStats;
 
 import net.minecraft.advancements.AdvancementHolder;
-
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-
 import net.minecraft.resources.Identifier;
-
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-
 import net.minecraft.world.effect.MobEffectInstance;
-
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-
 import net.minecraft.world.entity.player.Player;
-
 import net.minecraft.world.entity.projectile.ProjectileDeflection;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-
-import net.minecraft.world.entity.projectile.throwableitemprojectile
-        .ThrowableItemProjectile;
-
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
 import net.minecraft.world.level.Level;
-
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -54,18 +40,13 @@ public class PoisonedNeedleProjectile
     // ADVANCEMENT
     // =========================================================
 
-    private static final Identifier
-            THATS_A_LOTTA_DAMAGE =
-
+    private static final Identifier THATS_A_LOTTA_DAMAGE =
             Identifier.fromNamespaceAndPath(
                     FoxsWeapons.MODID,
                     "thats_a_lotta_damage"
             );
 
-
-    private static final String
-            THATS_A_LOTTA_DAMAGE_CRITERION =
-
+    private static final String THATS_A_LOTTA_DAMAGE_CRITERION =
             "hit_with_poisoned_needle";
 
 
@@ -73,14 +54,7 @@ public class PoisonedNeedleProjectile
     // SYNCHED DATA
     // =========================================================
 
-    /**
-     * We need the client to know when the projectile has
-     * embedded itself in terrain so it stops simulating
-     * movement too.
-     */
-    private static final EntityDataAccessor<Boolean>
-            DATA_IN_GROUND =
-
+    private static final EntityDataAccessor<Boolean> DATA_IN_GROUND =
             SynchedEntityData.defineId(
                     PoisonedNeedleProjectile.class,
                     EntityDataSerializers.BOOLEAN
@@ -91,30 +65,12 @@ public class PoisonedNeedleProjectile
     // PIERCING
     // =========================================================
 
-    /**
-     * Every entity may only be struck once by this exact
-     * Needle.
-     */
     private final Set<Integer> piercedEntityIds =
             new HashSet<>();
 
-
-    /**
-     * Vanilla ThrowableProjectile ends the current tick's
-     * movement at the first entity collision.
-     *
-     * When this becomes true, our custom continuation logic
-     * travels through the rest of that tick.
-     */
     private boolean piercedDuringCurrentTick =
             false;
 
-
-    /**
-     * Safety cap ONLY for one game tick.
-     *
-     * This does not limit total lifetime piercing.
-     */
     private static final int MAX_PIERCES_PER_TICK =
             64;
 
@@ -126,51 +82,18 @@ public class PoisonedNeedleProjectile
     private BlockPos stuckBlockPos =
             null;
 
-
     private int inGroundTime =
             0;
 
-
-    /**
-     * Prevent immediate pickup on the exact frame the Needle
-     * enters the ground.
-     */
     private static final int PICKUP_DELAY_TICKS =
             5;
 
-
-    /**
-     * Same general idea as vanilla arrows:
-     *
-     * an abandoned embedded projectile should not live
-     * forever and eventually fill the world with entities.
-     *
-     * 1200 ticks = 60 seconds.
-     */
     private static final int IN_GROUND_DESPAWN_TICKS =
             1200;
 
 
     // =========================================================
-    // RECOVERY
-    // =========================================================
-
-    /**
-     * Survival:
-     * true
-     *
-     * Creative:
-     * false
-     *
-     * Creative retains the original Needle, so picking
-     * the embedded projectile back up would duplicate it.
-     */
-    private boolean recoverable =
-            false;
-
-
-    // =========================================================
-    // ENTITY CONSTRUCTOR
+    // CONSTRUCTORS
     // =========================================================
 
     public PoisonedNeedleProjectile(
@@ -184,10 +107,6 @@ public class PoisonedNeedleProjectile
         );
     }
 
-
-    // =========================================================
-    // THROWN CONSTRUCTOR
-    // =========================================================
 
     public PoisonedNeedleProjectile(
             Level level,
@@ -206,13 +125,6 @@ public class PoisonedNeedleProjectile
 
                 stack
         );
-
-
-        recoverable =
-                !(owner instanceof Player player)
-                        || !player
-                        .getAbilities()
-                        .instabuild;
     }
 
 
@@ -222,15 +134,14 @@ public class PoisonedNeedleProjectile
 
     @Override
     protected void defineSynchedData(
-            SynchedEntityData.Builder entityData
+            SynchedEntityData.Builder builder
     ) {
 
         super.defineSynchedData(
-                entityData
+                builder
         );
 
-
-        entityData.define(
+        builder.define(
                 DATA_IN_GROUND,
                 false
         );
@@ -254,7 +165,7 @@ public class PoisonedNeedleProjectile
     // EMBEDDED STATE
     // =========================================================
 
-    private boolean isInGround() {
+    public boolean isNeedleInGround() {
 
         return entityData.get(
                 DATA_IN_GROUND
@@ -262,13 +173,13 @@ public class PoisonedNeedleProjectile
     }
 
 
-    private void setInGround(
-            boolean inGround
+    private void setNeedleInGround(
+            boolean value
     ) {
 
         entityData.set(
                 DATA_IN_GROUND,
-                inGround
+                value
         );
     }
 
@@ -281,10 +192,10 @@ public class PoisonedNeedleProjectile
     public void tick() {
 
         // -----------------------------------------------------
-        // ALREADY STUCK IN TERRAIN
+        // ALREADY EMBEDDED
         // -----------------------------------------------------
 
-        if (isInGround()) {
+        if (isNeedleInGround()) {
 
             tickInGround();
 
@@ -292,25 +203,16 @@ public class PoisonedNeedleProjectile
         }
 
 
-        /*
-         * Remember where the vanilla movement step began.
-         */
         Vec3 tickStart =
                 position();
-
 
         piercedDuringCurrentTick =
                 false;
 
 
         /*
-         * Vanilla handles:
-         *
-         * - gravity
-         * - inertia
-         * - first collision
-         * - rotation
-         * - world effects
+         * Vanilla handles gravity, inertia, rotation and
+         * the FIRST collision.
          */
         super.tick();
 
@@ -321,19 +223,14 @@ public class PoisonedNeedleProjectile
         }
 
 
-        /*
-         * We may have just struck terrain.
-         */
-        if (isInGround()) {
+        if (isNeedleInGround()) {
 
             return;
         }
 
 
         /*
-         * No entity was pierced during this tick.
-         *
-         * Vanilla already completed the complete movement.
+         * No entity collision interrupted movement.
          */
         if (!piercedDuringCurrentTick) {
 
@@ -341,17 +238,10 @@ public class PoisonedNeedleProjectile
         }
 
 
-        /*
-         * Velocity after vanilla's gravity and inertia.
-         */
         Vec3 fullVelocity =
                 getDeltaMovement();
 
 
-        /*
-         * Where the Needle WOULD have ended if the first
-         * entity collision had not interrupted movement.
-         */
         Vec3 intendedEnd =
                 tickStart.add(
                         fullVelocity
@@ -374,36 +264,86 @@ public class PoisonedNeedleProjectile
         inGroundTime++;
 
 
-        /*
-         * If somebody destroys the block containing the
-         * Needle, convert the projectile into an actual
-         * dropped Needle instead of leaving it floating.
-         */
+        if (!(level()
+                instanceof ServerLevel serverLevel)) {
+
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // BLOCK WAS DESTROYED
+        // -----------------------------------------------------
+
         if (
-                !level().isClientSide()
-                        && stuckBlockPos != null
-                        && level()
+                stuckBlockPos != null
+                        && serverLevel
                         .getBlockState(
                                 stuckBlockPos
                         )
                         .isAir()
         ) {
 
-            dropAfterBlockRemoved();
+            dropAfterBlockRemoved(
+                    serverLevel
+            );
 
             return;
         }
 
 
+        // -----------------------------------------------------
+        // PLAYER PICKUP
+        // -----------------------------------------------------
+
         /*
-         * Don't leave thousands of forgotten Needle
-         * entities around forever.
+         * Do NOT rely only on vanilla playerTouch().
+         *
+         * Embedded projectiles are tiny and we want pickup
+         * to behave consistently.
+         *
+         * So every server tick after the tiny pickup delay,
+         * check the normal Minecraft pickup area ourselves.
          */
-        if (
-                !level().isClientSide()
-                        && inGroundTime
-                        >= IN_GROUND_DESPAWN_TICKS
-        ) {
+        if (inGroundTime
+                >= PICKUP_DELAY_TICKS) {
+
+            for (
+                    ServerPlayer player :
+                    serverLevel.getEntitiesOfClass(
+                            ServerPlayer.class,
+
+                            getBoundingBox()
+                                    .inflate(
+                                            1.0D,
+                                            0.5D,
+                                            1.0D
+                                    )
+                    )
+            ) {
+
+                if (player.isSpectator()) {
+
+                    continue;
+                }
+
+
+                if (tryPickup(
+                        player
+                )) {
+
+                    return;
+                }
+            }
+        }
+
+
+        // -----------------------------------------------------
+        // DESPAWN
+        // -----------------------------------------------------
+
+        if (inGroundTime
+                >= IN_GROUND_DESPAWN_TICKS) {
 
             discard();
         }
@@ -425,7 +365,7 @@ public class PoisonedNeedleProjectile
 
         while (
                 isAlive()
-                        && !isInGround()
+                        && !isNeedleInGround()
                         && processedHits
                         < MAX_PIERCES_PER_TICK
         ) {
@@ -440,9 +380,6 @@ public class PoisonedNeedleProjectile
                     );
 
 
-            /*
-             * Reached the original end of the tick.
-             */
             if (remaining.lengthSqr()
                     <= 0.000001D) {
 
@@ -451,9 +388,8 @@ public class PoisonedNeedleProjectile
 
 
             /*
-             * ProjectileUtil traces through the current
-             * delta movement, so temporarily make the
-             * delta equal the untravelled part.
+             * ProjectileUtil checks through the current
+             * delta movement.
              */
             setDeltaMovement(
                     remaining
@@ -469,7 +405,7 @@ public class PoisonedNeedleProjectile
 
 
             // -------------------------------------------------
-            // NOTHING ELSE HIT
+            // NOTHING ELSE IN PATH
             // -------------------------------------------------
 
             if (nextHit.getType()
@@ -484,7 +420,7 @@ public class PoisonedNeedleProjectile
 
 
             // -------------------------------------------------
-            // MOVE TO COLLISION POINT
+            // MOVE TO COLLISION
             // -------------------------------------------------
 
             setPos(
@@ -503,9 +439,7 @@ public class PoisonedNeedleProjectile
 
 
             /*
-             * Deflection has replaced our trajectory.
-             *
-             * Do not restore the old forward velocity.
+             * Something actually changed our trajectory.
              */
             if (deflection
                     != ProjectileDeflection.NONE) {
@@ -521,11 +455,9 @@ public class PoisonedNeedleProjectile
 
 
             /*
-             * We reached terrain.
-             *
-             * onHitBlock() has now embedded us.
+             * Block impact embedded us.
              */
-            if (isInGround()) {
+            if (isNeedleInGround()) {
 
                 return;
             }
@@ -542,9 +474,8 @@ public class PoisonedNeedleProjectile
 
 
                 /*
-                 * If the hit failed to register as pierced,
-                 * stop rather than repeatedly colliding with
-                 * the exact same entity forever.
+                 * Safety against repeatedly colliding with
+                 * the same target at the same location.
                  */
                 if (!piercedDuringCurrentTick) {
 
@@ -555,14 +486,12 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * Collision scanning temporarily changed velocity
-         * to smaller remainder vectors.
-         *
-         * Restore real flight velocity for next tick.
+         * Restore real flight velocity after temporarily
+         * using the remaining-distance vectors.
          */
         if (
                 isAlive()
-                        && !isInGround()
+                        && !isNeedleInGround()
         ) {
 
             setDeltaMovement(
@@ -581,19 +510,12 @@ public class PoisonedNeedleProjectile
             Entity entity
     ) {
 
-        /*
-         * Never stab the thrower.
-         */
         if (entity == getOwner()) {
 
             return false;
         }
 
 
-        /*
-         * Never strike the same entity twice with the same
-         * projectile.
-         */
         if (piercedEntityIds.contains(
                 entity.getId()
         )) {
@@ -627,10 +549,8 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * Store collision on both client and server.
-         *
-         * Both sides need to ignore this entity after
-         * the Needle has passed through.
+         * Remember this target on both logical sides so the
+         * same Needle cannot repeatedly collide with it.
          */
         if (!piercedEntityIds.add(
                 hit.getId()
@@ -644,9 +564,6 @@ public class PoisonedNeedleProjectile
                 true;
 
 
-        /*
-         * Damage/effects only belong on the server.
-         */
         if (!(level()
                 instanceof ServerLevel serverLevel)) {
 
@@ -654,7 +571,8 @@ public class PoisonedNeedleProjectile
         }
 
 
-        if (!(hit instanceof LivingEntity target)) {
+        if (!(hit
+                instanceof LivingEntity target)) {
 
             return;
         }
@@ -689,13 +607,8 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * The projectile still physically pierces an entity
-         * even when damage is rejected.
-         *
-         * But no damage means:
-         *
-         * - no advancement
-         * - no Toxin
+         * Still physically pierce an invulnerable/rejected
+         * target, but do not apply gameplay effects.
          */
         if (!damaged) {
 
@@ -707,7 +620,8 @@ public class PoisonedNeedleProjectile
         // CHALLENGE
         // =====================================================
 
-        if (owner instanceof ServerPlayer player) {
+        if (owner
+                instanceof ServerPlayer player) {
 
             awardThatsALottaDamage(
                     serverLevel,
@@ -720,9 +634,6 @@ public class PoisonedNeedleProjectile
         // TOXIN
         // =====================================================
 
-        /*
-         * Direct damage could already have killed it.
-         */
         if (!target.isAlive()) {
 
             return;
@@ -752,7 +663,7 @@ public class PoisonedNeedleProjectile
         /*
          * NO discard().
          *
-         * Continue through the victim.
+         * The Needle keeps going.
          */
     }
 
@@ -805,10 +716,12 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * Keep the Needle just OUTSIDE the collision surface
-         * rather than burying its model completely inside
-         * the block.
+         * At this point updateRotation() has already used the
+         * incoming velocity, so xRot/yRot preserve the angle
+         * at which the Needle struck the block.
          */
+
+
         Vec3 movement =
                 getDeltaMovement();
 
@@ -817,6 +730,9 @@ public class PoisonedNeedleProjectile
                 hitResult.getLocation();
 
 
+        /*
+         * Keep a tiny portion of the Needle outside the block.
+         */
         if (movement.lengthSqr()
                 > 0.000001D) {
 
@@ -839,12 +755,10 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * THIS IS THE IMPORTANT PART:
+         * Freeze projectile WITHOUT changing its xRot/yRot.
          *
-         * do not discard
-         * do not spawn an ItemEntity
-         *
-         * physically remain embedded in terrain.
+         * The renderer will use those stored rotations,
+         * meaning the Needle keeps its actual impact angle.
          */
         setDeltaMovement(
                 Vec3.ZERO
@@ -856,7 +770,7 @@ public class PoisonedNeedleProjectile
         );
 
 
-        setInGround(
+        setNeedleInGround(
                 true
         );
 
@@ -871,7 +785,7 @@ public class PoisonedNeedleProjectile
 
 
     // =========================================================
-    // PLAYER RECOVERY
+    // VANILLA PLAYER TOUCH
     // =========================================================
 
     @Override
@@ -880,9 +794,14 @@ public class PoisonedNeedleProjectile
     ) {
 
         /*
-         * Only embedded Needles are recoverable.
+         * Keep vanilla proximity pickup as a second path.
+         *
+         * tickInGround() also actively checks nearby players,
+         * so even if this doesn't fire reliably for a tiny
+         * projectile, recovery still works.
          */
-        if (!isInGround()) {
+
+        if (!isNeedleInGround()) {
 
             return;
         }
@@ -901,16 +820,61 @@ public class PoisonedNeedleProjectile
         }
 
 
-        /*
-         * Creative throwers kept their original item.
-         *
-         * Don't create a duplicate.
-         */
-        if (!recoverable) {
+        tryPickup(
+                player
+        );
+    }
 
-            return;
+
+    // =========================================================
+    // PICKUP
+    // =========================================================
+
+    private boolean tryPickup(
+            Player player
+    ) {
+
+        if (!isNeedleInGround()) {
+
+            return false;
         }
 
+
+        if (player.isSpectator()) {
+
+            return false;
+        }
+
+
+        // -----------------------------------------------------
+        // CREATIVE
+        // -----------------------------------------------------
+
+        /*
+         * Creative did not consume the original Needle.
+         *
+         * Touching the embedded projectile simply removes it.
+         */
+        if (player
+                .getAbilities()
+                .instabuild) {
+
+            player.take(
+                    this,
+                    1
+            );
+
+
+            discard();
+
+
+            return true;
+        }
+
+
+        // -----------------------------------------------------
+        // SURVIVAL
+        // -----------------------------------------------------
 
         ItemStack recoveredNeedle =
                 getItem()
@@ -920,23 +884,30 @@ public class PoisonedNeedleProjectile
 
 
         /*
-         * Only remove the projectile if the player's
-         * inventory successfully accepted the Needle.
+         * Full inventory?
+         *
+         * Leave it embedded instead of deleting the Needle.
          */
-        if (player
+        if (!player
                 .getInventory()
                 .add(
                         recoveredNeedle
                 )) {
 
-            player.take(
-                    this,
-                    1
-            );
-
-
-            discard();
+            return false;
         }
+
+
+        player.take(
+                this,
+                1
+        );
+
+
+        discard();
+
+
+        return true;
     }
 
 
@@ -944,25 +915,26 @@ public class PoisonedNeedleProjectile
     // SUPPORT BLOCK REMOVED
     // =========================================================
 
-    private void dropAfterBlockRemoved() {
+    private void dropAfterBlockRemoved(
+            ServerLevel serverLevel
+    ) {
 
-        if (!(level()
-                instanceof ServerLevel serverLevel)) {
+        /*
+         * If the block holding the Needle disappears,
+         * convert it into a normal dropped item.
+         *
+         * We intentionally don't care whether it was
+         * originally thrown in Creative. Creative duplication
+         * is irrelevant; Survival must never lose the weapon.
+         */
+        spawnAtLocation(
+                serverLevel,
 
-            return;
-        }
-
-
-        if (recoverable) {
-
-            spawnAtLocation(
-                    serverLevel,
-                    getItem()
-                            .copyWithCount(
-                                    1
-                            )
-            );
-        }
+                getItem()
+                        .copyWithCount(
+                                1
+                        )
+        );
 
 
         discard();
@@ -985,19 +957,13 @@ public class PoisonedNeedleProjectile
 
         output.putBoolean(
                 "NeedleInGround",
-                isInGround()
+                isNeedleInGround()
         );
 
 
         output.putInt(
                 "NeedleInGroundTime",
                 inGroundTime
-        );
-
-
-        output.putBoolean(
-                "NeedleRecoverable",
-                recoverable
         );
 
 
@@ -1057,7 +1023,7 @@ public class PoisonedNeedleProjectile
                 );
 
 
-        setInGround(
+        setNeedleInGround(
                 loadedInGround
         );
 
@@ -1066,13 +1032,6 @@ public class PoisonedNeedleProjectile
                 input.getIntOr(
                         "NeedleInGroundTime",
                         0
-                );
-
-
-        recoverable =
-                input.getBooleanOr(
-                        "NeedleRecoverable",
-                        false
                 );
 
 
