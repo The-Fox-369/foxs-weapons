@@ -48,8 +48,8 @@ discrete_mouse_scroll:false
 invertXMouse:false
 invertYMouse:false
 realmsNotifications:true
-showSubtitles:false
-directionalAudio:false
+showSubtitles:true
+directionalAudio:true
 bobView:true
 toggleCrouch:false
 toggleSprint:true

@@ -1,50 +1,50 @@
-/raid sp
-/raid spawnleader
-/raid sp
-/raid spawnleader
-/raid start 255
-/raid glow
-/time set minecraft:day
-/gamemode spectator
+/tick freeze
+/tick unfreeze
 /gamemode creative
 /gamemode spectator
-/gamemode creative
-/gamemode spectator
-/gamemode creative
-/tick
-/tick rate
-/tick rate 20
-/raid glow
-/kill @e[type= minecraft:item]
-/damage f0fb9670-19ed-48e2-a8af-89dbe632acf3 340000000000000000000000000000000000000 minecraft:fly_into_wall
-/dummy
-/gamemode survival
-/give Dev minecraft:enchanted_golden_apple 640000000
-/give Dev minecraft:enchanted_golden_apple 6400
-/give Dev minecraft:saddle
-/gamemode creative
-/dummy
-/gamemode survival
-/gamemode creative
-/gamemode survival
-/gamemode creative
-/gamemode survival
-/effect clear Dev foxsweapons:toxin
-/gamemode creative
-/clear
 /tp @e[tag= unfortunate_dummy]
 /tp @e[tag= unfortunate_dummy] Dev
+/raid start 1
+/raid start 2
+/gamemode creative
+/raid setomen 2
+/raid start
+/raid start 2
 /gamemode survival
 /gamemode creative
-/tick freeze
-/tp @e Dev
-/tick unfreeze
-/tick freeze
-/tp @e Dev
-/tick unfreeze
-/tp @e Dev
-/clear
-/gamemode spectator
+/give Dev minecraft:enchanted_golden_apple
+/weather thunder
+/enchant Dev minecraft:mending 3
+/enchant Dev minecraft:mending 1
 /gamemode survival
-/gamemode spectator
+/summon minecraft:villager
+/enchant Dev minecraft:mending 1
+/gamemode creative
+/gamemode survival
+/kill
+/gamemode creative
+/gamemode survival
+/time set minecraft:night
+/summon
+/summon minecraft:zoglin
+/summon minecraft:zombie
+/summon minecraft:zombiet
+/spawn_armor_trims *_lag_my_game
+/kill @e[type= minecraft:armor_stand]
+/summon minecraft:iron_golem
+/spawn_armor_trims minecraft:eye
+/summon minecraft:iron_golem
+/summon minecraft:iron_golemt
+/summon minecraft:iron_golem
+/tick freeze
+/kill @e[type= minecraft:armor_stand]
+/gamemode creative
+/tick unfreeze
+/neoforge
+/help
+/ride Dev mount
+/ride Dev mount Dev
+/ride Dev mount @e[type= minecraft:villager]
+/ride Dev mount @e[tag= unfortunate_dummy]
+/dummy
 /gamemode survival
