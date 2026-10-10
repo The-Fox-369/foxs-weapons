@@ -16,6 +16,7 @@ import com.fox.foxsweapons.item.ChakramItem;
 import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
 import com.fox.foxsweapons.item.PoisonedNeedleItem;
+import com.fox.foxsweapons.item.EnderStaffItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.SpikedClubItem;
@@ -642,6 +643,19 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // ENDER STAFF
+    // =========================================================
+
+    public static final DeferredItem<EnderStaffItem> ENDER_STAFF =
+            ITEMS.registerItem(
+                    "ender_staff",
+                    EnderStaffItem::new,
+                    properties -> properties
+                            .stacksTo(1)
+                            .rarity(Rarity.RARE)
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -719,6 +733,10 @@ public class FoxsWeapons {
 
                                                 output.accept(
                                                         POISONED_NEEDLE.get()
+                                                );
+
+                                                output.accept(
+                                                        ENDER_STAFF.get()
                                                 );
                                             }
                                     )
