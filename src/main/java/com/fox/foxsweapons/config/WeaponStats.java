@@ -197,4 +197,7 @@ public final class WeaponStats {
      * Four toxin procs per second.
      */
     public static final int TOXIN_INTERVAL_TICKS = 5;
+
+    // ENDER STAFF: five-block straight-line blink.
+    public static final double ENDER_STAFF_TELEPORT_DISTANCE = 5.0D;
 }
