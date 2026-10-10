@@ -1,0 +1,9 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "foxsweapons:item/ender_staff",
+    "model": {
+      "type": "geckolib:geckolib"
+    }
+  }
+}
