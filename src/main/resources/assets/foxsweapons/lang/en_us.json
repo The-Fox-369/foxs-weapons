@@ -12,72 +12,58 @@
   "item.foxsweapons.chakram": "Chakram",
   "item.foxsweapons.bone_shiv": "Bone Shiv",
   "item.foxsweapons.poisoned_needle": "Poisoned Needle",
-
   "effect.foxsweapons.rope_burns": "Rope Burns",
   "effect.foxsweapons.toxin": "Toxin",
-
   "itemGroup.foxsweapons": "Fox's Weapons",
-
   "tooltip.foxsweapons.brand": "Fox's Weapons",
-
   "tooltip.foxsweapons.volcano_hammer.description": "A brutal volcanic mallet infused with molten power.",
   "tooltip.foxsweapons.volcano_hammer.ability": "Right-click ground: Volcanic Smash",
   "tooltip.foxsweapons.volcano_hammer.passive": "While held: Fire Resistance",
-
   "tooltip.foxsweapons.blunderbuss.description": "A close-range firearm with devastating knockback.",
   "tooltip.foxsweapons.blunderbuss.single": "Left-click: Precise Shot",
   "tooltip.foxsweapons.blunderbuss.burst": "Right-click: 4-Pellet Blast",
   "tooltip.foxsweapons.blunderbuss.ammo": "Ammo: Iron Nugget",
-
   "tooltip.foxsweapons.soul_reaper.description": "A crooked scythe that feeds on the living.",
   "tooltip.foxsweapons.soul_reaper.ability": "Critical jump-hit: Steal 2.5 hearts",
   "tooltip.foxsweapons.soul_reaper.recipe_hint": "Forged around a Wither Skeleton Skull",
-
   "tooltip.foxsweapons.tempest_bow.description": "A storm-forged bow that calls down real lightning.",
   "tooltip.foxsweapons.tempest_bow.ability": "Arrow hit: Lightning Strike",
   "tooltip.foxsweapons.tempest_bow.damage": "Damage: 20 + Lightning",
   "tooltip.foxsweapons.tempest_bow.draw": "Full draw: 0.25 seconds",
-
   "tooltip.foxsweapons.weighted_net.description": "A bundled weighted net for catching targets at range.",
   "tooltip.foxsweapons.weighted_net.throw": "Right-click: Throw and tether a target",
   "tooltip.foxsweapons.weighted_net.release": "Right-click again: Release and inflict Rope Burns",
-
   "tooltip.foxsweapons.sling_pocket.description": "A primitive elastic launcher built for geological violence.",
   "tooltip.foxsweapons.sling_pocket.fire": "Right-click: Launch stone",
   "tooltip.foxsweapons.sling_pocket.ammo": "Ammo: Stone-type blocks",
   "message.foxsweapons.sling_pocket.no_ammo": "You need stone ammo!",
-
   "tooltip.foxsweapons.iron_vanguard_shield.description": "A reinforced wooden shield built to hold the line.",
   "tooltip.foxsweapons.iron_vanguard_shield.block": "Hold right-click: Block incoming attacks",
   "tooltip.foxsweapons.iron_vanguard_shield.passive": "Offhand: Resistance I",
   "tooltip.foxsweapons.iron_vanguard_shield.melee": "Main hand: Weak melee weapon",
-
   "tooltip.foxsweapons.withering_katana.description": "A corrupted katana saturated with Wither energy.",
   "tooltip.foxsweapons.withering_katana.ability": "Melee hit: Wither II for 4 seconds",
   "tooltip.foxsweapons.withering_katana.recipe_hint": "Forged with a Wither Skeleton Skull",
-
   "tooltip.foxsweapons.spiked_club.description": "A welded metal club built for blunt-force persuasion.",
   "tooltip.foxsweapons.spiked_club.ability": "Melee hit: Nausea 255 for 2.55 seconds",
-
   "tooltip.foxsweapons.heavy_greatsword.description": "An oversized slab of steel built to cut through crowds.",
   "tooltip.foxsweapons.heavy_greatsword.ability": "Melee hit: Cleaves up to 3 nearby targets for 50% damage",
-
   "tooltip.foxsweapons.chakram.description": "An autonomous throwing blade with an alarming sense of direction.",
   "tooltip.foxsweapons.chakram.ability": "Right-click: Hunt every reachable entity in range",
   "tooltip.foxsweapons.chakram.loot": "Retrieves dropped items and XP before returning",
   "tooltip.foxsweapons.chakram.navigation": "Cannot pass through solid blocks",
-
   "tooltip.foxsweapons.bone_shiv.description": "A crude bone blade made to be wielded in pairs.",
   "tooltip.foxsweapons.bone_shiv.left_attack": "Left-click: Attack with left-hand Shiv",
   "tooltip.foxsweapons.bone_shiv.right_attack": "Right-click: Attack with right-hand Shiv",
-
   "tooltip.foxsweapons.poisoned_needle.description": "A slender needle coated in an unnatural purple toxin.",
   "tooltip.foxsweapons.poisoned_needle.throw": "Right-click: Throw a piercing needle",
   "tooltip.foxsweapons.poisoned_needle.toxin": "Toxin: 1 heart every 5 ticks until removed",
-
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part.",
-
   "advancement.foxsweapons.thats_a_lotta_damage.title": "THAT'S A LOTTA DAMAGE",
-  "advancement.foxsweapons.thats_a_lotta_damage.description": "Successfully introduce something to the Poisoned Needle."
+  "advancement.foxsweapons.thats_a_lotta_damage.description": "Successfully introduce something to the Poisoned Needle.",
+  "item.foxsweapons.ender_staff": "Ender Staff",
+  "tooltip.foxsweapons.ender_staff.description": "A wooden staff topped with a judgmental green eye.",
+  "tooltip.foxsweapons.ender_staff.ability": "Right-click: Teleport 5 blocks in the direction you look",
+  "message.foxsweapons.ender_staff.blocked": "The Ender Staff refuses to teleport you into a wall."
 }
