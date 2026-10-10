@@ -12,6 +12,7 @@
   "item.foxsweapons.chakram": "Chakram",
   "item.foxsweapons.bone_shiv": "Bone Shiv",
   "item.foxsweapons.poisoned_needle": "Poisoned Needle",
+  "item.foxsweapons.ender_staff": "Ender Staff",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
   "effect.foxsweapons.toxin": "Toxin",
@@ -74,6 +75,10 @@
   "tooltip.foxsweapons.poisoned_needle.description": "A slender needle coated in an unnatural purple toxin.",
   "tooltip.foxsweapons.poisoned_needle.throw": "Right-click: Throw a piercing needle",
   "tooltip.foxsweapons.poisoned_needle.toxin": "Toxin: 1 heart every 5 ticks until removed",
+
+  "tooltip.foxsweapons.ender_staff.description": "A wooden staff topped with a judgmental green eye.",
+  "tooltip.foxsweapons.ender_staff.ability": "Right-click: Teleport 5 blocks forward",
+  "message.foxsweapons.ender_staff.blocked": "The Ender Staff refuses to teleport you into a wall.",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part.",

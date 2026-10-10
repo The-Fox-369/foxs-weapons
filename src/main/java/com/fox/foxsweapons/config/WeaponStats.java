@@ -1,3 +1,4 @@
+
 package com.fox.foxsweapons.config;
 
 /**
@@ -12,7 +13,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int VOLCANO_HAMMER_DURABILITY = 1200;
-    public static final int VOLCANO_HAMMER_ENCHANTABILITY = 15;
+    public static final int VOLCANO_HAMMER_ENMERCHANTABILITY = 15;
 
     public static final double VOLCANO_HAMMER_ATTACK_DAMAGE = 8.0;
     public static final double VOLCANO_HAMMER_ATTACK_SPEED = -3.2;
@@ -26,7 +27,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int BLUNDERBUSS_DURABILITY = 450;
-    public static final int BLUNDERBUSS_ENCHANTABILITY = 15;
+    public static final int BLUNDERBUSS_ENMERCHANTABILITY = 15;
 
     public static final int BLUNDERBUSS_SWING_TICKS = 10;
     public static final double BLUNDERBUSS_RANGE = 32.0;
@@ -45,7 +46,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int SOUL_REAPER_DURABILITY = 1450;
-    public static final int SOUL_REAPER_ENCHANTABILITY = 15;
+    public static final int SOUL_REAPER_ENMERCHANTABILITY = 15;
 
     public static final double SOUL_REAPER_ATTACK_DAMAGE = 20.0;
     public static final double SOUL_REAPER_ATTACK_SPEED = -3.1;
@@ -60,7 +61,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int TEMPEST_BOW_DURABILITY = 1000;
-    public static final int TEMPEST_BOW_ENCHANTABILITY = 15;
+    public static final int TEMPEST_BOW_ENMERCHANTABILITY = 15;
 
     /** Five ticks = 0.25 seconds. */
     public static final int TEMPEST_BOW_DRAW_TICKS = 5;
@@ -79,7 +80,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int WEIGHTED_NET_DURABILITY = 384;
-    public static final int WEIGHTED_NET_ENCHANTABILITY = 10;
+    public static final int WEIGHTED_NET_ENMERCHANTABILITY = 10;
 
     /** Speed of the bundled net projectile. */
     public static final float WEIGHTED_NET_THROW_POWER = 1.35F;
@@ -108,7 +109,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int WITHERING_KATANA_DURABILITY = 1250;
-    public static final int WITHERING_KATANA_ENCHANTABILITY = 15;
+    public static final int WITHERING_KATANA_ENMERCHANTABILITY = 15;
 
     public static final double WITHERING_KATANA_ATTACK_DAMAGE = 11.0;
     public static final double WITHERING_KATANA_ATTACK_SPEED = -2.6;
@@ -121,7 +122,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int SPIKED_CLUB_DURABILITY = 400;
-    public static final int SPIKED_CLUB_ENCHANTABILITY = 10;
+    public static final int SPIKED_CLUB_ENMERCHANTABILITY = 10;
 
     public static final double SPIKED_CLUB_ATTACK_DAMAGE = 6.0;
     public static final double SPIKED_CLUB_ATTACK_SPEED = -3.0;
@@ -134,7 +135,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int HEAVY_GREATSWORD_DURABILITY = 850;
-    public static final int HEAVY_GREATSWORD_ENCHANTABILITY = 10;
+    public static final int HEAVY_GREATSWORD_ENMERCHANTABILITY = 10;
 
     public static final double HEAVY_GREATSWORD_ATTACK_DAMAGE = 9.0;
     public static final double HEAVY_GREATSWORD_ATTACK_SPEED = -3.3;
@@ -152,7 +153,7 @@ public final class WeaponStats {
     // =========================================================
 
     public static final int CHAKRAM_DURABILITY = 1000;
-    public static final int CHAKRAM_ENCHANTABILITY = 12;
+    public static final int CHAKRAM_ENMERCHANTABILITY = 12;
 
     public static final double CHAKRAM_HUNT_RADIUS = 24.0D;
     public static final float CHAKRAM_DAMAGE = 6.0F;
@@ -178,23 +179,22 @@ public final class WeaponStats {
      */
     public static final float POISONED_NEEDLE_DIRECT_DAMAGE = 6.0F;
 
-    /**
-     * Full vanilla bow launch speed.
-     */
+    /** Full vanilla bow launch speed. */
     public static final float POISONED_NEEDLE_THROW_POWER = 3.0F;
 
-    /**
-     * Same uncertainty value used by a normal bow.
-     */
+    /** Same uncertainty value used by a normal bow. */
     public static final float POISONED_NEEDLE_INACCURACY = 1.0F;
 
-    /**
-     * 2 health = 1 heart.
-     */
+    /** 2 health = 1 heart. */
     public static final float TOXIN_DAMAGE = 2.0F;
 
-    /**
-     * Four toxin procs per second.
-     */
+    /** Four toxin procs per second. */
     public static final int TOXIN_INTERVAL_TICKS = 5;
+
+    // =========================================================
+    // ENDER STAFF
+    // =========================================================
+
+    public static final double
+            ENDER_STAFF_TELEPORT_DISTANCE = 5.0D;
 }

@@ -1,8 +1,3 @@
-/tick freeze
-/tick unfreeze
-/gamemode creative
-/gamemode spectator
-/tp @e[tag= unfortunate_dummy]
 /tp @e[tag= unfortunate_dummy] Dev
 /raid start 1
 /raid start 2
@@ -47,4 +42,9 @@
 /ride Dev mount @e[type= minecraft:villager]
 /ride Dev mount @e[tag= unfortunate_dummy]
 /dummy
+/gamemode survival
+/item modify entity @p hotbar.0 [{"function":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}]
+/kill @e[type= minecraft:armor_stand]
+/gamemode creative
+/item modify entity @p hotbar.0 [{"function":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}]
 /gamemode survival
