@@ -1,4 +1,3 @@
-/tp @e[tag= unfortunate_dummy] Dev
 /raid start 1
 /raid start 2
 /gamemode creative
@@ -48,3 +47,4 @@
 /gamemode creative
 /item modify entity @p hotbar.0 [{"function":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}]
 /gamemode survival
+/gamemode creative

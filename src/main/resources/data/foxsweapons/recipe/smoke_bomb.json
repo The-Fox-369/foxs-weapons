@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " P ",
+    "GIG",
+    " S "
+  ],
+  "key": {
+    "P": "minecraft:paper",
+    "G": "minecraft:gunpowder",
+    "I": "minecraft:ink_sac",
+    "S": "minecraft:string"
+  },
+  "result": {
+    "id": "foxsweapons:smoke_bomb",
+    "count": 4
+  }
+}

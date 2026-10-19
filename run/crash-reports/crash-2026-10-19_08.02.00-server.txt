@@ -1,0 +1,113 @@
+---- Minecraft Crash Report ----
+// On the bright side, I bought you a teddy bear!
+
+Time: 2026-10-19 08:02:00
+Description: Exception in server tick loop
+
+java.lang.IllegalStateException: Unregistered memory fetched: minecraft:attack_target
+	at TRANSFORMER/minecraft@26.2/net.minecraft.world.entity.ai.Brain.getMemorySlot(Brain.java:144) ~[minecraft-patched-26.2.0.86.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.world.entity.ai.Brain.getMemory(Brain.java:217) ~[minecraft-patched-26.2.0.86.jar:?] {}
+	at TRANSFORMER/foxsweapons@0.15.0-alpha.1/com.fox.foxsweapons.mechanic.SmokeCloudManager.clearMobAggression(SmokeCloudManager.java:224) ~[main/:?] {}
+	at TRANSFORMER/foxsweapons@0.15.0-alpha.1/com.fox.foxsweapons.mechanic.SmokeCloudManager.onServerTick(SmokeCloudManager.java:136) ~[main/:?] {}
+	at net.neoforged.bus.ConsumerEventHandler.invoke(ConsumerEventHandler.java:27) ~[bus-8.0.5.jar:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:360) ~[bus-8.0.5.jar:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:328) ~[bus-8.0.5.jar:?] {}
+	at TRANSFORMER/neoforge@26.2.0.86/net.neoforged.neoforge.event.EventHooks.fireServerTickPost(EventHooks.java:1039) ~[neoforge-26.2.0.86-universal.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:1015) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:151) ~[minecraft-patched-26.2.0.86.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.server.MinecraftServer.processPacketsAndTick(MinecraftServer.java:1025) ~[minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.server.IntegratedServer.processPacketsAndTick(IntegratedServer.java:124) ~[minecraft-patched-26.2.0.86.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:766) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.server.MinecraftServer.lambda$spin$0(MinecraftServer.java:299) [minecraft-patched-26.2.0.86.jar:?] {neoforge:access_transformer}
+	at java.base/java.lang.Thread.run(Thread.java:1474) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 26.2
+	Minecraft Version ID: 26.2
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 25.0.4, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 181377912 bytes (172 MiB) / 809500672 bytes (772 MiB) up to 4236247040 bytes (4040 MiB)
+	Memory (heap): init: 254MiB, used: 597MiB, committed: 772MiB, max: 4040MiB
+	Memory (non-head): init: 007MiB, used: 263MiB, committed: 278MiB, max: 000MiB
+	CPUs: 8
+	Processor Vendor: GenuineIntel
+	Processor Name: Intel(R) Core(TM) i5-1035G1 CPU @ 1.00GHz
+	Identifier: Intel64 Family 6 Model 126 Stepping 5
+	Microarchitecture: Ice Lake (Client)
+	Frequency (GHz): 1.19
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 8
+	Graphics card #0 name: Intel(R) UHD Graphics
+	Graphics card #0 vendor: Intel Corporation
+	Graphics card #0 VRAM (MiB): 1024.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 27.20.100.9664
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 3.20
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 27423.99
+	Virtual memory used (MiB): 23395.38
+	Swap memory total (MiB): 11264.00
+	Swap memory used (MiB): 642.79
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 38563.79, total: 363029.00
+	Space in storage for workdir (MiB): available: 3047.56, total: 122879.00
+	Operating System Version: Microsoft Windows 11 (Home) build 26300
+	Process Elevated: false
+	Process Loads: Uptime: 1038s, user: 1624s (156.42%), kernel: 147s (14.19%), total: 1771s (170.61%)
+	Process Virtual Size (MiB): 3480.99
+	Process Resident Size (MiB): 1577.45
+	JVM Flags: 0 total; 
+	Debug Flags: 0 total; 
+	Loaded Shaderpack: (off)
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/323, l='ServerLevel[Test World]', x=81.39, y=3.61, z=-483.48]]
+	Active Data Packs: vanilla, mod_data, mod/sodium, mod/entity_model_features (incompatible), mod/better_modlist, mod/placeholder_api, mod/entity_texture_features (incompatible), mod/iris, mod/roughlyenoughitems (incompatible), mod/cloth_config (incompatible), mod/geckolib, mod/architectury (incompatible), mod/neoforge, mod/foxsweapons, trade_rebalance, redstone_experiments, minecart_improvements
+	Available Data Packs: minecart_improvements, redstone_experiments, trade_rebalance, vanilla, mod/architectury (incompatible), mod/better_modlist, mod/cloth_config (incompatible), mod/entity_model_features (incompatible), mod/entity_texture_features (incompatible), mod/foxsweapons, mod/geckolib, mod/iris, mod/neoforge, mod/placeholder_api, mod/roughlyenoughitems (incompatible), mod/sodium, mod_data
+	Enabled Feature Flags: minecraft:redstone_experiments, minecraft:vanilla, minecraft:trade_rebalance, minecraft:minecart_improvements
+	World Generation: Stable
+	World Seed: -4539139685152539870
+	Suppressed Exceptions: ~~NONE~~
+	Type: Integrated Server
+	Is Modded: Definitely; Client brand changed to 'neoforge'; Server brand changed to 'neoforge'
+	Launched Version: 26.2.0.86
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.01%: neoforge:runtime_enum_extender
+		04.21%: neoforge:access_transformer
+		02.46%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.20%: neoforge.coremods:method_redirector
+	Mod List: 
+		architectury-neoforge-21.1.10.jar                 |Architectury                  |architectury                  |21.1.10             |Manifest: 4bf1a11cf4829f8e1dfb3ea4199532372f56e4aa470612bbf0a7338fcc187b76
+		better_modlist-26.2.2.jar                         |Better ModList                |better_modlist                |26.2.2              |Manifest: 877663ad134ed6ef7926e68a263445e15e5eee10545dcde817a128defc136551
+		cloth-config-26.2.155.jar                         |Cloth Config v26.2 API        |cloth_config                  |26.2.155            |Manifest: 650cdc79fcb3332dd08d75634443b93b012dba49b748359a4a97f0975bc55c31
+		entity_model_features-3.3.8-26.2-neoforge.jar     |Entity Model Features         |entity_model_features         |3.3.8               |Manifest: 1274084fb043c37d3d7c1b23ecffc2b90dd258d7ea9ec3a555bea77f32e4aed4
+		entity_texture_features-7.2.4-26.2-neoforge.jar   |Entity Texture Features       |entity_texture_features       |7.2.4               |Manifest: de5c3264346800dea600b491455630704962f077a9c4f9ed96939bde9f2a73af
+		main                                              |Fox's Weapons                 |foxsweapons                   |0.15.0-alpha.1      |Manifest: NOSIGNATURE
+		geckolib-neoforge-26.2-5.5.6.jar                  |GeckoLib 5                    |geckolib                      |5.5.6               |Manifest: 32f91b9e6d5f62dab0740a0cec1a1f5619aaa07a0249c250df2f7918eb0c30e2
+		iris-neoforge-1.11.4+mc26.2.jar                   |Iris                          |iris                          |1.11.4+mc26.2       |Manifest: 5faeb646ff117bfc29e636baa9085f6fff6d048a328618749a991fd01c70019d
+		minecraft-patched-26.2.0.86.jar                   |Minecraft                     |minecraft                     |26.2                |Manifest: NOSIGNATURE
+		neoforge-26.2.0.86-universal.jar                  |NeoForge                      |neoforge                      |26.2.0.86           |Manifest: NOSIGNATURE
+		TextPlaceholderAPI-neoforge-1.21.4-neoforge-SNAPSH|Placeholder API Neoforge      |placeholder_api               |3.1.0-beta.1+26.2   |Manifest: 46be4e56828b6bdad592b30ee56c1d00bd44c14129450bc7634281667720de75
+		RoughlyEnoughItems-26.2.820.jar                   |Roughly Enough Items (REI)    |roughlyenoughitems            |26.2.820            |Manifest: d46284ac4d8b0d714cba03f62178ab57d8ca6805acf700855db0ab1e84dfebad
+		net.caffeinemc.sodium-neoforge-0.9.2+mc26.2-mod.ja|Sodium                        |sodium                        |0.9.2+mc26.2        |Manifest: 709bff1cf59d37a8ed59589f7fd7bf335fdc5268602eece5bc6c1269a3bceffb
+	Crash Report UUID: 4623be99-4784-4289-b823-50b29d291f54
+	FML: 11.0.16
+	NeoForge: 26.2.0.86

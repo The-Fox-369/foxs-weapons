@@ -9,6 +9,7 @@ import com.fox.foxsweapons.effect.ToxinEffect;
 import com.fox.foxsweapons.entity.ChakramProjectile;
 import com.fox.foxsweapons.entity.PoisonedNeedleProjectile;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
+import com.fox.foxsweapons.entity.SmokeBombProjectile;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 
 import com.fox.foxsweapons.item.BlunderbussItem;
@@ -19,6 +20,7 @@ import com.fox.foxsweapons.item.HeavyGreatswordItem;
 import com.fox.foxsweapons.item.IronVanguardShieldItem;
 import com.fox.foxsweapons.item.PoisonedNeedleItem;
 import com.fox.foxsweapons.item.SlingPocketItem;
+import com.fox.foxsweapons.item.SmokeBombItem;
 import com.fox.foxsweapons.item.SoulReaperItem;
 import com.fox.foxsweapons.item.SpikedClubItem;
 import com.fox.foxsweapons.item.TempestBowItem;
@@ -53,6 +55,7 @@ import net.minecraft.world.item.component.Weapon;
 
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -499,6 +502,36 @@ public class FoxsWeapons {
             );
 
     // =========================================================
+    // SMOKE BOMB
+    // =========================================================
+
+    public static final DeferredItem<SmokeBombItem>
+            SMOKE_BOMB =
+            ITEMS.registerItem(
+                    "smoke_bomb",
+                    SmokeBombItem::new,
+                    properties -> properties
+                            .stacksTo(16)
+                            .rarity(Rarity.UNCOMMON)
+            );
+
+    public static final DeferredHolder<
+            EntityType<?>,
+            EntityType<SmokeBombProjectile>
+            > SMOKE_BOMB_PROJECTILE =
+            ENTITY_TYPES.registerEntityType(
+                    "smoke_bomb_projectile",
+                    SmokeBombProjectile::new,
+                    MobCategory.MISC,
+                    builder -> builder
+                            .noLootTable()
+                            .noSave()
+                            .sized(0.35F, 0.35F)
+                            .clientTrackingRange(8)
+                            .updateInterval(1)
+            );
+
+    // =========================================================
     // CREATIVE TAB
     // =========================================================
 
@@ -537,6 +570,7 @@ public class FoxsWeapons {
                                         output.accept(BONE_SHIV.get());
                                         output.accept(POISONED_NEEDLE.get());
                                         output.accept(ENDER_STAFF.get());
+                                        output.accept(SMOKE_BOMB.get());
                                     }
                             )
                             .build()
@@ -547,6 +581,7 @@ public class FoxsWeapons {
     // =========================================================
 
     public FoxsWeapons(IEventBus modEventBus) {
+
         ITEMS.register(modEventBus);
         ENTITY_TYPES.register(modEventBus);
         MOB_EFFECTS.register(modEventBus);
@@ -554,6 +589,19 @@ public class FoxsWeapons {
 
         modEventBus.addListener(
                 BlunderbussNetwork::registerPayloads
+        );
+
+        // Smoke Bomb stealth hooks run on the GAME bus.
+        NeoForge.EVENT_BUS.addListener(
+                SmokeCloudManager::onServerTick
+        );
+
+        NeoForge.EVENT_BUS.addListener(
+                SmokeCloudManager::onChangeTarget
+        );
+
+        NeoForge.EVENT_BUS.addListener(
+                SmokeCloudManager::onVisibility
         );
     }
 

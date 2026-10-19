@@ -1,3 +1,4 @@
+
 {
   "item.foxsweapons.volcano_hammer": "Volcano Hammer",
   "item.foxsweapons.blunderbuss": "Blunderbuss",
@@ -13,12 +14,12 @@
   "item.foxsweapons.bone_shiv": "Bone Shiv",
   "item.foxsweapons.poisoned_needle": "Poisoned Needle",
   "item.foxsweapons.ender_staff": "Ender Staff",
+  "item.foxsweapons.smoke_bomb": "Smoke Bomb",
 
   "effect.foxsweapons.rope_burns": "Rope Burns",
   "effect.foxsweapons.toxin": "Toxin",
 
   "itemGroup.foxsweapons": "Fox's Weapons",
-
   "tooltip.foxsweapons.brand": "Fox's Weapons",
 
   "tooltip.foxsweapons.volcano_hammer.description": "A brutal volcanic mallet infused with molten power.",
@@ -79,6 +80,12 @@
   "tooltip.foxsweapons.ender_staff.description": "A wooden staff topped with a judgmental green eye.",
   "tooltip.foxsweapons.ender_staff.ability": "Right-click: Teleport 5 blocks forward",
   "message.foxsweapons.ender_staff.blocked": "The Ender Staff refuses to teleport you into a wall.",
+
+  "tooltip.foxsweapons.smoke_bomb.description": "A tactical device that shrouds the battlefield in thick smoke.",
+  "tooltip.foxsweapons.smoke_bomb.ability": "Right-click: Throw Smoke Bomb",
+  "tooltip.foxsweapons.smoke_bomb.stealth": "Concealed targets lose mob attention",
+  "tooltip.foxsweapons.smoke_bomb.stats": "Radius: 5 blocks | Duration: 8 seconds",
+  "tooltip.foxsweapons.smoke_bomb.damage": "Damage: None | Consumable",
 
   "advancement.foxsweapons.narutoo.title": "NARUTOOOOOO",
   "advancement.foxsweapons.narutoo.description": "Wow... you've been yelling his name for like 5 arcs already. You've unlocked your inner Sasuke... just only the samurai part.",
