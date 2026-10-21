@@ -1,4 +1,3 @@
-
 package com.fox.foxsweapons;
 
 import com.fox.foxsweapons.config.WeaponStats;
@@ -10,6 +9,7 @@ import com.fox.foxsweapons.entity.ChakramProjectile;
 import com.fox.foxsweapons.entity.PoisonedNeedleProjectile;
 import com.fox.foxsweapons.entity.SlingStoneProjectile;
 import com.fox.foxsweapons.entity.SmokeBombProjectile;
+import com.fox.foxsweapons.mechanic.SmokeCloudManager;
 import com.fox.foxsweapons.entity.WeightedNetProjectile;
 
 import com.fox.foxsweapons.item.BlunderbussItem;

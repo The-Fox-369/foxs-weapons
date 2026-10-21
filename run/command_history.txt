@@ -1,6 +1,3 @@
-/raid start 1
-/raid start 2
-/gamemode creative
 /raid setomen 2
 /raid start
 /raid start 2
@@ -48,3 +45,6 @@
 /item modify entity @p hotbar.0 [{"function":"minecraft:set_components","components":{"minecraft:unbreakable":{}}}]
 /gamemode survival
 /gamemode creative
+/gamemode survival
+/effect clear Dev minecraft:strength
+/give Dev foxsweapons:smoke_bomb 64

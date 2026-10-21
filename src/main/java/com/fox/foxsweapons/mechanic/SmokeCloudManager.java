@@ -1,4 +1,3 @@
-
 package com.fox.foxsweapons.mechanic;
 
 import net.minecraft.core.particles.DustParticleOptions;

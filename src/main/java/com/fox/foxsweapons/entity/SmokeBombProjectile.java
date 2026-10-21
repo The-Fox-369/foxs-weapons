@@ -2,6 +2,7 @@
 package com.fox.foxsweapons.entity;
 
 import com.fox.foxsweapons.FoxsWeapons;
+import com.fox.foxsweapons.mechanic.SmokeCloudManager;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -16,7 +17,22 @@ public class SmokeBombProjectile extends ThrowableItemProjectile {
 
     private static final int MAX_FLIGHT_TICKS = 100;
 
+    // =========================================================
+    // ENTITY REGISTRY CONSTRUCTOR
+    //
+    // This is what registerEntityType needs!
+    // =========================================================
 
+    public SmokeBombProjectile(
+            EntityType<? extends SmokeBombProjectile> type,
+            Level level
+    ) {
+        super(type, level);
+    }
+
+    // =========================================================
+    // THROWING CONSTRUCTOR
+    // =========================================================
 
     public SmokeBombProjectile(
             Level level,
@@ -31,16 +47,25 @@ public class SmokeBombProjectile extends ThrowableItemProjectile {
         );
     }
 
+    // =========================================================
+    // DEFAULT ITEM
+    // =========================================================
+
     @Override
     protected Item getDefaultItem() {
         return FoxsWeapons.SMOKE_BOMB.get();
     }
+
+    // =========================================================
+    // DETONATE ON IMPACT
+    // =========================================================
 
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
 
         if (level() instanceof ServerLevel serverLevel) {
+
             SmokeCloudManager.deploy(
                     serverLevel,
                     result.getLocation()
@@ -50,13 +75,17 @@ public class SmokeBombProjectile extends ThrowableItemProjectile {
         }
     }
 
+    // =========================================================
+    // PROJECTILE TIMEOUT
+    // =========================================================
+
     @Override
     public void tick() {
         super.tick();
 
-        // Prevent abandoned projectiles from existing forever.
         if (level() instanceof ServerLevel
                 && tickCount > MAX_FLIGHT_TICKS) {
+
             discard();
         }
     }
