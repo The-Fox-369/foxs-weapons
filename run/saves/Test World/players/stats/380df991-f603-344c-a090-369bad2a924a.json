@@ -226,7 +226,7 @@
     "minecraft:custom": {
       "minecraft:time_since_rest": 50,
       "minecraft:talked_to_villager": 232,
-      "minecraft:leave_game": 60,
+      "minecraft:leave_game": 61,
       "minecraft:damage_taken": 7091,
       "minecraft:mob_kills": 1490,
       "minecraft:boat_one_cm": 5374,
@@ -237,7 +237,7 @@
       "minecraft:sleep_in_bed": 16,
       "minecraft:interact_with_smithing_table": 6,
       "minecraft:swim_one_cm": 3880,
-      "minecraft:total_world_time": 1960648,
+      "minecraft:total_world_time": 1983827,
       "minecraft:crouch_one_cm": 84257,
       "minecraft:deaths": 29,
       "minecraft:raid_win": 4,
